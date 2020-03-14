@@ -9,20 +9,36 @@ import { StatType } from "./domain/player/value_object/stat_type";
 import { DutyCalls } from "./domain/player/object/skills/commando/duty_calls";
 import { Ranger } from "./domain/player/object/skills/commando/ranger";
 import { Impact } from "./domain/player/object/skills/commando/impact";
+import { WeaponTypeCom } from "./domain/player/object/coms/objects/weapon_type_com";
 
 // TODO: TVHM and UVHM stats - this will be fairly simple; create a global
 // coefficients service and add the mode to the player.
 
 // TODO: player needs COMs/relics/BAR
-let player: Player = {
-  class: Class.Commando,
-  stats: [], // should become BAR I think
-  skills: [
-    new DutyCalls(5),
-    new Ranger(1),
-    new Impact(5)
-  ]
-}
+let players: Player[] = [{
+    class: Class.Commando,
+    stats: [], // should become BAR I think
+    skills: [
+      new DutyCalls(5),
+      new Ranger(1),
+      new Impact(5)
+    ]
+  },{
+    class: Class.Commando,
+    stats: [], // should become BAR I think
+    com: new WeaponTypeCom([{
+      type: StatType.MagazineSize,
+      value: 0.27
+    },{
+      type: StatType.WeaponDamage,
+      value: 0.24
+    }], Type.AssaultRifle),
+    skills: [
+      new DutyCalls(5),
+      new Ranger(1),
+      new Impact(5)
+    ]
+  }]
 
 // TODO: weapons need elemental DOTs
 // TODO: weapons need attributes like grenade reloads
@@ -110,6 +126,8 @@ let weapons: Weapon[] = [{
   }]
 }]
 
-let tps = new TablePrinterService(player, weapons)
-tps.printWeaponSummary()
-//tps.printCategoryMaximums()
+players.forEach((player) => {
+  let tps = new TablePrinterService(player, weapons)
+  tps.printWeaponSummary()
+  //tps.printCategoryMaximums()
+})
