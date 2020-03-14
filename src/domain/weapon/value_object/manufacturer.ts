@@ -5,6 +5,6 @@ export enum Manufacturer {
   Jakobs = 'jakobs',
   Maliwan = 'maliwan',
   Tediore = 'teiore',
-  Torge = 'torge',
+  Torgue = 'torgue',
   Vladof = 'vladof'
 }

@@ -150,7 +150,7 @@ let weapons: Weapon[] = [{
   ammoPerShot: 1
 },{
   name: 'rock a boom',
-  manufacturer: Manufacturer.Torge,
+  manufacturer: Manufacturer.Torgue,
   type: Type.RocketLauncher,
   damage: 4776,
   fireRate: 1.0,
@@ -171,6 +171,18 @@ let weapons: Weapon[] = [{
   pellets: 3,
   ammoPerShot: 1,
   elementalEffect: ElementalEffect.Slag
+},{
+  // Since this is a torpedo, it cannot crit...
+  name: 'Rocket Torpedo',
+  manufacturer: Manufacturer.Torgue,
+  type: Type.AssaultRifle,
+  damage: 1198,
+  fireRate: 2.1,
+  reloadSpeed: 4.6,
+  magazineSize: 19,
+  pellets: 1,
+  ammoPerShot: 4,
+  elementalEffect: ElementalEffect.Explosive
 }]
 
 players.forEach((player) => {
