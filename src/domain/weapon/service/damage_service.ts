@@ -6,6 +6,7 @@ import { Manufacturer } from "../value_object/manufacturer"
 import { Type } from "../value_object/type"
 import { TargetType } from "../../enemy/value_object/target_type"
 import { ElementalEffect } from "../value_object/elemental_effect"
+import { Stat } from "../../player/interface/stat"
 
 export class DamageService {
   private weapon: Weapon
@@ -35,9 +36,11 @@ export class DamageService {
   protected getBaseDamage(targetType?: TargetType) : number {
     const { damage, pellets, elementalEffect } = this.weapon
     let playerWeaponDamage = this.playerDamageService.getStat(StatType.WeaponDamage)
+    // Is this a thing?
+    let weaponWeaponDamage = this.getStat(StatType.WeaponDamage)
     let elementalEffectiveness = targetType ? this.getElementalEffectiveness(targetType, elementalEffect) : 1
 
-    return damage * pellets * (1 + playerWeaponDamage) * elementalEffectiveness
+    return damage * pellets * (1 + playerWeaponDamage + weaponWeaponDamage) * elementalEffectiveness
   }
 
   public getCritDamage() : number {
@@ -46,6 +49,7 @@ export class DamageService {
     let penalty = this.getWeaponCritPenalty()
     let playerCritDamage = this.playerDamageService.getStat(StatType.CritHitDamage)
     let splashDamage = this.getSplashDamage()
+
     return this.getBaseDamage() * multiplier * (1 + baseBonus + playerCritDamage) /  (1 + penalty) + splashDamage
   }
 
@@ -77,6 +81,11 @@ export class DamageService {
 
   protected getWeaponCritBaseBonus() : number {
     const { manufacturer, type } = this.weapon
+
+    // If the weapon has CritHitDamage property, we just use that since it
+    // includes any manufacturer or weapon type specific bonuses
+    let weaponCritDamage = this.getStat(StatType.CritHitDamage)
+    if(weaponCritDamage) return weaponCritDamage
 
     if(type === Type.SniperRifle) {
       if(manufacturer === Manufacturer.Jakobs) {
@@ -157,5 +166,14 @@ export class DamageService {
     }
 
     return 0.5
+  }
+
+  protected getStat(type: StatType) : number {
+    const { stats } = this.weapon
+
+    if(!stats) return 0
+
+    let result: Stat[] = stats.filter((stat: Stat) => stat.type === type)
+    return result.reduce((memo: number, stat: Stat) => memo + stat.value, 0)
   }
 }

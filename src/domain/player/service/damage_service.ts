@@ -10,7 +10,9 @@ export class PlayerDamageService {
   }
 
   public getStat(type: StatType) : number {
-    let stats: Stat[] = this.player.stats.filter((stat: Stat) => stat.type === type)
-    return stats.reduce((memo: number, stat: Stat) => memo + stat.value, 0)
+    const { stats } = this.player
+
+    let result: Stat[] = stats.filter((stat: Stat) => stat.type === type)
+    return result.reduce((memo: number, stat: Stat) => memo + stat.value, 0)
   }
 }

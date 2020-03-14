@@ -6,6 +6,7 @@ import { Type } from "../../../../src/domain/weapon/value_object/type";
 import { Class } from "../../../../src/domain/player/value_object/class";
 import { ElementalEffect } from "../../../../src/domain/weapon/value_object/elemental_effect";
 import { TargetType } from "../../../../src/domain/enemy/value_object/target_type";
+import { StatType } from "../../../../src/domain/player/value_object/stat_type";
 
 test.each([
   [{
@@ -76,4 +77,42 @@ test.each([
   let service = new DamageService(weapon, player)
 
   expect(service.getTargetTypeDps(targetType)).toBe(result)
+})
+
+test.each([
+  [{
+    name: 'Vladof Sniper',
+    manufacturer: Manufacturer.Vladof,
+    type: Type.SniperRifle,
+    damage: 100,
+    fireRate: 1.2,
+    reloadSpeed: 3.8,
+    magazineSize: 8,
+    pellets: 1,
+    ammoPerShot: 1
+  }, 400],
+  [{
+    name: 'Jakobs Sniper',
+    manufacturer: Manufacturer.Jakobs,
+    type: Type.SniperRifle,
+    damage: 100,
+    fireRate: 1.2,
+    reloadSpeed: 3.8,
+    magazineSize: 8,
+    pellets: 1,
+    ammoPerShot: 1,
+    stats: [{
+      type: StatType.CritHitDamage,
+      value: 1.8
+    }]
+  }, 560],
+])('getCritDamage for %j', (weapon: Weapon, result: number) => {
+  let player : Player = {
+    class: Class.Siren,
+    stats: []
+  }
+
+  let service = new DamageService(weapon, player)
+
+  expect(service.getCritDamage()).toBe(result)
 })
