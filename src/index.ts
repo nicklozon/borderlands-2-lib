@@ -137,7 +137,7 @@ let weapons: Weapon[] = [{
   reloadSpeed: 2.1,
   magazineSize: 30,
   pellets: 1,
-  ammoPerShot: 1,
+  ammoPerShot: 1
 },{
   name: 'Filled Law',
   manufacturer: Manufacturer.Jakobs,
@@ -147,7 +147,7 @@ let weapons: Weapon[] = [{
   reloadSpeed: 2.3,
   magazineSize: 10,
   pellets: 1,
-  ammoPerShot: 1,
+  ammoPerShot: 1
 },{
   name: 'rock a boom',
   manufacturer: Manufacturer.Torge,
@@ -160,10 +160,21 @@ let weapons: Weapon[] = [{
   ammoPerShot: 1,
   elementalEffect: ElementalEffect.Explosive,
   dealsBonusElementalDamage: true
+},{
+  name: 'gratuitius Roaster',
+  manufacturer: Manufacturer.Bandit,
+  type: Type.RocketLauncher,
+  damage: 1365,
+  fireRate: 1.1,
+  reloadSpeed: 6.8,
+  magazineSize: 9,
+  pellets: 3,
+  ammoPerShot: 1,
+  elementalEffect: ElementalEffect.Slag
 }]
 
 players.forEach((player) => {
   let tps = new TablePrinterService(player, weapons)
   tps.printWeaponSummary()
-  //tps.printCategoryMaximums()
+  tps.printCategoryMaximums()
 })

@@ -78,7 +78,7 @@ export class DamageService {
       [Manufacturer.Jakobs]: {
         [Type.Shotgun]: 2.3,
         [Type.AssaultRifle]: 2.3,
-        [Type.Pistol]: 2.3
+        [Type.Pistol]: 2.5
       }
     }
 
