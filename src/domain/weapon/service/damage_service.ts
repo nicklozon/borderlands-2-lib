@@ -4,6 +4,8 @@ import { Player } from "../../player/interface/player"
 import { StatType } from "../../player/value_object/stat_type"
 import { Manufacturer } from "../value_object/manufacturer"
 import { Type } from "../value_object/type"
+import { TargetType } from "../../enemy/value_object/target_type"
+import { ElementalEffect } from "../value_object/elemental_effect"
 
 export class DamageService {
   private weapon: Weapon
@@ -22,11 +24,16 @@ export class DamageService {
     return this.calculateDps(this.getCritDamage())
   }
 
-  public getDamage() : number {
-    const { damage, pellets } = this.weapon
-    let playerWeaponDamage = this.playerDamageService.getStat(StatType.WeaponDamage)
+  public getTargetTypeDps(targetType: TargetType) {
+    return this.calculateDps(this.getDamage(targetType))
+  }
 
-    return damage * pellets * (1 + playerWeaponDamage)
+  public getDamage(targetType?: TargetType) : number {
+    const { damage, pellets, elementalEffect } = this.weapon
+    let playerWeaponDamage = this.playerDamageService.getStat(StatType.WeaponDamage)
+    let elementalEffectiveness = targetType ? this.getElementalEffectiveness(targetType, elementalEffect) : 1
+
+    return damage * pellets * (1 + playerWeaponDamage) * elementalEffectiveness
   }
 
   public getCritDamage() : number {
@@ -37,7 +44,7 @@ export class DamageService {
     return this.getDamage() * multiplier * (1 + baseBonus + playerCritDamage) /  (1 + penalty)
   }
 
-  protected calculateDps(damage: number) : number {
+  protected calculateDps(damage: number, targetType?: TargetType) : number {
     const { fireRate, magazineSize, ammoPerShot } = this.weapon
 
     let reloadSpeed = this.getReloadSpeed()
@@ -96,5 +103,36 @@ export class DamageService {
 
     let playerReloadSpeed = this.playerDamageService.getStat(StatType.ReloadSpeed)
     return reloadSpeed / (1 + playerReloadSpeed)
+  }
+
+  protected getElementalEffectiveness(targetType: TargetType, elementalEffect?: ElementalEffect) : number {
+    if(elementalEffect === undefined) {
+      if(targetType === TargetType.Armor) {
+        return 0.8
+      }
+      return 1
+    }
+
+    const coefficients = {
+      [ElementalEffect.Explosive]: {
+        [TargetType.Shield]: 0.8
+      },
+      [ElementalEffect.Incendiary]: {
+        [TargetType.Flesh]: 1.5,
+        [TargetType.Armor]: 0.75,
+        [TargetType.Shield]: 0.75
+      },
+      [ElementalEffect.Shock]: {
+        [TargetType.Shield]: 2
+      },
+      [ElementalEffect.Corrosive]: {
+        [TargetType.Flesh]: 0.9,
+        [TargetType.Armor]: 1.5,
+        [TargetType.Shield]: 0.75
+      }
+    }
+
+    let result = coefficients[elementalEffect]?.[targetType]
+    return result ?? 1
   }
 }
