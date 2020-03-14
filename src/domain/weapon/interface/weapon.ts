@@ -14,5 +14,6 @@ export interface Weapon {
   elementalEffect?: ElementalEffect, 
   accuracy?: number,
   pellets: number,
-  ammoPerShot: number
+  ammoPerShot: number,
+  dealsBonusElementalDamage?: boolean
 }

@@ -32,7 +32,8 @@ test.each([
   }, 232.39],
 ])('getDps for %j', (weapon: Weapon, result: number) => {
   let player : Player = {
-    class: Class.Siren
+    class: Class.Siren,
+    stats: []
   }
 
   let service = new DamageService(weapon, player)
@@ -51,8 +52,9 @@ test.each([
     magazineSize: 20,
     pellets: 2,
     ammoPerShot: 1,
-    elementalEffect: ElementalEffect.Incendiary
-  }, TargetType.Flesh, 60],
+    elementalEffect: ElementalEffect.Incendiary,
+    dealsBonusElementalDamage: true
+  }, TargetType.Flesh, 108],
   [{
     name: 'Jakobs AR',
     manufacturer: Manufacturer.Jakobs,
@@ -67,7 +69,8 @@ test.each([
   }, TargetType.Shield, 174.3],
 ])('getTargetTypeDps for %j', (weapon: Weapon, targetType: TargetType, result: number) => {
   let player : Player = {
-    class: Class.Siren
+    class: Class.Siren,
+    stats: []
   }
 
   let service = new DamageService(weapon, player)

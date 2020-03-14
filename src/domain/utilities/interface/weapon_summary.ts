@@ -7,6 +7,9 @@ export interface WeaponSummary {
   critShot: number,
   dps: number,
   critDps: number,
+  fleshShot: number,
+  armorShot: number,
+  shieldShot: number
   fleshDps: number,
   armorDps: number,
   shieldDps: number

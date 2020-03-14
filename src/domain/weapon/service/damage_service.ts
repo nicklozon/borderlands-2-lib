@@ -29,6 +29,10 @@ export class DamageService {
   }
 
   public getDamage(targetType?: TargetType) : number {
+    return this.getBaseDamage(targetType) + this.getSplashDamage(targetType)
+  }
+
+  protected getBaseDamage(targetType?: TargetType) : number {
     const { damage, pellets, elementalEffect } = this.weapon
     let playerWeaponDamage = this.playerDamageService.getStat(StatType.WeaponDamage)
     let elementalEffectiveness = targetType ? this.getElementalEffectiveness(targetType, elementalEffect) : 1
@@ -41,7 +45,8 @@ export class DamageService {
     let baseBonus = this.getWeaponCritBaseBonus()
     let penalty = this.getWeaponCritPenalty()
     let playerCritDamage = this.playerDamageService.getStat(StatType.CritHitDamage)
-    return this.getDamage() * multiplier * (1 + baseBonus + playerCritDamage) /  (1 + penalty)
+    let splashDamage = this.getSplashDamage()
+    return this.getBaseDamage() * multiplier * (1 + baseBonus + playerCritDamage) /  (1 + penalty) + splashDamage
   }
 
   protected calculateDps(damage: number, targetType?: TargetType) : number {
@@ -134,5 +139,23 @@ export class DamageService {
 
     let result = coefficients[elementalEffect]?.[targetType]
     return result ?? 1
+  }
+
+  public getSplashDamage(targetType?: TargetType): number {
+    return this.getBaseDamage(targetType) * this.getSplashDamageMultiplier()
+  }
+
+  protected getSplashDamageMultiplier(): number {
+    const { type, dealsBonusElementalDamage } = this.weapon
+
+    if(!dealsBonusElementalDamage) {
+      return 0
+    }
+
+    if(type === Type.Pistol) {
+      return 0.8
+    }
+
+    return 0.5
   }
 }
