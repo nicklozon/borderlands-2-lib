@@ -35,7 +35,7 @@ export class DamageService {
 
   protected getBaseDamage(targetType?: TargetType) : number {
     const { damage, pellets, elementalEffect } = this.weapon
-    let playerWeaponDamage = this.playerDamageService.getStat(StatType.WeaponDamage)
+    let playerWeaponDamage = this.playerDamageService.getStat(StatType.WeaponDamage, this.weapon)
     // Is this a thing?
     let weaponWeaponDamage = this.getStat(StatType.WeaponDamage)
     let elementalEffectiveness = targetType ? this.getElementalEffectiveness(targetType, elementalEffect) : 1
@@ -47,20 +47,23 @@ export class DamageService {
     let multiplier = this.getWeaponCritMultiplier()
     let baseBonus = this.getWeaponCritBaseBonus()
     let penalty = this.getWeaponCritPenalty()
-    let playerCritDamage = this.playerDamageService.getStat(StatType.CritHitDamage)
+    let playerCritDamage = this.playerDamageService.getStat(StatType.CritHitDamage, this.weapon)
     let splashDamage = this.getSplashDamage()
 
     return this.getBaseDamage() * multiplier * (1 + baseBonus + playerCritDamage) /  (1 + penalty) + splashDamage
   }
 
-  protected calculateDps(damage: number, targetType?: TargetType) : number {
-    const { fireRate, magazineSize, ammoPerShot } = this.weapon
+  protected calculateDps(damage: number) : number {
+    const { ammoPerShot } = this.weapon
 
     let reloadSpeed = this.getReloadSpeed()
+    let fireRate = this.getFireRate()
+    let magazineSize = this.getMagazineSize()
     let clipEffectiveNumberOfShots = magazineSize / ammoPerShot
     let clipSpeed = clipEffectiveNumberOfShots / fireRate
     let totalSpeed = reloadSpeed + clipSpeed
     let totalClipDamage = damage * clipEffectiveNumberOfShots
+
     return Math.round(totalClipDamage / totalSpeed * 100)/100
   }
 
@@ -115,8 +118,22 @@ export class DamageService {
   protected getReloadSpeed() : number {
     const { reloadSpeed } = this.weapon
 
-    let playerReloadSpeed = this.playerDamageService.getStat(StatType.ReloadSpeed)
+    let playerReloadSpeed = this.playerDamageService.getStat(StatType.ReloadSpeed, this.weapon)
     return reloadSpeed / (1 + playerReloadSpeed)
+  }
+
+  protected getFireRate() : number {
+    const { fireRate } = this.weapon
+
+    let playerFireRate = this.playerDamageService.getStat(StatType.FireRate, this.weapon)
+    return fireRate * (1 + playerFireRate)
+  }
+
+  protected getMagazineSize() : number {
+    const { magazineSize } = this.weapon
+
+    let playerMagazineSize = this.playerDamageService.getStat(StatType.MagazineSize, this.weapon)
+    return magazineSize / (1 + playerMagazineSize)
   }
 
   protected getElementalEffectiveness(targetType: TargetType, elementalEffect?: ElementalEffect) : number {
@@ -168,12 +185,12 @@ export class DamageService {
     return 0.5
   }
 
-  protected getStat(type: StatType) : number {
+  protected getStat(statType: StatType) : number {
     const { stats } = this.weapon
 
     if(!stats) return 0
 
-    let result: Stat[] = stats.filter((stat: Stat) => stat.type === type)
+    let result: Stat[] = stats.filter((stat: Stat) => stat.type === statType)
     return result.reduce((memo: number, stat: Stat) => memo + stat.value, 0)
   }
 }

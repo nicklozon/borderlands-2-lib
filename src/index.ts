@@ -6,6 +6,9 @@ import { Manufacturer } from "./domain/weapon/value_object/manufacturer";
 import { Type } from "./domain/weapon/value_object/type";
 import { TablePrinterService } from "./domain/utilities/service/table_printer"
 import { StatType } from "./domain/player/value_object/stat_type";
+import { DutyCalls } from "./domain/player/object/skills/commando/duty_calls";
+import { Ranger } from "./domain/player/object/skills/commando/ranger";
+import { Impact } from "./domain/player/object/skills/commando/impact";
 
 // TODO: TVHM and UVHM stats - this will be fairly simple; create a global
 // coefficients service and add the mode to the player.
@@ -13,30 +16,12 @@ import { StatType } from "./domain/player/value_object/stat_type";
 // TODO: player needs COMs/relics/BAR/build
 let player: Player = {
   class: Class.Commando,
-  stats: [{
-    type: StatType.CritHitDamage,
-    value: 0
-  },{
-    type: StatType.ReloadSpeed,
-    value: 0
-  },{
-    // impact * 5
-    type: StatType.WeaponDamage,
-    value: 0.2
-  },{
-    // ranger * 1
-    type: StatType.WeaponDamage,
-    value: 0.01
-  },{
-    // ranger * 1
-    type: StatType.CritHitDamage,
-    value: 0.01
-  },{
-    // duty calls * 5
-    type: StatType.WeaponDamage,
-    //value: 0.25
-    value: 0
-  }]
+  stats: [],
+  skills: [
+    new DutyCalls(5),
+    new Ranger(1),
+    new Impact(5)
+  ]
 }
 
 // TODO: weapons need elemental DOTs
@@ -118,7 +103,7 @@ let weapons: Weapon[] = [{
   reloadSpeed: 4,
   magazineSize: 8,
   pellets: 1,
-  ammoPerShot: 2,
+  ammoPerShot: 1,
   stats: [{
     type: StatType.CritHitDamage,
     value: 1.8

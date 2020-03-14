@@ -34,7 +34,8 @@ test.each([
 ])('getDps for %j', (weapon: Weapon, result: number) => {
   let player : Player = {
     class: Class.Siren,
-    stats: []
+    stats: [],
+    skills: []
   }
 
   let service = new DamageService(weapon, player)
@@ -71,7 +72,8 @@ test.each([
 ])('getTargetTypeDps for %j', (weapon: Weapon, targetType: TargetType, result: number) => {
   let player : Player = {
     class: Class.Siren,
-    stats: []
+    stats: [],
+    skills: []
   }
 
   let service = new DamageService(weapon, player)
@@ -109,7 +111,8 @@ test.each([
 ])('getCritDamage for %j', (weapon: Weapon, result: number) => {
   let player : Player = {
     class: Class.Siren,
-    stats: []
+    stats: [],
+    skills: []
   }
 
   let service = new DamageService(weapon, player)
