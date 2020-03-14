@@ -10,18 +10,22 @@ test.each([
     manufacturer: Manufacturer.Vladof,
     type: Type.Pistol,
     damage: 10,
-    fire_rate: 4,
-    reload_speed: 5,
-    magazine_size: 20
-  }, 20],
+    fireRate: 4,
+    reloadSpeed: 5,
+    magazineSize: 20,
+    pellets: 2,
+    ammoPerShot: 1
+  }, 40],
   [{
     manufacturer: Manufacturer.Jakobs,
     type: Type.AssaultRifle,
     damage: 100,
-    fire_rate: 15,
-    reload_speed: 4,
-    magazine_size: 22
-  }, 402.44],
+    fireRate: 15,
+    reloadSpeed: 4,
+    magazineSize: 22,
+    pellets: 1,
+    ammoPerShot: 2
+  }, 232.39],
 ])('getDps for %j', (weapon: Weapon, result) => {
   let player : Player = {
     class: Class.Siren

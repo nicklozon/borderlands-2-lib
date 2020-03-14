@@ -7,11 +7,11 @@ export interface Weapon {
   type: Type,
   level?: number,
   damage: number,
-  fire_rate: number,
-  reload_speed: number,
-  magazine_size: number,
-  elemental_effect?: ElementalEffect, 
+  fireRate: number,
+  reloadSpeed: number,
+  magazineSize: number,
+  elementalEffect?: ElementalEffect, 
   accuracy?: number,
-  //pellets: number
-  //ammo_consumed: number
+  pellets: number,
+  ammoPerShot: number
 }

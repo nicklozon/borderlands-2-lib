@@ -23,10 +23,10 @@ export class DamageService {
   }
 
   public getDamage() : number {
-    const { damage } = this.weapon
+    const { damage, pellets } = this.weapon
     let playerWeaponDamage = this.playerDamageService.getStat(StatType.WeaponDamage)
 
-    return damage * (1 + playerWeaponDamage)
+    return damage * pellets * (1 + playerWeaponDamage)
   }
 
   public getCritDamage() : number {
@@ -38,13 +38,14 @@ export class DamageService {
   }
 
   protected calculateDps(damage: number) : number {
-    const { fire_rate, magazine_size } = this.weapon
+    const { fireRate, magazineSize, ammoPerShot } = this.weapon
 
-    let reload_speed = this.getReloadSpeed()
-    let clip_speed = magazine_size / fire_rate
-    let total_speed = reload_speed + clip_speed
-    let total_clip_damage = damage * fire_rate * clip_speed
-    return Math.round(total_clip_damage / total_speed * 100)/100
+    let reloadSpeed = this.getReloadSpeed()
+    let clipEffectiveNumberOfShots = magazineSize / ammoPerShot
+    let clipSpeed = clipEffectiveNumberOfShots / fireRate
+    let totalSpeed = reloadSpeed + clipSpeed
+    let totalClipDamage = damage * clipEffectiveNumberOfShots
+    return Math.round(totalClipDamage / totalSpeed * 100)/100
   }
 
   protected getWeaponCritMultiplier() : number {
@@ -91,9 +92,9 @@ export class DamageService {
   }
 
   protected getReloadSpeed() : number {
-    const { reload_speed } = this.weapon
+    const { reloadSpeed } = this.weapon
 
     let playerReloadSpeed = this.playerDamageService.getStat(StatType.ReloadSpeed)
-    return reload_speed / (1 + playerReloadSpeed)
+    return reloadSpeed / (1 + playerReloadSpeed)
   }
 }

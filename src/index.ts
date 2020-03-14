@@ -13,9 +13,11 @@ let weapon: Weapon = {
   manufacturer: Manufacturer.Jakobs,
   type: Type.AssaultRifle,
   damage: 356,
-  fire_rate: 14.1,
-  reload_speed: 4.2,
-  magazine_size: 22
+  fireRate: 14.1,
+  reloadSpeed: 4.2,
+  magazineSize: 22,
+  pellets: 2,
+  ammoPerShot: 2
 }
 
 let ds = new DamageService(weapon, player)
