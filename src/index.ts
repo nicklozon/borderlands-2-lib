@@ -6,14 +6,18 @@ import { Manufacturer } from "./domain/weapon/value_object/manufacturer";
 import { Type } from "./domain/weapon/value_object/type";
 import { TablePrinterService } from "./domain/utilities/service/table_printer"
 
+// TODO: TVHM and UVHM stats - this will be fairly simple; create a global
+// coefficients service and add the mode to the player.
+
 // TODO: player needs COMs/relics/BAR/build
 let player: Player = {
   class: Class.Commando
 }
 
-// TODO: weapons need elemental DOT
+// TODO: weapons need elemental DOTs
 // TODO: weapons need attributes like grenade, additional elemental damage, etc
-// TODO: calculate slag splash damage
+// TODO: calculate slag/explosive splash damage
+// TODO: calculate things like explosive AR where there is no bullet damage :(
 let weapons: Weapon[] = [{
   name: 'Assault Rifle',
   manufacturer: Manufacturer.Jakobs,
