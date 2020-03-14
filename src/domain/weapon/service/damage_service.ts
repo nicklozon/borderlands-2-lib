@@ -44,6 +44,10 @@ export class DamageService {
   }
 
   public getCritDamage() : number {
+    // Rocket launcher's can't crit
+    const { type } = this.weapon
+    if(type === Type.RocketLauncher) return 0
+
     let multiplier = this.getWeaponCritMultiplier()
     let baseBonus = this.getWeaponCritBaseBonus()
     let penalty = this.getWeaponCritPenalty()
@@ -168,6 +172,10 @@ export class DamageService {
   }
 
   public getSplashDamage(targetType?: TargetType): number {
+    // Explosive seems to be exclusively splash damage and additional splash damage is not calculated?
+    const { elementalEffect } = this.weapon
+    if(elementalEffect === ElementalEffect.Explosive) return 0
+
     return this.getBaseDamage(targetType) * this.getSplashDamageMultiplier()
   }
 

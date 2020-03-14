@@ -67,6 +67,10 @@ let weapons: Weapon[] = [{
   pellets: 1,
   ammoPerShot: 1,
   elementalEffect: ElementalEffect.Corrosive,
+  stats: [{
+    type: StatType.CritHitDamage,
+    value: 0.7
+  }]
 },{
   name: 'Flush Rifle',
   manufacturer: Manufacturer.Jakobs,
@@ -124,6 +128,38 @@ let weapons: Weapon[] = [{
     type: StatType.CritHitDamage,
     value: 1.8
   }]
+},{
+  name: 'Rightsizing Projectile Convergence',
+  manufacturer: Manufacturer.Hyperion,
+  type: Type.SubmachineGun,
+  damage: 150,
+  fireRate: 8.7,
+  reloadSpeed: 2.1,
+  magazineSize: 30,
+  pellets: 1,
+  ammoPerShot: 1,
+},{
+  name: 'Filled Law',
+  manufacturer: Manufacturer.Jakobs,
+  type: Type.Pistol,
+  damage: 673,
+  fireRate: 16.7,
+  reloadSpeed: 2.3,
+  magazineSize: 10,
+  pellets: 1,
+  ammoPerShot: 1,
+},{
+  name: 'rock a boom',
+  manufacturer: Manufacturer.Torge,
+  type: Type.RocketLauncher,
+  damage: 4776,
+  fireRate: 1.0,
+  reloadSpeed: 7,
+  magazineSize: 2,
+  pellets: 1,
+  ammoPerShot: 1,
+  elementalEffect: ElementalEffect.Explosive,
+  dealsBonusElementalDamage: true
 }]
 
 players.forEach((player) => {
