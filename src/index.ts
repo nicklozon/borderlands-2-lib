@@ -13,10 +13,10 @@ import { Impact } from "./domain/player/object/skills/commando/impact";
 // TODO: TVHM and UVHM stats - this will be fairly simple; create a global
 // coefficients service and add the mode to the player.
 
-// TODO: player needs COMs/relics/BAR/build
+// TODO: player needs COMs/relics/BAR
 let player: Player = {
   class: Class.Commando,
-  stats: [],
+  stats: [], // should become BAR I think
   skills: [
     new DutyCalls(5),
     new Ranger(1),
@@ -25,7 +25,7 @@ let player: Player = {
 }
 
 // TODO: weapons need elemental DOTs
-// TODO: weapons need attributes like grenade, etc
+// TODO: weapons need attributes like grenade reloads
 // TODO: calculate explosive splash damage
 // TODO: calculate things like explosive AR where there is no bullet damage :(
 let weapons: Weapon[] = [{
