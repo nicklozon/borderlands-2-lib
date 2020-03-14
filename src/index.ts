@@ -1,17 +1,21 @@
-import { Class } from "./domain/player/value_object/class";
-import { DamageService } from "./domain/weapon/service/damage_service";
-import { Manufacturer } from "./domain/weapon/value_object/manufacturer";
 import { Player } from "./domain/player/interface/player";
-import { Type } from "./domain/weapon/value_object/type";
+import { Class } from "./domain/player/value_object/class";
 import { Weapon } from "./domain/weapon/interface/weapon";
-import { TargetType } from "./domain/enemy/value_object/target_type";
 import { ElementalEffect } from "./domain/weapon/value_object/elemental_effect";
+import { Manufacturer } from "./domain/weapon/value_object/manufacturer";
+import { Type } from "./domain/weapon/value_object/type";
+import { TablePrinterService } from "./domain/utilities/service/table_printer"
 
+// TODO: player needs COMs/relics/BAR/build
 let player: Player = {
   class: Class.Commando
 }
 
-let weapon: Weapon = {
+// TODO: weapons need elemental DOT
+// TODO: weapons need attributes like grenade, additional elemental damage, etc
+// TODO: calculate slag splash damage
+let weapons: Weapon[] = [{
+  name: 'Assault Rifle',
   manufacturer: Manufacturer.Jakobs,
   type: Type.AssaultRifle,
   damage: 356,
@@ -21,14 +25,19 @@ let weapon: Weapon = {
   pellets: 2,
   ammoPerShot: 2,
   elementalEffect: ElementalEffect.Incendiary
-}
+},{
+  name: 'SMG',
+  manufacturer: Manufacturer.Jakobs,
+  type: Type.SubmachineGun,
+  damage: 227,
+  fireRate: 12,
+  reloadSpeed: 1.9,
+  magazineSize: 33,
+  pellets: 1,
+  ammoPerShot: 1,
+  elementalEffect: ElementalEffect.Corrosive,
+}]
 
-let ds = new DamageService(weapon, player)
-
-//console.log(ds.getDamage())
-//console.log(ds.getCritDamage())
-//console.log(ds.getDps())
-//console.log(ds.getCritDps())
-console.log(ds.getTargetTypeDps(TargetType.Flesh))
-console.log(ds.getTargetTypeDps(TargetType.Armor))
-console.log(ds.getTargetTypeDps(TargetType.Shield))
+let tps = new TablePrinterService(player, weapons)
+tps.printWeaponSummary()
+tps.printCategoryMaximums()

@@ -9,6 +9,7 @@ import { TargetType } from "../../../../src/domain/enemy/value_object/target_typ
 
 test.each([
   [{
+    name: 'Vladof Pistol',
     manufacturer: Manufacturer.Vladof,
     type: Type.Pistol,
     damage: 10,
@@ -19,6 +20,7 @@ test.each([
     ammoPerShot: 1
   }, 40],
   [{
+    name: 'Jakobs AR',
     manufacturer: Manufacturer.Jakobs,
     type: Type.AssaultRifle,
     damage: 100,
@@ -40,6 +42,7 @@ test.each([
 
 test.each([
   [{
+    name: 'Vladof Pistol',
     manufacturer: Manufacturer.Vladof,
     type: Type.Pistol,
     damage: 10,
@@ -51,6 +54,7 @@ test.each([
     elementalEffect: ElementalEffect.Incendiary
   }, TargetType.Flesh, 60],
   [{
+    name: 'Jakobs AR',
     manufacturer: Manufacturer.Jakobs,
     type: Type.AssaultRifle,
     damage: 100,
