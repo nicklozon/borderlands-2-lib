@@ -1,8 +1,8 @@
 export enum Type {
-  Pistol,
-  AssaultRifle,
-  Shotgun,
-  SubmachineGun,
-  SniperRifle,
-  RocketLauncher
+  Pistol = 'Pistol',
+  AssaultRifle = 'Assault Rifle',
+  Shotgun = 'Shotgun',
+  SubmachineGun = 'Submachine Gun',
+  SniperRifle = 'Sniper Rifle',
+  RocketLauncher = 'Rocket Launcher'
 }

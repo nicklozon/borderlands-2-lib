@@ -48,6 +48,7 @@ export class TablePrinterService {
       let ds = new DamageService(weapon, this.player)
       return {
         name: weapon.name,
+        type: weapon.type,
         singleShot: Math.round(ds.getDamage()),
         critShot: Math.round(ds.getCritDamage()),
         dps: ds.getDps(),

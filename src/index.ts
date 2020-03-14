@@ -19,7 +19,7 @@ let player: Player = {
 // TODO: calculate slag/explosive splash damage
 // TODO: calculate things like explosive AR where there is no bullet damage :(
 let weapons: Weapon[] = [{
-  name: 'Assault Rifle',
+  name: 'Flesh Ripper',
   manufacturer: Manufacturer.Jakobs,
   type: Type.AssaultRifle,
   damage: 356,
@@ -30,7 +30,7 @@ let weapons: Weapon[] = [{
   ammoPerShot: 2,
   elementalEffect: ElementalEffect.Incendiary
 },{
-  name: 'SMG',
+  name: 'buzz blade',
   manufacturer: Manufacturer.Jakobs,
   type: Type.SubmachineGun,
   damage: 227,
