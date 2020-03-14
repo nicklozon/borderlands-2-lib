@@ -1,22 +1,27 @@
 import { Player } from "../interface/player"
 import { StatType } from "../value_object/stat_type"
 import { Stat } from "../interface/stat"
-import { ValueType } from "../value_object/value_type"
 
 export class PlayerDamageService {
   private player: Player
   // temporary
-  private stats = {
-    [StatType.CritHitDamage]: 0,
-    [StatType.ReloadSpeed]: 0,
-    [StatType.WeaponDamage]: 0
-  }
+  private stats: Stat[] = [{
+    type: StatType.CritHitDamage,
+    value: 0
+  },{
+    type: StatType.ReloadSpeed,
+    value: 0
+  },{
+    type: StatType.WeaponDamage,
+    value: 0
+  }]
 
   constructor(player: Player) {
     this.player = player
   }
 
   public getStat(type: StatType) : number {
-    return this.stats[type]
+    let stats: Stat[] = this.stats.filter((stat: Stat) => stat.type === type)
+    return stats.reduce((memo: number, stat: Stat) => memo + stat.value, 0)
   }
 }
