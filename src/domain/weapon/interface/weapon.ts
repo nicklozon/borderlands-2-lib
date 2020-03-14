@@ -12,4 +12,6 @@ export interface Weapon {
   magazine_size: number,
   elemental_effect?: ElementalEffect, 
   accuracy?: number,
+  //pellets: number
+  //ammo_consumed: number
 }

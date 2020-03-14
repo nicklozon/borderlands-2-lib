@@ -1,6 +1,6 @@
-import { Weapon } from "../object/weapon"
+import { Weapon } from "../interface/weapon"
 import { PlayerDamageService } from "../../player/service/damage_service"
-import { Player } from "../../player/object/player"
+import { Player } from "../../player/interface/player"
 import { StatType } from "../../player/value_object/stat_type"
 import { Manufacturer } from "../value_object/manufacturer"
 import { Type } from "../value_object/type"
@@ -44,7 +44,7 @@ export class DamageService {
     let clip_speed = magazine_size / fire_rate
     let total_speed = reload_speed + clip_speed
     let total_clip_damage = damage * fire_rate * clip_speed
-    return total_clip_damage / total_speed
+    return Math.round(total_clip_damage / total_speed * 100)/100
   }
 
   protected getWeaponCritMultiplier() : number {

@@ -1,9 +1,9 @@
 import { Class } from "./domain/player/value_object/class";
-import { Weapon } from "./domain/weapon/object/weapon";
-import { Manufacturer } from "./domain/weapon/value_object/manufacturer";
-import { Player } from "./domain/player/object/player";
-import { Type } from "./domain/weapon/value_object/type";
 import { DamageService } from "./domain/weapon/service/damage_service";
+import { Manufacturer } from "./domain/weapon/value_object/manufacturer";
+import { Player } from "./domain/player/interface/player";
+import { Type } from "./domain/weapon/value_object/type";
+import { Weapon } from "./domain/weapon/interface/weapon";
 
 let player: Player = {
   class: Class.Commando
