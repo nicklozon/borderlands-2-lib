@@ -15,6 +15,10 @@ import { Com } from "./domain/player/object/coms/objects/com";
 
 // TODO: Other class skills
 
+// TODO: Profiles which will encapsulate the player object and allow for "Scenarios"
+// where you can set things like "fight for your life", "turret deployed",
+// "percentage of health"
+
 // TODO: player needs relics/BAR
 let players: Player[] = [{
     class: Class.Commando,
