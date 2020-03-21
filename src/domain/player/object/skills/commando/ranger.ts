@@ -9,7 +9,7 @@ export class Ranger extends Skill {
     super(level)
 
     this.stats = [{
-      type: StatType.WeaponDamage,
+      type: StatType.GunDamage,
       value: 0.01
     },{
       type: StatType.CritHitDamage,

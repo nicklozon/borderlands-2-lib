@@ -1,5 +1,5 @@
 export enum StatType {
-  WeaponDamage,
+  GunDamage,
   CritHitDamage,
   ReloadSpeed,
   FireRate,

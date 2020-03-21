@@ -9,7 +9,7 @@ export class Impact extends Skill {
     super(level)
 
     this.stats = [{
-      type: StatType.WeaponDamage,
+      type: StatType.GunDamage,
       value: 0.04
     }]
   }

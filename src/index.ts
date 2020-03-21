@@ -10,14 +10,24 @@ import { DutyCalls } from "./domain/player/object/skills/commando/duty_calls";
 import { Ranger } from "./domain/player/object/skills/commando/ranger";
 import { Impact } from "./domain/player/object/skills/commando/impact";
 import { WeaponTypeCom } from "./domain/player/object/coms/objects/weapon_type_com";
+import { Com } from "./domain/player/object/coms/objects/com";
 
 // TODO: TVHM and UVHM stats - this will be fairly simple; create a global
 // coefficients service and add the mode to the player.
 
-// TODO: player needs COMs/relics/BAR
+// TODO: Other class skills
+
+// TODO: player needs relics/BAR
 let players: Player[] = [{
     class: Class.Commando,
     stats: [], // should become BAR I think
+    com: new Com([{
+      type: StatType.ReloadSpeed,
+      value: 0.23
+    },{
+      type: StatType.MagazineSize,
+      value: 0.22
+    }]),
     skills: [
       new DutyCalls(5),
       new Ranger(1),
@@ -30,7 +40,7 @@ let players: Player[] = [{
       type: StatType.MagazineSize,
       value: 0.27
     },{
-      type: StatType.WeaponDamage,
+      type: StatType.GunDamage,
       value: 0.24
     }], Type.AssaultRifle),
     skills: [
@@ -71,16 +81,6 @@ let weapons: Weapon[] = [{
     type: StatType.CritHitDamage,
     value: 0.7
   }]
-},{
-  name: 'Flush Rifle',
-  manufacturer: Manufacturer.Jakobs,
-  type: Type.AssaultRifle,
-  damage: 356,
-  fireRate: 14.1,
-  reloadSpeed: 4.2,
-  magazineSize: 22,
-  pellets: 1,
-  ammoPerShot: 1
 },{
   name: 'Surgical Sloth',
   manufacturer: Manufacturer.Dahl,
@@ -129,13 +129,34 @@ let weapons: Weapon[] = [{
     value: 1.8
   }]
 },{
-  name: 'Rightsizing Projectile Convergence',
-  manufacturer: Manufacturer.Hyperion,
-  type: Type.SubmachineGun,
-  damage: 150,
-  fireRate: 8.7,
-  reloadSpeed: 2.1,
-  magazineSize: 30,
+  name: 'gratuitius Roaster',
+  manufacturer: Manufacturer.Bandit,
+  type: Type.RocketLauncher,
+  damage: 1365,
+  fireRate: 1.1,
+  reloadSpeed: 6.8,
+  magazineSize: 9,
+  pellets: 3,
+  ammoPerShot: 1,
+  elementalEffect: ElementalEffect.Slag
+},{
+  name: 'Wild Hammer Buster',
+  manufacturer: Manufacturer.Jakobs,
+  type: Type.AssaultRifle,
+  damage: 640,
+  fireRate: 18.7,
+  reloadSpeed: 3.8,
+  magazineSize: 13,
+  pellets: 1,
+  ammoPerShot: 1
+},{
+  name: 'Flush Rifle',
+  manufacturer: Manufacturer.Jakobs,
+  type: Type.AssaultRifle,
+  damage: 356,
+  fireRate: 14.1,
+  reloadSpeed: 4.2,
+  magazineSize: 22,
   pellets: 1,
   ammoPerShot: 1
 },{
@@ -148,45 +169,10 @@ let weapons: Weapon[] = [{
   magazineSize: 10,
   pellets: 1,
   ammoPerShot: 1
-},{
-  name: 'rock a boom',
-  manufacturer: Manufacturer.Torgue,
-  type: Type.RocketLauncher,
-  damage: 4776,
-  fireRate: 1.0,
-  reloadSpeed: 7,
-  magazineSize: 2,
-  pellets: 1,
-  ammoPerShot: 1,
-  elementalEffect: ElementalEffect.Explosive,
-  dealsBonusElementalDamage: true
-},{
-  name: 'gratuitius Roaster',
-  manufacturer: Manufacturer.Bandit,
-  type: Type.RocketLauncher,
-  damage: 1365,
-  fireRate: 1.1,
-  reloadSpeed: 6.8,
-  magazineSize: 9,
-  pellets: 3,
-  ammoPerShot: 1,
-  elementalEffect: ElementalEffect.Slag
-},{
-  // Since this is a torpedo, it cannot crit...
-  name: 'Rocket Torpedo',
-  manufacturer: Manufacturer.Torgue,
-  type: Type.AssaultRifle,
-  damage: 1198,
-  fireRate: 2.1,
-  reloadSpeed: 4.6,
-  magazineSize: 19,
-  pellets: 1,
-  ammoPerShot: 4,
-  elementalEffect: ElementalEffect.Explosive
 }]
 
 players.forEach((player) => {
   let tps = new TablePrinterService(player, weapons)
   tps.printWeaponSummary()
-  tps.printCategoryMaximums()
+  //tps.printCategoryMaximums()
 })

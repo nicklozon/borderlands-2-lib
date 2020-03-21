@@ -10,7 +10,7 @@ export class DutyCalls extends Skill {
     super(level)
 
     this.stats = [{
-      type: StatType.WeaponDamage,
+      type: StatType.GunDamage,
       value: 0.05
     },{
       type: StatType.FireRate,
