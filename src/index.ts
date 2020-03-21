@@ -6,9 +6,7 @@ import { Manufacturer } from "./domain/weapon/value_object/manufacturer";
 import { Type } from "./domain/weapon/value_object/type";
 import { TablePrinterService } from "./domain/utilities/service/table_printer"
 import { StatType } from "./domain/player/value_object/stat_type";
-import { DutyCalls } from "./domain/player/object/skills/commando/duty_calls";
-import { Ranger } from "./domain/player/object/skills/commando/ranger";
-import { Impact } from "./domain/player/object/skills/commando/impact";
+import { DutyCalls, Ranger, Impact } from "./domain/player/object/skills/commando";
 import { WeaponTypeCom } from "./domain/player/object/coms/objects/weapon_type_com";
 import { Com } from "./domain/player/object/coms/objects/com";
 
