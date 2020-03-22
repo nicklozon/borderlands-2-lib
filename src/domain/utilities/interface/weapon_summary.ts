@@ -5,6 +5,7 @@ export interface WeaponSummary {
   type: Type,
   singleShot: number,
   critShot: number,
+  critShotFlesh?: number,
   dps?: number,
   critDps?: number,
   fleshShot: number,

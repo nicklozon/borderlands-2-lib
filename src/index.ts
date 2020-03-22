@@ -7,7 +7,6 @@ import { Type } from "./domain/weapon/value_object/type";
 import { TablePrinterService } from "./domain/utilities/service/table_printer"
 import { StatType } from "./domain/player/value_object/stat_type";
 import { DutyCalls, Ranger, Impact } from "./domain/player/object/skills/commando";
-import { WeaponTypeCom } from "./domain/player/object/coms/objects/weapon_type_com";
 import { Com } from "./domain/player/object/coms/objects/com";
 
 // TODO: TVHM and UVHM stats - this will be fairly simple; create a global
@@ -31,24 +30,9 @@ let players: Player[] = [{
       value: 0.22
     }]),
     skills: [
+      new Impact(5),
       new DutyCalls(5),
-      new Ranger(1),
-      new Impact(5)
-    ]
-  },{
-    class: Class.Commando,
-    stats: [], // should become BAR I think
-    com: new WeaponTypeCom([{
-      type: StatType.MagazineSize,
-      value: 0.27
-    },{
-      type: StatType.GunDamage,
-      value: 0.24
-    }], Type.AssaultRifle),
-    skills: [
-      new DutyCalls(5),
-      new Ranger(1),
-      new Impact(5)
+      new Ranger(3),
     ]
   }]
 
@@ -57,19 +41,6 @@ let players: Player[] = [{
 // TODO: calculate explosive splash damage
 // TODO: calculate things like explosive AR where there is no bullet damage :(
 let weapons: Weapon[] = [{
-  name: 'Longitudinal Hybridfication',
-  manufacturer: Manufacturer.Hyperion,
-  type: Type.SniperRifle,
-  damage: 1009,
-  fireRate: 2,
-  reloadSpeed: 4,
-  magazineSize: 6,
-  pellets: 1,
-  ammoPerShot: 2,
-  elementalEffect: ElementalEffect.Shock,
-  elementalChance: 0.36,
-  elementalDps: 133
-},{
   name: 'Sledge\'s Shotgun',
   manufacturer: Manufacturer.Bandit,
   type: Type.Shotgun,
@@ -143,6 +114,36 @@ let weapons: Weapon[] = [{
   elementalChance: 0.3,
   elementalDps: 81.6
   // TODO: burst while zoomed
+},{
+  // e-tech, so suffer 100% crit penalty
+  name: 'Longitudinal Hybridfication',
+  manufacturer: Manufacturer.Hyperion,
+  type: Type.SniperRifle,
+  damage: 1009,
+  fireRate: 2,
+  reloadSpeed: 4,
+  magazineSize: 6,
+  pellets: 1,
+  ammoPerShot: 2,
+  elementalEffect: ElementalEffect.Shock,
+  elementalChance: 0.36,
+  elementalDps: 133,
+  isEtech: true
+},{
+  // Morningstar are a special hyperion quest item that increases subsequent
+  // cirtical hit damage by 20% after landing a critical hit, stacks up to 3
+  name: 'Cohesion Morningstar',
+  manufacturer: Manufacturer.Hyperion,
+  type: Type.SniperRifle,
+  damage: 917,
+  fireRate: 0.9,
+  reloadSpeed: 4.2,
+  magazineSize: 6,
+  pellets: 1,
+  ammoPerShot: 1,
+  elementalEffect: ElementalEffect.Incendiary,
+  elementalChance: 0.3,
+  elementalDps: 169.8
 },{
   name: 'rock a boom',
   manufacturer: Manufacturer.Torgue,

@@ -19,5 +19,6 @@ export interface Weapon {
   dealsBonusElementalDamage?: boolean,
   stats?: Stat[],
   elementalChance?: number,
-  elementalDps?: number
+  elementalDps?: number,
+  isEtech?: boolean
 }

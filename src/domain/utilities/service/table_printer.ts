@@ -73,6 +73,7 @@ export class TablePrinterService {
         type: weapon.type,
         singleShot: Math.round(ds.getDamage()),
         critShot: Math.round(ds.getCritDamage()),
+        critShotFlesh: Math.round(ds.getCritDamage(TargetType.Flesh)),
         //dps: ds.getDps(),
         //critDps: ds.getCritDps(),
         fleshShot: Math.round(ds.getDamage(TargetType.Flesh)),

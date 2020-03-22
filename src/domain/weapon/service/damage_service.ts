@@ -44,18 +44,19 @@ export class DamageService {
     return damage * pellets * (1 + playerGunDamage + weaponGunDamage) * elementalEffectiveness
   }
 
-  public getCritDamage() : number {
-    // Rocket launcher's can't crit
+  public getCritDamage(targetType?: TargetType) : number {
     const { type } = this.weapon
+
+    // Rocket launcher's can't crit
     if(type === Type.RocketLauncher) return 0
 
     let multiplier = this.getWeaponCritMultiplier()
     let baseBonus = this.getWeaponCritBaseBonus()
     let penalty = this.getWeaponCritPenalty()
     let playerCritDamage = this.playerDamageService.getStat(StatType.CritHitDamage, this.weapon)
-    let splashDamage = this.getSplashDamage()
+    let splashDamage = this.getSplashDamage(targetType)
 
-    return this.getBaseDamage() * multiplier * (1 + baseBonus + playerCritDamage) /  (1 + penalty) + splashDamage
+    return this.getBaseDamage(targetType) * multiplier * (1 + baseBonus + playerCritDamage) /  (1 + penalty) + splashDamage
   }
 
   public getElementalDps(targetType?: TargetType) : number {
@@ -142,10 +143,18 @@ export class DamageService {
   }
 
   protected getWeaponCritPenalty() : number {
-    const { manufacturer, type } = this.weapon
+    const { manufacturer, type, isEtech } = this.weapon
 
     if(manufacturer === Manufacturer.Jakobs) {
       return 0
+    }
+
+    if(isEtech) {
+      if(type === Type.AssaultRifle) {
+        return 0.7
+      } else if(type === Type.SniperRifle) {
+        return 1
+      }
     }
 
     if(type === Type.AssaultRifle) {
