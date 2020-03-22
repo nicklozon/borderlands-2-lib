@@ -58,8 +58,6 @@ let weapons: Weapon[] = [{
   fireRate: 16.7,
   reloadSpeed: 2.3,
   magazineSize: 10,
-  pellets: 1,
-  ammoPerShot: 1
 },{
   name: 'Miss Moxxi\'s Good touch',
   manufacturer: Manufacturer.Maliwan,
@@ -68,8 +66,6 @@ let weapons: Weapon[] = [{
   fireRate: 8,
   reloadSpeed: 3.2,
   magazineSize: 27,
-  pellets: 1,
-  ammoPerShot: 1,
   elementalEffect: ElementalEffect.Incendiary,
   elementalChance: 0.156,
   elementalDps: 293.6,
@@ -85,8 +81,6 @@ let weapons: Weapon[] = [{
   fireRate: 18.7,
   reloadSpeed: 3.8,
   magazineSize: 13,
-  pellets: 1,
-  ammoPerShot: 1
 },{
   name: 'Expansive Spinigun',
   manufacturer: Manufacturer.Vladof,
@@ -95,8 +89,6 @@ let weapons: Weapon[] = [{
   fireRate: 10.5,
   reloadSpeed: 3.7,
   magazineSize: 58,
-  pellets: 1,
-  ammoPerShot: 1,
   elementalEffect: ElementalEffect.Corrosive,
   elementalChance: 0.06,
   elementalDps: 133
@@ -108,8 +100,6 @@ let weapons: Weapon[] = [{
   fireRate: 6.1,
   reloadSpeed: 4.2,
   magazineSize: 7,
-  pellets: 1,
-  ammoPerShot: 1,
   elementalEffect: ElementalEffect.Corrosive,
   elementalChance: 0.3,
   elementalDps: 81.6
@@ -123,7 +113,6 @@ let weapons: Weapon[] = [{
   fireRate: 2,
   reloadSpeed: 4,
   magazineSize: 6,
-  pellets: 1,
   ammoPerShot: 2,
   elementalEffect: ElementalEffect.Shock,
   elementalChance: 0.36,
@@ -139,8 +128,6 @@ let weapons: Weapon[] = [{
   fireRate: 0.9,
   reloadSpeed: 4.2,
   magazineSize: 6,
-  pellets: 1,
-  ammoPerShot: 1,
   elementalEffect: ElementalEffect.Incendiary,
   elementalChance: 0.3,
   elementalDps: 169.8
@@ -152,8 +139,6 @@ let weapons: Weapon[] = [{
   fireRate: 1.2,
   reloadSpeed: 7,
   magazineSize: 2,
-  pellets: 1,
-  ammoPerShot: 1,
   elementalEffect: ElementalEffect.Explosive
 }]
 

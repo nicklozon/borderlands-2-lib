@@ -35,7 +35,7 @@ export class DamageService {
   }
 
   protected getBaseDamage(targetType?: TargetType) : number {
-    const { damage, pellets, elementalEffect } = this.weapon
+    const { damage, pellets = 1, elementalEffect } = this.weapon
     let playerGunDamage = this.playerDamageService.getStat(StatType.GunDamage, this.weapon)
     // Is this a thing?
     let weaponGunDamage = this.getStat(StatType.GunDamage)
@@ -60,7 +60,7 @@ export class DamageService {
   }
 
   public getElementalDps(targetType?: TargetType) : number {
-    const { elementalChance, elementalDps, elementalEffect, ammoPerShot, pellets } = this.weapon
+    const { elementalChance, elementalDps, elementalEffect, ammoPerShot = 1, pellets = 1 } = this.weapon
 
     if(!elementalChance || !elementalDps || elementalEffect === undefined) return 0
 
@@ -94,7 +94,7 @@ export class DamageService {
   }
 
   protected calculateDps(damage: number) : number {
-    const { ammoPerShot } = this.weapon
+    const { ammoPerShot = 1 } = this.weapon
 
     let reloadSpeed = this.getReloadSpeed()
     let fireRate = this.getFireRate()
