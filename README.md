@@ -12,21 +12,24 @@ You can use this library to calcualte damage/DPS for your playthrough, but you'l
 # Why I built this library
 I was disappointed with the available offerings for comparing loot - the calculators I was using would not allow me to compare multiple weapons at once, they did not include known logic about mechanics and items in the game that impacted damage, they did not include elemental weapon damage over time, they did not allow me to customize my player configuration (skill build, BAR, relics, etc.) once and re-use those across all weapons or allow for multiple player customizations (compare skill builds and non-weapon gear), they were not aware of the different target types (flesh, armor, shield) and how each element affects them, etc.
 
-End goal of this library is to be able to enter multiple players of any class, with multiple item configurations, in multiple scenarios (fight for your life, turret deployed, etc.) and render a comprehensive of damage and DPS values against each target type and know quickly what weapon is best for each player in each scenario.
+End goal of this library is to be able to enter multiple players of any class, with multiple item configurations, in multiple scenarios (fight for your life, turret deployed, etc.) and properly calculate damage and DPS values against each target type so the user knows quickly what weapon is best for each player in each scenario.
 
 # About Me
-Software developer (imagine that) and amateur Borderlands 2 player, spend most of my time working so Borderlands is low pressure escape. Played through the game twice as Mechromancer and Axton, never in THVM or UHVM but I understand the concepts and plan to implement them into this library. Take my opinions with a grain of salt, constructive feedback is always welcome.
+Software developer (imagine that) and amateur Borderlands 2 player. I spend most of my time working so Borderlands is low pressure escape for me. I've P,played through the game twice as Mechromancer and Axton, never in THVM or UHVM but I understand the concepts and plan to implement them into this library.
+
+Take my opinions with a grain of salt, constructive feedback is always welcome.
 
 # How it works
 ## Installing
-Install node, optionally install yarn.
+Install node and yarn. Yarn isn't necessary if you want to use npm instead.
 
 Use `yarn install` to install the app, see below for running the program...
 
 ## Usage
 Again, this is a library intended more for developers than gamers...but it can still be used  as a standalone tool for calculating weapon damage.
 
-No time to explain usage right now...check out index.ts
+Check out index.ts for an example of usage
+**TODO: ** Put together a programming example.
 
 Run `yarn tsc && node dist/index.js` to see the output:
 
@@ -62,7 +65,6 @@ Run `yarn tsc && node dist/index.js` to see the output:
 I have very minimal tests right now, but they are built with jest.
 
 Run `yarn test` to run the jest tests
-
 
 # Damage/DPS Calculation
 ## Gun Time
