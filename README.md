@@ -41,6 +41,11 @@ No time to write this...check out index.ts
 
 Run `yarn tsc && node dist/index.js` to see the output
 
+# Testing
+I have very minimal tests right now, but they are built on jest.
+
+Run `yarn test` to run the jest tests
+
 # Future
 Would be nice to create a UI app that uses this library...
 
