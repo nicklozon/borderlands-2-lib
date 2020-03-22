@@ -57,55 +57,18 @@ let players: Player[] = [{
 // TODO: calculate explosive splash damage
 // TODO: calculate things like explosive AR where there is no bullet damage :(
 let weapons: Weapon[] = [{
-  name: 'Evisceration Umbrage',
-  manufacturer: Manufacturer.Maliwan,
-  type: Type.Pistol,
-  damage: 226,
-  fireRate: 3.2,
-  reloadSpeed: 2.1,
-  magazineSize: 10,
+  name: 'Longitudinal Hybridfication',
+  manufacturer: Manufacturer.Hyperion,
+  type: Type.SniperRifle,
+  damage: 1009,
+  fireRate: 2,
+  reloadSpeed: 4,
+  magazineSize: 6,
   pellets: 1,
   ammoPerShot: 2,
-  elementalEffect: ElementalEffect.Slag,
-  dealsBonusElementalDamage: true
-},{
-  name: 'Miss Moxxi\'s Bad Touch',
-  manufacturer: Manufacturer.Maliwan,
-  type: Type.SubmachineGun,
-  damage: 84,
-  fireRate: 8,
-  reloadSpeed: 3.2,
-  magazineSize: 27,
-  pellets: 1,
-  ammoPerShot: 1,
-  elementalEffect: ElementalEffect.Corrosive,
-  stats: [{
-    type: StatType.CritHitDamage,
-    value: 0.7
-  }]
-},{
-  name: 'Surgical Sloth',
-  manufacturer: Manufacturer.Dahl,
-  type: Type.SniperRifle,
-  damage: 501,
-  fireRate: 6.1,
-  reloadSpeed: 4.2,
-  magazineSize: 7,
-  pellets: 1,
-  ammoPerShot: 1,
-  elementalEffect: ElementalEffect.Corrosive
-  // TODO: burst while zoomed
-},{
-  name: 'Base Impact',
-  manufacturer: Manufacturer.Hyperion,
-  type: Type.Pistol,
-  damage: 176,
-  fireRate: 4.6,
-  reloadSpeed: 2.4,
-  magazineSize: 20,
-  pellets: 1,
-  ammoPerShot: 1,
-  elementalEffect: ElementalEffect.Corrosive
+  elementalEffect: ElementalEffect.Shock,
+  elementalChance: 0.36,
+  elementalDps: 133
 },{
   name: 'Sledge\'s Shotgun',
   manufacturer: Manufacturer.Bandit,
@@ -117,30 +80,32 @@ let weapons: Weapon[] = [{
   pellets: 12,
   ammoPerShot: 2
 },{
-  name: 'Tumtum Trespasser',
+  name: 'Filled Law',
   manufacturer: Manufacturer.Jakobs,
-  type: Type.SniperRifle,
-  damage: 493,
-  fireRate: 0.5,
-  reloadSpeed: 4,
-  magazineSize: 8,
+  type: Type.Pistol,
+  damage: 673,
+  fireRate: 16.7,
+  reloadSpeed: 2.3,
+  magazineSize: 10,
+  pellets: 1,
+  ammoPerShot: 1
+},{
+  name: 'Miss Moxxi\'s Good touch',
+  manufacturer: Manufacturer.Maliwan,
+  type: Type.SubmachineGun,
+  damage: 226,
+  fireRate: 8,
+  reloadSpeed: 3.2,
+  magazineSize: 27,
   pellets: 1,
   ammoPerShot: 1,
+  elementalEffect: ElementalEffect.Incendiary,
+  elementalChance: 0.156,
+  elementalDps: 293.6,
   stats: [{
     type: StatType.CritHitDamage,
-    value: 1.8
+    value: 0.7
   }]
-},{
-  name: 'gratuitius Roaster',
-  manufacturer: Manufacturer.Bandit,
-  type: Type.RocketLauncher,
-  damage: 1365,
-  fireRate: 1.1,
-  reloadSpeed: 6.8,
-  magazineSize: 9,
-  pellets: 3,
-  ammoPerShot: 1,
-  elementalEffect: ElementalEffect.Slag
 },{
   name: 'Wild Hammer Buster',
   manufacturer: Manufacturer.Jakobs,
@@ -152,25 +117,43 @@ let weapons: Weapon[] = [{
   pellets: 1,
   ammoPerShot: 1
 },{
-  name: 'Flush Rifle',
-  manufacturer: Manufacturer.Jakobs,
+  name: 'Expansive Spinigun',
+  manufacturer: Manufacturer.Vladof,
   type: Type.AssaultRifle,
-  damage: 356,
-  fireRate: 14.1,
-  reloadSpeed: 4.2,
-  magazineSize: 22,
+  damage: 176,
+  fireRate: 10.5,
+  reloadSpeed: 3.7,
+  magazineSize: 58,
   pellets: 1,
-  ammoPerShot: 1
+  ammoPerShot: 1,
+  elementalEffect: ElementalEffect.Corrosive,
+  elementalChance: 0.06,
+  elementalDps: 133
 },{
-  name: 'Filled Law',
-  manufacturer: Manufacturer.Jakobs,
-  type: Type.Pistol,
-  damage: 673,
-  fireRate: 16.7,
-  reloadSpeed: 2.3,
-  magazineSize: 10,
+  name: 'Surgical Sloth',
+  manufacturer: Manufacturer.Dahl,
+  type: Type.SniperRifle,
+  damage: 501,
+  fireRate: 6.1,
+  reloadSpeed: 4.2,
+  magazineSize: 7,
   pellets: 1,
-  ammoPerShot: 1
+  ammoPerShot: 1,
+  elementalEffect: ElementalEffect.Corrosive,
+  elementalChance: 0.3,
+  elementalDps: 81.6
+  // TODO: burst while zoomed
+},{
+  name: 'rock a boom',
+  manufacturer: Manufacturer.Torgue,
+  type: Type.RocketLauncher,
+  damage: 8102,
+  fireRate: 1.2,
+  reloadSpeed: 7,
+  magazineSize: 2,
+  pellets: 1,
+  ammoPerShot: 1,
+  elementalEffect: ElementalEffect.Explosive
 }]
 
 players.forEach((player) => {

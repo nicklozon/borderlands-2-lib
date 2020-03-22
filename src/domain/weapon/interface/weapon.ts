@@ -17,5 +17,7 @@ export interface Weapon {
   pellets: number,
   ammoPerShot: number,
   dealsBonusElementalDamage?: boolean,
-  stats?: Stat[]
+  stats?: Stat[],
+  elementalChance?: number,
+  elementalDps?: number
 }

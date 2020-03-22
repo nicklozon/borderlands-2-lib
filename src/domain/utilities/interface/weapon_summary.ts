@@ -5,12 +5,12 @@ export interface WeaponSummary {
   type: Type,
   singleShot: number,
   critShot: number,
-  dps: number,
-  critDps: number,
+  dps?: number,
+  critDps?: number,
   fleshShot: number,
   armorShot: number,
   shieldShot: number
-  fleshDps: number,
-  armorDps: number,
-  shieldDps: number
+  fleshDps: string,
+  armorDps: string,
+  shieldDps: string
 }

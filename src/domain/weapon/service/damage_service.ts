@@ -26,7 +26,8 @@ export class DamageService {
   }
 
   public getTargetTypeDps(targetType: TargetType) {
-    return this.calculateDps(this.getDamage(targetType))
+    let dps = this.calculateDps(this.getDamage(targetType)) + this.getElementalDps(targetType)
+    return Math.round(dps * 100)/100
   }
 
   public getDamage(targetType?: TargetType) : number {
@@ -57,6 +58,40 @@ export class DamageService {
     return this.getBaseDamage() * multiplier * (1 + baseBonus + playerCritDamage) /  (1 + penalty) + splashDamage
   }
 
+  public getElementalDps(targetType?: TargetType) : number {
+    const { elementalChance, elementalDps, elementalEffect, ammoPerShot, pellets } = this.weapon
+
+    if(!elementalChance || !elementalDps || elementalEffect === undefined) return 0
+
+    let reloadSpeed = this.getReloadSpeed()
+    let fireRate = this.getFireRate()
+    let magazineSize = this.getMagazineSize()
+    let duration = 0
+
+    switch(elementalEffect) {
+      case ElementalEffect.Incendiary:
+        duration = 5
+        break
+      case ElementalEffect.Shock:
+        duration = 2
+        break
+      case ElementalEffect.Corrosive:
+        duration = 8
+        break
+    }
+
+    let elementalEffectiveness = targetType ? this.getElementalEffectiveness(targetType, elementalEffect) : 1
+    let effectiveProcDps = elementalDps * elementalEffectiveness
+    let clipEffectiveNumberOfShots = magazineSize / ammoPerShot
+    let procsPerClip = clipEffectiveNumberOfShots * elementalChance * pellets
+    let clipElementalDamage = procsPerClip * effectiveProcDps * duration
+    let clipSpeed = clipEffectiveNumberOfShots / fireRate
+    let totalSpeed = reloadSpeed + clipSpeed
+    let finalDps = clipElementalDamage / totalSpeed
+
+    return Math.round(finalDps * 100) / 100
+  }
+
   protected calculateDps(damage: number) : number {
     const { ammoPerShot } = this.weapon
 
@@ -67,8 +102,9 @@ export class DamageService {
     let clipSpeed = clipEffectiveNumberOfShots / fireRate
     let totalSpeed = reloadSpeed + clipSpeed
     let totalClipDamage = damage * clipEffectiveNumberOfShots
+    let finalDps = totalClipDamage / totalSpeed
 
-    return Math.round(totalClipDamage / totalSpeed * 100)/100
+    return Math.round(finalDps * 100)/100
   }
 
   protected getWeaponCritMultiplier() : number {
@@ -137,7 +173,7 @@ export class DamageService {
     const { magazineSize } = this.weapon
 
     let playerMagazineSize = this.playerDamageService.getStat(StatType.MagazineSize, this.weapon)
-    return magazineSize / (1 + playerMagazineSize)
+    return magazineSize * (1 + playerMagazineSize)
   }
 
   protected getElementalEffectiveness(targetType: TargetType, elementalEffect?: ElementalEffect) : number {
