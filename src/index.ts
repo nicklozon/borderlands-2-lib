@@ -7,7 +7,8 @@ import { Type } from "./domain/weapon/value_object/type";
 import { TablePrinterService } from "./domain/utilities/service/table_printer"
 import { StatType } from "./domain/player/value_object/stat_type";
 import { DutyCalls, Ranger, Impact } from "./domain/player/object/skills/commando";
-import { Com } from "./domain/player/object/coms/objects/com";
+import { Gear } from "./domain/player/object/gear/object/gear";
+import { WeaponTypeGear } from "./domain/player/object/gear/object/weapon_type_gear";
 
 // TODO: TVHM and UVHM stats - this will be fairly simple; create a global
 // coefficients service and add the mode to the player.
@@ -22,7 +23,14 @@ import { Com } from "./domain/player/object/coms/objects/com";
 let players: Player[] = [{
     class: Class.Commando,
     stats: [], // should become BAR I think
-    com: new Com([{
+    relic: new WeaponTypeGear([{
+      type: StatType.GunDamage,
+      value: 0.181
+    },{
+      type: StatType.FireRate,
+      value: 0.49
+    }], Type.Pistol),
+    com: new Gear([{
       type: StatType.ReloadSpeed,
       value: 0.23
     },{
