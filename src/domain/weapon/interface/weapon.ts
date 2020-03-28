@@ -2,6 +2,7 @@ import { Manufacturer } from "../value_object/manufacturer";
 import { Type } from "../value_object/type";
 import { ElementalEffect } from "../value_object/elemental_effect";
 import { Stat } from "../../player/interface/stat";
+import { RedTextEnum } from "../../player/object/red_text";
 
 export interface Weapon {
   name: string,
@@ -15,10 +16,12 @@ export interface Weapon {
   elementalEffect?: ElementalEffect, 
   accuracy?: number,
   pellets?: number,
+  unlistedPellets?: number,
   ammoPerShot?: number,
   dealsBonusElementalDamage?: boolean,
   stats?: Stat[],
   elementalChance?: number,
   elementalDps?: number,
-  isEtech?: boolean
+  isEtech?: boolean,
+  redText?: RedTextEnum
 }

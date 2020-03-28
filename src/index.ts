@@ -9,6 +9,7 @@ import { StatType } from "./domain/player/value_object/stat_type";
 import { DutyCalls, Ranger, Impact } from "./domain/player/object/skills/commando";
 import { Gear } from "./domain/player/object/gear/object/gear";
 import { WeaponTypeGear } from "./domain/player/object/gear/object/weapon_type_gear";
+import { RedTextEnum } from "./domain/player/object/red_text";
 
 // TODO: Wait...does the red text on items always represent some special
 // characteristic? "De Da." is 25% heal on melee when Order is also equipped,
@@ -17,7 +18,7 @@ import { WeaponTypeGear } from "./domain/player/object/gear/object/weapon_type_g
 // TODO: TVHM and UVHM stats - this will be fairly simple; create a global
 // coefficients service and add the mode to the player.
 
-// TODO: Other class skills
+// TODO: Other class skills...tried this, gunzerker broke me
 
 // TODO: Profiles which will encapsulate the player object and allow for "Scenarios"
 // where you can set things like "fight for your life", "turret deployed",
@@ -63,7 +64,6 @@ let players: Player[] = [{
     skills: [
       new Impact(5),
       new DutyCalls(5),
-      new Ranger(3),
     ]
   }]
 
@@ -72,6 +72,19 @@ let players: Player[] = [{
 // TODO: calculate explosive splash damage
 // TODO: calculate things like explosive AR where there is no bullet damage :(
 let weapons: Weapon[] = [{
+  name: 'Lady Fist',
+  manufacturer: Manufacturer.Hyperion,
+  type: Type.Pistol,
+  damage: 311,
+  fireRate: 5.0,
+  reloadSpeed: 2.0,
+  magazineSize: 21,
+  stats: [{
+    type: StatType.CritHitDamage,
+    value: 4 // old school lady fist, trumped by red text
+  }],
+  redText: RedTextEnum.LadyFinger
+},{
   name: 'Sledge\'s Shotgun',
   manufacturer: Manufacturer.Bandit,
   type: Type.Shotgun,
@@ -81,6 +94,22 @@ let weapons: Weapon[] = [{
   magazineSize: 12,
   pellets: 12,
   ammoPerShot: 2
+},{
+  // this is broke, stats aren't applying properly in game...
+  // one level in Impact (4%) gun damage increases damage from 4281 to 4318
+  // expected increase is 4452, even in Derch's excel calculator...
+  // that's 78.4% of damage missing from stats...
+  // hit with a single pellet is affected the same way
+  name: 'Impractical Fibber',
+  manufacturer: Manufacturer.Hyperion,
+  type: Type.Pistol,
+  damage: 612,
+  fireRate: 2.4,
+  reloadSpeed: 4.5,
+  magazineSize: 17,
+  pellets: 1,
+  unlistedPellets: 6,
+  ammoPerShot: 1
 },{
   name: 'Filled Law',
   manufacturer: Manufacturer.Jakobs,

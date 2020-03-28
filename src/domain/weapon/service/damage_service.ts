@@ -7,6 +7,7 @@ import { Type } from "../value_object/type"
 import { TargetType } from "../../enemy/value_object/target_type"
 import { ElementalEffect } from "../value_object/elemental_effect"
 import { Stat } from "../../player/interface/stat"
+import { RedText, RedTextEnum } from "../../player/object/red_text"
 
 export class DamageService {
   private weapon: Weapon
@@ -35,13 +36,18 @@ export class DamageService {
   }
 
   protected getBaseDamage(targetType?: TargetType) : number {
-    const { damage, pellets = 1, elementalEffect } = this.weapon
+    const { damage, pellets = 1, unlistedPellets = 0, elementalEffect } = this.weapon
     let playerGunDamage = this.playerDamageService.getStat(StatType.GunDamage, this.weapon)
     // Is this a thing?
     let weaponGunDamage = this.getStat(StatType.GunDamage)
     let elementalEffectiveness = targetType ? this.getElementalEffectiveness(targetType, elementalEffect) : 1
 
-    return damage * pellets * (1 + playerGunDamage + weaponGunDamage) * elementalEffectiveness
+    let unlistedDamage = 0
+    if(unlistedPellets > 0) {
+      unlistedDamage = unlistedPellets * damage * 1.06
+    }
+
+    return damage * pellets * (1 + playerGunDamage + weaponGunDamage) * elementalEffectiveness + unlistedDamage
   }
 
   public getCritDamage(targetType?: TargetType) : number {
@@ -241,11 +247,20 @@ export class DamageService {
   }
 
   protected getStat(statType: StatType) : number {
-    const { stats } = this.weapon
+    const { stats, redText } = this.weapon
 
-    if(!stats) return 0
+    let redTextStat = this.getRedTextStat(statType, redText)
+
+    // hacky - if RedText has this stat, it trumps everything
+    if(redTextStat || !stats) return 0
 
     let result: Stat[] = stats.filter((stat: Stat) => stat.type === statType)
     return result.reduce((memo: number, stat: Stat) => memo + stat.value, 0)
+  }
+
+  protected getRedTextStat(statType: StatType, redText?: RedTextEnum) : number {
+    if(!redText) return 0
+
+    return RedText(redText).getStat(statType)
   }
 }
