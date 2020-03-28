@@ -5,8 +5,8 @@ import { Gear } from "../object/gear/object/gear";
 
 export interface Player {
   class: Class,
-  stats: Stat[],
+  badAssRanking: Stat[],
   skills: Skill[],
-  com?: Gear,
+  classMod?: Gear,
   relic?: Gear,
 }

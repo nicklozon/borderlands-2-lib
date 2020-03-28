@@ -12,15 +12,15 @@ export class PlayerDamageService {
   }
 
   public getStat(statType: StatType, weapon: Weapon) : number {
-    const { stats, skills, com, relic } = this.player
+    const { badAssRanking, skills, classMod, relic } = this.player
 
-    let filteredStats: Stat[] = stats.filter((stat: Stat) => stat.type === statType)
+    let filteredStats: Stat[] = badAssRanking.filter((stat: Stat) => stat.type === statType)
     let statValue = filteredStats.reduce((memo: number, stat: Stat) => memo + stat.value, 0)
     let filteredSkills: number[] = skills.map((skill: Skill) => skill.getStat(statType, weapon))
     let skillValue = filteredSkills.reduce((memo: number, value: number) => memo + value, 0)
-    let comValue = com ? com.getStat(statType, weapon) : 0
+    let classModValue = classMod ? classMod.getStat(statType, weapon) : 0
     let relicValue = relic ? relic.getStat(statType, weapon) : 0
 
-    return statValue + skillValue + comValue + relicValue
+    return statValue + skillValue + classModValue + relicValue
   }
 }

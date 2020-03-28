@@ -11,10 +11,6 @@ import { Gear } from "./domain/player/object/gear/object/gear";
 import { WeaponTypeGear } from "./domain/player/object/gear/object/weapon_type_gear";
 import { RedTextEnum } from "./domain/player/object/red_text";
 
-// TODO: Wait...does the red text on items always represent some special
-// characteristic? "De Da." is 25% heal on melee when Order is also equipped,
-// "a Rose by any other name..." has stacking crit damage bonus, etc.
-
 // TODO: TVHM and UVHM stats - this will be fairly simple; create a global
 // coefficients service and add the mode to the player.
 
@@ -22,9 +18,13 @@ import { RedTextEnum } from "./domain/player/object/red_text";
 
 // TODO: Profiles which will encapsulate the player object and allow for "Scenarios"
 // where you can set things like "fight for your life", "turret deployed",
-// "percentage of health"
+// "percentage of health", etc.
 
-let bar = [{
+// TODO: weapons need attributes like grenade reloads
+// TODO: calculate explosive splash damage
+// TODO: calculate things like explosive AR where there is no bullet damage :(
+
+let badAssRanking = [{
   type: StatType.GunDamage,
   value: 0.08
 },{
@@ -44,47 +44,36 @@ let bar = [{
   value: 0.072
 }]
 
-let players: Player[] = [{
-    class: Class.Commando,
-    stats: bar,
-    relic: new WeaponTypeGear([{
-      type: StatType.GunDamage,
-      value: 0.181
-    },{
-      type: StatType.FireRate,
-      value: 0.49
-    }], Type.Pistol),
-    com: new Gear([{
-      type: StatType.ReloadSpeed,
-      value: 0.23
-    },{
-      type: StatType.MagazineSize,
-      value: 0.22
-    }]),
-    skills: [
-      new Impact(5),
-      new DutyCalls(5),
-    ]
-  }]
-
-// TODO: weapons need elemental DOTs
-// TODO: weapons need attributes like grenade reloads
-// TODO: calculate explosive splash damage
-// TODO: calculate things like explosive AR where there is no bullet damage :(
-let weapons: Weapon[] = [{
-  name: 'Lady Fist',
-  manufacturer: Manufacturer.Hyperion,
-  type: Type.Pistol,
-  damage: 311,
-  fireRate: 5.0,
-  reloadSpeed: 2.0,
-  magazineSize: 21,
-  stats: [{
-    type: StatType.CritHitDamage,
-    value: 4 // old school lady fist, trumped by red text
-  }],
-  redText: RedTextEnum.LadyFinger
+let relic = new WeaponTypeGear([{
+  type: StatType.GunDamage,
+  value: 0.181
 },{
+  type: StatType.FireRate,
+  value: 0.49
+}], Type.Pistol)
+
+let classMod = new Gear([{
+  type: StatType.ReloadSpeed,
+  value: 0.23
+},{
+  type: StatType.MagazineSize,
+  value: 0.22
+}])
+
+let skills = [
+  new Impact(5),
+  new DutyCalls(5),
+]
+
+let players: Player[] = [{
+  class: Class.Commando,
+  badAssRanking,
+  relic,
+  classMod,
+  skills
+}]
+
+let weapons: Weapon[] = [{
   name: 'Sledge\'s Shotgun',
   manufacturer: Manufacturer.Bandit,
   type: Type.Shotgun,
