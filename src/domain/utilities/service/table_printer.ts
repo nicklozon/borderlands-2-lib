@@ -79,10 +79,17 @@ export class TablePrinterService {
         fleshShot: Math.round(ds.getDamage(TargetType.Flesh)),
         armorShot: Math.round(ds.getDamage(TargetType.Armor)),
         shieldShot: Math.round(ds.getDamage(TargetType.Shield)),
-        fleshDps: `${ds.getTargetTypeDps(TargetType.Flesh)} (${ds.getElementalDps(TargetType.Flesh)})`,
-        armorDps: `${ds.getTargetTypeDps(TargetType.Armor)} (${ds.getElementalDps(TargetType.Armor)})`,
-        shieldDps: `${ds.getTargetTypeDps(TargetType.Shield)} (${ds.getElementalDps(TargetType.Shield)})`
+        fleshDps: this.formatDps(ds, TargetType.Flesh),
+        armorDps: this.formatDps(ds, TargetType.Armor),
+        shieldDps: this.formatDps(ds, TargetType.Shield)
       }
     })
+  }
+
+  private formatDps(damageService: DamageService, targetType?: TargetType) : string {
+    let dps = damageService.getTargetTypeDps(TargetType.Shield)
+    let elementalDps = damageService.getElementalDps(targetType)
+    if(elementalDps) return `${dps} (${elementalDps})`
+    return  `${dps}`
   }
 }
