@@ -86,8 +86,8 @@ export class TablePrinterService {
     })
   }
 
-  private formatDps(damageService: DamageService, targetType?: TargetType) : string {
-    let dps = damageService.getTargetTypeDps(TargetType.Shield)
+  private formatDps(damageService: DamageService, targetType: TargetType) : string {
+    let dps = damageService.getTargetTypeDps(targetType)
     let elementalDps = damageService.getElementalDps(targetType)
     if(elementalDps) return `${dps} (${elementalDps})`
     return  `${dps}`
