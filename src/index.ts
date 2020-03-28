@@ -10,6 +10,10 @@ import { DutyCalls, Ranger, Impact } from "./domain/player/object/skills/command
 import { Gear } from "./domain/player/object/gear/object/gear";
 import { WeaponTypeGear } from "./domain/player/object/gear/object/weapon_type_gear";
 
+// TODO: Wait...does the red text on items always represent some special
+// characteristic? "De Da." is 25% heal on melee when Order is also equipped,
+// "a Rose by any other name..." has stacking crit damage bonus, etc.
+
 // TODO: TVHM and UVHM stats - this will be fairly simple; create a global
 // coefficients service and add the mode to the player.
 
@@ -19,10 +23,29 @@ import { WeaponTypeGear } from "./domain/player/object/gear/object/weapon_type_g
 // where you can set things like "fight for your life", "turret deployed",
 // "percentage of health"
 
-// TODO: player needs relics/BAR
+let bar = [{
+  type: StatType.GunDamage,
+  value: 0.08
+},{
+  type: StatType.FireRate,
+  value: 0.076
+},{
+  type: StatType.ReloadSpeed,
+  value: 0.072
+},{
+  type: StatType.CritHitDamage,
+  value: 0.076
+},{
+  type: StatType.ElementalEffectChance,
+  value: 0.076
+},{
+  type: StatType.ElementalEffectDamage,
+  value: 0.072
+}]
+
 let players: Player[] = [{
     class: Class.Commando,
-    stats: [], // should become BAR I think
+    stats: bar,
     relic: new WeaponTypeGear([{
       type: StatType.GunDamage,
       value: 0.181
@@ -89,6 +112,14 @@ let weapons: Weapon[] = [{
   fireRate: 18.7,
   reloadSpeed: 3.8,
   magazineSize: 13,
+},{
+  name: 'Fast Rifle',
+  manufacturer: Manufacturer.Jakobs,
+  type: Type.AssaultRifle,
+  damage: 772,
+  fireRate: 15.7,
+  reloadSpeed: 3.3,
+  magazineSize: 12,
 },{
   name: 'Expansive Spinigun',
   manufacturer: Manufacturer.Vladof,

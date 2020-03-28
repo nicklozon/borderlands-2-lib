@@ -3,5 +3,7 @@ export enum StatType {
   CritHitDamage,
   ReloadSpeed,
   FireRate,
-  MagazineSize
+  MagazineSize,
+  ElementalEffectChance,
+  ElementalEffectDamage
 }

@@ -81,8 +81,10 @@ export class DamageService {
         break
     }
 
+    let playerElementalEffectChance = this.playerDamageService.getStat(StatType.ElementalEffectChance, this.weapon)
+    let playerElementalEffectDamage = this.playerDamageService.getStat(StatType.ElementalEffectDamage, this.weapon)
     let elementalEffectiveness = targetType ? this.getElementalEffectiveness(targetType, elementalEffect) : 1
-    let effectiveProcDps = elementalDps * elementalEffectiveness
+    let effectiveProcDps = elementalDps * (1 + playerElementalEffectDamage) * (elementalEffectiveness + playerElementalEffectChance)
     let clipEffectiveNumberOfShots = magazineSize / ammoPerShot
     let procsPerClip = clipEffectiveNumberOfShots * elementalChance * pellets
     let clipElementalDamage = procsPerClip * effectiveProcDps * duration
