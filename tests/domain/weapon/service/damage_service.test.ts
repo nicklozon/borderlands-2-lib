@@ -30,11 +30,9 @@ test.each([
     ammoPerShot: 2
   }, 232.39],
 ])('getDps for %j', (weapon: Weapon, result: number) => {
-  let player : Player = {
-    class: Class.Siren,
-    badAssRanking: [],
-    skills: []
-  }
+  let player : Player = new Player(
+    Class.Siren
+  )
 
   let service = new DamageService(weapon, player)
 
@@ -66,11 +64,9 @@ test.each([
     elementalEffect: ElementalEffect.Corrosive
   }, TargetType.Shield, 174.3],
 ])('getTargetTypeDps for %j', (weapon: Weapon, targetType: TargetType, result: number) => {
-  let player : Player = {
-    class: Class.Siren,
-    badAssRanking: [],
-    skills: []
-  }
+  let player : Player = new Player(
+    Class.Siren
+  )
 
   let service = new DamageService(weapon, player)
 
@@ -101,11 +97,9 @@ test.each([
     }]
   }, 560],
 ])('getCritDamage for %j', (weapon: Weapon, result: number) => {
-  let player : Player = {
-    class: Class.Siren,
-    badAssRanking: [],
-    skills: []
-  }
+  let player : Player = new Player(
+    Class.Siren
+  )
 
   let service = new DamageService(weapon, player)
 

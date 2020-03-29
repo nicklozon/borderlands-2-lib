@@ -3,7 +3,7 @@ import { Stat } from "../interface/stat";
 import { Weapon } from "../../weapon/interface/weapon";
 
 export abstract class Skill {
-  protected level: number 
+  public level: number 
   protected abstract stats: Stat[]
 
   constructor(level: number) {

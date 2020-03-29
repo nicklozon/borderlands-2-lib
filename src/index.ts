@@ -6,7 +6,7 @@ import { Manufacturer } from "./domain/weapon/value_object/manufacturer";
 import { Type } from "./domain/weapon/value_object/type";
 import { TablePrinterService } from "./domain/utilities/service/table_printer"
 import { StatType } from "./domain/player/value_object/stat_type";
-import { DutyCalls, Ranger, Impact, MetalStorm } from "./domain/player/object/skills/commando";
+import { DutyCalls, Impact } from "./domain/player/object/skills/commando";
 import { WeaponTypeGear } from "./domain/player/object/gear/object/weapon_type_gear";
 import { RedTextEnum, RedText } from "./domain/player/object/red_text";
 import ClassMod from "./domain/player/object/gear/object/class_mod";
@@ -65,13 +65,15 @@ let skillsA = [
   new DutyCalls(5),
 ]
 
-let players: Player[] = [{
-  class: Class.Commando,
-  badAssRanking,
-  relic,
-  classMod: classModA,
-  skills: skillsA
-}]
+let players: Player[] = [
+  new Player(
+    Class.Commando,
+    skillsA,
+    badAssRanking,
+    classModA,
+    relic
+  )
+]
 
 let weapons: Weapon[] = [{
   name: 'Redundant Lady Fist',
