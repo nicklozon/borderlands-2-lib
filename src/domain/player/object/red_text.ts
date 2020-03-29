@@ -3,7 +3,8 @@ import { Stat } from "../interface/stat"
 
 export enum RedTextEnum {
   DeDa = 'De Da.',
-  LadyFinger = 'Love is a Lady Finger. True love is a Lady Fist.'
+  LadyFist = 'Love is a Lady Finger. True love is a Lady Fist.',
+  Gar = 'Gar! Gorarr! My dad\'s a scientist! GWARRRR!!!!'
 }
 
 abstract class RedTextInterface {
@@ -19,16 +20,31 @@ class DeDa extends RedTextInterface {
   protected stats = []
 }
 
-class LadyFinger extends RedTextInterface {
+class LadyFist extends RedTextInterface {
   protected stats : Stat[] = [{
     type: StatType.CritHitDamage,
     value: 8
   }]
 }
 
+class Gar extends RedTextInterface {
+  /*
+  There is no crit stats on this thing despite what the wiki says...
+  protected stats : Stat[] = [{
+    type: StatType.CritHitDamage,
+    value: 0.5
+  },{
+    type: StatType.CritHitMultiplier,
+    value: 0.15
+  }]
+  */
+  protected stats = []
+}
+
 let RedTextClassEnum = {
   [RedTextEnum.DeDa]: DeDa,
-  [RedTextEnum.LadyFinger]: LadyFinger,
+  [RedTextEnum.LadyFist]: LadyFist,
+  [RedTextEnum.Gar]: Gar
 }
 
 export function RedText(enumVal: RedTextEnum) : RedTextInterface {

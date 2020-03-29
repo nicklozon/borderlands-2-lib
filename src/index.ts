@@ -6,10 +6,10 @@ import { Manufacturer } from "./domain/weapon/value_object/manufacturer";
 import { Type } from "./domain/weapon/value_object/type";
 import { TablePrinterService } from "./domain/utilities/service/table_printer"
 import { StatType } from "./domain/player/value_object/stat_type";
-import { DutyCalls, Ranger, Impact } from "./domain/player/object/skills/commando";
-import { Gear } from "./domain/player/object/gear/object/gear";
+import { DutyCalls, Ranger, Impact, MetalStorm } from "./domain/player/object/skills/commando";
 import { WeaponTypeGear } from "./domain/player/object/gear/object/weapon_type_gear";
-import { RedTextEnum } from "./domain/player/object/red_text";
+import { RedTextEnum, RedText } from "./domain/player/object/red_text";
+import ClassMod from "./domain/player/object/gear/object/class_mod";
 
 // TODO: TVHM and UVHM stats - this will be fairly simple; create a global
 // coefficients service and add the mode to the player.
@@ -52,15 +52,15 @@ let relic = new WeaponTypeGear([{
   value: 0.49
 }], Type.Pistol)
 
-let classMod = new Gear([{
+let classModA = new ClassMod([{
   type: StatType.ReloadSpeed,
-  value: 0.23
+  value: 0.24
 },{
   type: StatType.MagazineSize,
-  value: 0.22
+  value: 0.26
 }])
 
-let skills = [
+let skillsA = [
   new Impact(5),
   new DutyCalls(5),
 ]
@@ -69,27 +69,27 @@ let players: Player[] = [{
   class: Class.Commando,
   badAssRanking,
   relic,
-  classMod,
-  skills
+  classMod: classModA,
+  skills: skillsA
 }]
 
 let weapons: Weapon[] = [{
-  name: 'Sledge\'s Shotgun',
-  manufacturer: Manufacturer.Bandit,
-  type: Type.Shotgun,
-  damage: 131,
-  fireRate: 7.4,
-  reloadSpeed: 3.4,
-  magazineSize: 12,
-  pellets: 12,
-  ammoPerShot: 2
+  name: 'Redundant Lady Fist',
+  manufacturer: Manufacturer.Hyperion,
+  type: Type.Pistol,
+  damage: 389,
+  pellets: 2,
+  fireRate: 3.6,
+  reloadSpeed: 2.0,
+  magazineSize: 34,
+  redText: RedTextEnum.LadyFist
 },{
   // this is broke, stats aren't applying properly in game...
   // one level in Impact (4%) gun damage increases damage from 4281 to 4318
   // expected increase is 4452, even in Derch's excel calculator...
   // that's 78.4% of damage missing from stats...
   // hit with a single pellet is affected the same way
-  name: 'Impractical Fibber',
+  name: 'Practical Fibber',
   manufacturer: Manufacturer.Hyperion,
   type: Type.Pistol,
   damage: 612,
@@ -100,36 +100,26 @@ let weapons: Weapon[] = [{
   unlistedPellets: 6,
   ammoPerShot: 1
 },{
-  name: 'Filled Law',
+  name: 'Trick Shot Widow Maker',
   manufacturer: Manufacturer.Jakobs,
   type: Type.Pistol,
-  damage: 673,
+  damage: 976,
   fireRate: 16.7,
-  reloadSpeed: 2.3,
-  magazineSize: 10,
+  reloadSpeed: 2.1,
+  magazineSize: 9
 },{
-  name: 'Miss Moxxi\'s Good touch',
-  manufacturer: Manufacturer.Maliwan,
-  type: Type.SubmachineGun,
-  damage: 226,
-  fireRate: 8,
-  reloadSpeed: 3.2,
-  magazineSize: 27,
-  elementalEffect: ElementalEffect.Incendiary,
-  elementalChance: 0.156,
-  elementalDps: 293.6,
-  stats: [{
-    type: StatType.CritHitDamage,
-    value: 0.7
-  }]
-},{
-  name: 'Wild Hammer Buster',
-  manufacturer: Manufacturer.Jakobs,
-  type: Type.AssaultRifle,
-  damage: 640,
-  fireRate: 18.7,
-  reloadSpeed: 3.8,
-  magazineSize: 13,
+  name: 'Loaded Dahlminator',
+  manufacturer: Manufacturer.Dahl,
+  type: Type.Pistol,
+  damage: 761,
+  ammoPerShot: 2,
+  fireRate: 6.9,
+  reloadSpeed: 1.6,
+  magazineSize: 38,
+  elementalDps: 245.1,
+  elementalChance: 0.144,
+  elementalEffect: ElementalEffect.Corrosive,
+  isEtech: true
 },{
   name: 'Fast Rifle',
   manufacturer: Manufacturer.Jakobs,
@@ -139,55 +129,17 @@ let weapons: Weapon[] = [{
   reloadSpeed: 3.3,
   magazineSize: 12,
 },{
-  name: 'Expansive Spinigun',
-  manufacturer: Manufacturer.Vladof,
-  type: Type.AssaultRifle,
-  damage: 176,
-  fireRate: 10.5,
-  reloadSpeed: 3.7,
-  magazineSize: 58,
-  elementalEffect: ElementalEffect.Corrosive,
-  elementalChance: 0.06,
-  elementalDps: 133
-},{
-  name: 'Surgical Sloth',
-  manufacturer: Manufacturer.Dahl,
+  name: 'Tumtum Buffalo',
+  manufacturer: Manufacturer.Jakobs,
   type: Type.SniperRifle,
-  damage: 501,
-  fireRate: 6.1,
-  reloadSpeed: 4.2,
+  damage: 2559,
+  fireRate: 0.6,
+  reloadSpeed: 5,
   magazineSize: 7,
-  elementalEffect: ElementalEffect.Corrosive,
-  elementalChance: 0.3,
-  elementalDps: 81.6
-  // TODO: burst while zoomed
-},{
-  // e-tech, so suffer 100% crit penalty
-  name: 'Longitudinal Hybridfication',
-  manufacturer: Manufacturer.Hyperion,
-  type: Type.SniperRifle,
-  damage: 1009,
-  fireRate: 2,
-  reloadSpeed: 4,
-  magazineSize: 6,
-  ammoPerShot: 2,
-  elementalEffect: ElementalEffect.Shock,
-  elementalChance: 0.36,
-  elementalDps: 133,
-  isEtech: true
-},{
-  // Morningstar are a special hyperion quest item that increases subsequent
-  // cirtical hit damage by 20% after landing a critical hit, stacks up to 3
-  name: 'Cohesion Morningstar',
-  manufacturer: Manufacturer.Hyperion,
-  type: Type.SniperRifle,
-  damage: 917,
-  fireRate: 0.9,
-  reloadSpeed: 4.2,
-  magazineSize: 6,
-  elementalEffect: ElementalEffect.Incendiary,
-  elementalChance: 0.3,
-  elementalDps: 169.8
+  stats: [{
+    type: StatType.CritHitDamage,
+    value: 1.8
+  }]
 },{
   name: 'rock a boom',
   manufacturer: Manufacturer.Torgue,

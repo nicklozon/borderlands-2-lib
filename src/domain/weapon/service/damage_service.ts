@@ -117,7 +117,9 @@ export class DamageService {
   }
 
   protected getWeaponCritMultiplier() : number {
-    const { manufacturer, type } = this.weapon
+    const { manufacturer, type, redText } = this.weapon
+
+    let redTextStat = this.getRedTextStat(StatType.CritHitMultiplier, redText)
 
     let multipliers = {
       [Manufacturer.Jakobs]: {
@@ -128,7 +130,7 @@ export class DamageService {
     }
 
     let result = multipliers[manufacturer]?.[type]
-    return result ?? 2
+    return (result ?? 2) + redTextStat
   }
 
   protected getWeaponCritBaseBonus() : number {
@@ -252,7 +254,7 @@ export class DamageService {
     let redTextStat = this.getRedTextStat(statType, redText)
 
     // hacky - if RedText has this stat, it trumps everything
-    if(redTextStat || !stats) return 0
+    if(redTextStat || !stats) return redTextStat
 
     let result: Stat[] = stats.filter((stat: Stat) => stat.type === statType)
     return result.reduce((memo: number, stat: Stat) => memo + stat.value, 0)
