@@ -17,8 +17,7 @@ test.each([
     fireRate: 4,
     reloadSpeed: 5,
     magazineSize: 20,
-    pellets: 2,
-    ammoPerShot: 1
+    pellets: 2
   }, 40],
   [{
     name: 'Jakobs AR',
@@ -28,13 +27,12 @@ test.each([
     fireRate: 15,
     reloadSpeed: 4,
     magazineSize: 22,
-    pellets: 1,
     ammoPerShot: 2
   }, 232.39],
 ])('getDps for %j', (weapon: Weapon, result: number) => {
   let player : Player = {
     class: Class.Siren,
-    stats: [],
+    badAssRanking: [],
     skills: []
   }
 
@@ -53,7 +51,6 @@ test.each([
     reloadSpeed: 5,
     magazineSize: 20,
     pellets: 2,
-    ammoPerShot: 1,
     elementalEffect: ElementalEffect.Incendiary,
     dealsBonusElementalDamage: true
   }, TargetType.Flesh, 108],
@@ -65,14 +62,13 @@ test.each([
     fireRate: 15,
     reloadSpeed: 4,
     magazineSize: 22,
-    pellets: 1,
     ammoPerShot: 2,
     elementalEffect: ElementalEffect.Corrosive
   }, TargetType.Shield, 174.3],
 ])('getTargetTypeDps for %j', (weapon: Weapon, targetType: TargetType, result: number) => {
   let player : Player = {
     class: Class.Siren,
-    stats: [],
+    badAssRanking: [],
     skills: []
   }
 
@@ -89,9 +85,7 @@ test.each([
     damage: 100,
     fireRate: 1.2,
     reloadSpeed: 3.8,
-    magazineSize: 8,
-    pellets: 1,
-    ammoPerShot: 1
+    magazineSize: 8
   }, 400],
   [{
     name: 'Jakobs Sniper',
@@ -101,8 +95,6 @@ test.each([
     fireRate: 1.2,
     reloadSpeed: 3.8,
     magazineSize: 8,
-    pellets: 1,
-    ammoPerShot: 1,
     stats: [{
       type: StatType.CritHitDamage,
       value: 1.8
@@ -111,7 +103,7 @@ test.each([
 ])('getCritDamage for %j', (weapon: Weapon, result: number) => {
   let player : Player = {
     class: Class.Siren,
-    stats: [],
+    badAssRanking: [],
     skills: []
   }
 
