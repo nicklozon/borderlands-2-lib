@@ -12,7 +12,7 @@ export class PlayerDamageService {
   }
 
   public getStat(statType: StatType, weapon: Weapon) : number {
-    const { badAssRanking, classMod, relic, skills } = this.player
+    const { badAssRanking, classMod, relic, shield, skills } = this.player
 
     let filteredStats: Stat[] = badAssRanking.filter((stat: Stat) => stat.type === statType)
     let statValue = filteredStats.reduce((memo: number, stat: Stat) => memo + stat.value, 0)
@@ -22,8 +22,9 @@ export class PlayerDamageService {
 
     let classModValue = classMod ? classMod.getStat(statType, weapon) : 0
     let relicValue = relic ? relic.getStat(statType, weapon) : 0
+    let shieldValue = shield ? shield.getStat(statType, weapon) : 0
 
-    return statValue + skillValue + classModValue + relicValue
+    return statValue + skillValue + classModValue + relicValue + shieldValue
   }
 
   protected getClassModSkills() : Skill[] {

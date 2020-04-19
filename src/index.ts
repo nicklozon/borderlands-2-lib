@@ -10,6 +10,7 @@ import { DutyCalls, Impact, MetalStorm, Ranger, LastDitchEffort, Steady } from "
 import { WeaponTypeGear } from "./domain/player/object/gear/object/weapon_type_gear";
 import { RedTextEnum } from "./domain/player/object/red_text";
 import ClassMod from "./domain/player/object/gear/object/class_mod";
+import { Gear } from "./domain/player/object/gear/object/gear";
 
 // TODO: TVHM and UVHM stats - this will be fairly simple; create a global
 // coefficients service and add the mode to the player.
@@ -55,6 +56,11 @@ let relic = new WeaponTypeGear([{
   value: 0.49
 }], Type.Pistol)
 
+let shield = new Gear([{
+  type: StatType.AmpDamage,
+  value: 7381
+}])
+
 let classModA = new ClassMod([{
   type: StatType.ReloadSpeed,
   value: 0.26
@@ -79,7 +85,8 @@ let players: Player[] = [
     skillsA,
     badAssRanking,
     classModA,
-    relic
+    relic,
+    shield
   ),
 ]
 

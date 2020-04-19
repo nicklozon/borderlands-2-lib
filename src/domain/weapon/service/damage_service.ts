@@ -41,20 +41,21 @@ export class DamageService {
   public getDamage(targetType?: TargetType) : number {
     return this.getBaseDamage(targetType) + this.getSplashDamage(targetType)
   }
-
+  
   protected getBaseDamage(targetType?: TargetType) : number {
     const { damage, pellets = 1, unlistedPellets = 0, elementalEffect } = this.weapon
     let playerGunDamage = this.playerDamageService.getStat(StatType.GunDamage, this.weapon)
     // Is this a thing?
     let weaponGunDamage = this.getStat(StatType.GunDamage)
     let elementalEffectiveness = targetType ? this.getElementalEffectiveness(targetType, elementalEffect) : 1
+    let ampDamage = this.playerDamageService.getStat(StatType.AmpDamage, this.weapon)
 
     let unlistedDamage = 0
     if(unlistedPellets > 0) {
       unlistedDamage = unlistedPellets * damage * 1.06
     }
 
-    return damage * pellets * (1 + playerGunDamage + weaponGunDamage) * elementalEffectiveness + unlistedDamage
+    return damage * pellets * (1 + playerGunDamage + weaponGunDamage) * elementalEffectiveness + unlistedDamage + ampDamage
   }
 
   public getCritDamage(targetType?: TargetType) : number {

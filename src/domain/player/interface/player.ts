@@ -10,19 +10,22 @@ export class Player {
   public badAssRanking : Stat[]
   public classMod? : ClassMod
   public relic? : Gear
+  public shield? : Gear // should just merge all gear
 
   constructor(
     clazz: Class,
     skills?: Skill[],
     badAssRanking?: Stat[],
     classMod?: ClassMod,
-    relic?: Gear
+    relic?: Gear,
+    shield?: Gear,
   ) {
     this.clazz = clazz
     this.skills = this.computeSkills(skills, classMod)
     this.badAssRanking = badAssRanking ?? []
     this.classMod = classMod
     this.relic = relic
+    this.shield = shield
   }
 
   private computeSkills(skills?: Skill[], classMod?: ClassMod) : Skill[] {
