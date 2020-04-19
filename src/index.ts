@@ -179,6 +179,7 @@ let weapons: Weapon[] = [{
   magazineSize: 3,
   elementalEffect: ElementalEffect.Slag,
   elementalChance: 0.3,
+  dealsBonusElementalDamage: true
 }]
 
 players.forEach((player) => {
