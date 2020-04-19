@@ -8,5 +8,6 @@ export enum StatType {
   ElementalEffectChance,
   ElementalEffectDamage,
   GrenadeDamage,
-  AmpDamage
+  AmpDamage,
+  SplashDamage,
 }

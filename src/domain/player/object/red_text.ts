@@ -4,7 +4,8 @@ import { Stat } from "../interface/stat"
 export enum RedTextEnum {
   DeDa = 'De Da.',
   LadyFist = 'Love is a Lady Finger. True love is a Lady Fist.',
-  Gar = 'Gar! Gorarr! My dad\'s a scientist! GWARRRR!!!!'
+  Gar = 'Gar! Gorarr! My dad\'s a scientist! GWARRRR!!!!',
+  ByThePeople = 'By the people. For the people.',
 }
 
 abstract class RedTextInterface {
@@ -41,10 +42,18 @@ class Gar extends RedTextInterface {
   protected stats = []
 }
 
+class ByThePeople extends RedTextInterface {
+  protected stats : Stat[] = [{
+    type: StatType.SplashDamage,
+    value: 0.7
+  }]
+}
+
 let RedTextClassEnum = {
   [RedTextEnum.DeDa]: DeDa,
   [RedTextEnum.LadyFist]: LadyFist,
-  [RedTextEnum.Gar]: Gar
+  [RedTextEnum.Gar]: Gar,
+  [RedTextEnum.ByThePeople]: ByThePeople,
 }
 
 export function RedText(enumVal: RedTextEnum) : RedTextInterface {

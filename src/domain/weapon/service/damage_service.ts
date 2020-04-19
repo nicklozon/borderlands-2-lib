@@ -246,10 +246,15 @@ export class DamageService {
 
   protected getSplashDamageMultiplier(): number {
     // this method needs so much work
-    const { type, manufacturer, dealsBonusElementalDamage } = this.weapon
+    const { type, manufacturer, dealsBonusElementalDamage, redText } = this.weapon
 
     let grenadeDamageStat = this.playerDamageService.getStat(StatType.GrenadeDamage, this.weapon)
 
+    if(redText === RedTextEnum.ByThePeople) {
+      return 0.7 * (1 + grenadeDamageStat)
+    }
+
+    // We need a doesSplashDamage method
     if(!dealsBonusElementalDamage) {
       return 0
     }

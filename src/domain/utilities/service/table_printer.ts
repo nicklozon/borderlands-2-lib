@@ -38,6 +38,9 @@ export class TablePrinterService {
       name: 'Crit DPS',
       field: 'critDps'
     },{
+      name: 'Crit DPS Flesh',
+      field: 'critDpsFlesh'
+    },{
       name: 'Flesh Shot',
       field: 'fleshShot'
     },{
@@ -77,14 +80,14 @@ export class TablePrinterService {
         //critShotArmor: Math.round(ds.getCritDamage(TargetType.Armor)),
         critDpsFlesh: Math.round(ds.getTargetTypeCritDps(TargetType.Flesh)),
         //critDpsArmor: Math.round(ds.getTargetTypeCritDps(TargetType.Armor)),
-        //dps: ds.getDps(),
-        //critDps: ds.getCritDps(),
-        //fleshShot: Math.round(ds.getDamage(TargetType.Flesh)),
+        dps: Math.round(ds.getDps()),
+        critDps: Math.round(ds.getCritDps()),
+        fleshShot: Math.round(ds.getDamage(TargetType.Flesh)),
         //armorShot: Math.round(ds.getDamage(TargetType.Armor)),
         //shieldShot: Math.round(ds.getDamage(TargetType.Shield)),
         fleshDps: this.formatDps(ds, TargetType.Flesh),
         armorDps: this.formatDps(ds, TargetType.Armor),
-        //shieldDps: this.formatDps(ds, TargetType.Shield)
+        shieldDps: this.formatDps(ds, TargetType.Shield)
       }
     })
   }

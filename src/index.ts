@@ -86,12 +86,12 @@ let players: Player[] = [
     badAssRanking,
     classModA,
     relic,
-    shield
+    //shield
   ),
 ]
 
 let weapons: Weapon[] = [{
-  name: 'Huntin\' Twister',
+/*  name: 'Huntin\' Twister',
   manufacturer: Manufacturer.Jakobs,
   type: Type.Shotgun,
   damage: 1592,
@@ -100,6 +100,7 @@ let weapons: Weapon[] = [{
   reloadSpeed: 3.1,
   magazineSize: 6,
 },{
+  */
   name: 'Redundant Lady Fist',
   manufacturer: Manufacturer.Hyperion,
   type: Type.Pistol,
@@ -159,6 +160,10 @@ let weapons: Weapon[] = [{
   reloadSpeed: 2.7,
   magazineSize: 56,
   isEtech: true,
+  elementalChance: 0.13,
+  elementalEffect: ElementalEffect.Shock,
+  elementalDps: 510.2,
+  redText: RedTextEnum.ByThePeople
 },{
   name: 'Rigorous Spitter',
   manufacturer: Manufacturer.Torgue,
@@ -177,7 +182,7 @@ let weapons: Weapon[] = [{
   fireRate: 0.6,
   reloadSpeed: 5,
   magazineSize: 7,
-},{
+/*},{
   name: 'Rocket Speed launcher',
   manufacturer: Manufacturer.Tediore,
   type: Type.RocketLauncher,
@@ -187,10 +192,11 @@ let weapons: Weapon[] = [{
   magazineSize: 3,
   elementalEffect: ElementalEffect.Slag,
   elementalChance: 0.3,
+  */
 }]
 
 players.forEach((player) => {
   let tps = new TablePrinterService(player, weapons)
   tps.printWeaponSummary()
-  //tps.printCategoryMaximums()
+  tps.printCategoryMaximums()
 })
