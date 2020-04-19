@@ -9,6 +9,8 @@ import { ElementalEffect } from "../value_object/elemental_effect"
 import { Stat } from "../../player/interface/stat"
 import { RedText, RedTextEnum } from "../../player/object/red_text"
 
+// TODO: pure splash damage
+
 export class DamageService {
   private weapon: Weapon
   private playerDamageService: PlayerDamageService
@@ -28,6 +30,11 @@ export class DamageService {
 
   public getTargetTypeDps(targetType: TargetType) {
     let dps = this.calculateDps(this.getDamage(targetType)) + this.getElementalDps(targetType)
+    return Math.round(dps * 100)/100
+  }
+
+  public getTargetTypeCritDps(targetType: TargetType) {
+    let dps = this.calculateDps(this.getCritDamage(targetType)) + this.getElementalDps(targetType)
     return Math.round(dps * 100)/100
   }
 
@@ -228,14 +235,19 @@ export class DamageService {
 
   public getSplashDamage(targetType?: TargetType): number {
     // Explosive seems to be exclusively splash damage and additional splash damage is not calculated?
+    // Update: Mostly not true - mostly for Maliwan/Torgue and launchers
+    // https://forums.gearboxsoftware.com/t/complete-splash-damage-guide/1553510
     const { elementalEffect } = this.weapon
-    if(elementalEffect === ElementalEffect.Explosive) return 0
+    //if(elementalEffect === ElementalEffect.Explosive) return 0
 
     return this.getBaseDamage(targetType) * this.getSplashDamageMultiplier()
   }
 
   protected getSplashDamageMultiplier(): number {
-    const { type, dealsBonusElementalDamage } = this.weapon
+    // this method needs so much work
+    const { type, manufacturer, dealsBonusElementalDamage } = this.weapon
+
+    let grenadeDamageStat = this.playerDamageService.getStat(StatType.GrenadeDamage, this.weapon)
 
     if(!dealsBonusElementalDamage) {
       return 0
@@ -243,6 +255,12 @@ export class DamageService {
 
     if(type === Type.Pistol) {
       return 0.8
+    }
+
+    if(type === Type.AssaultRifle) {
+      if(manufacturer === Manufacturer.Torgue) {
+        return 0.9 * (1 + grenadeDamageStat)
+      }
     }
 
     return 0.5

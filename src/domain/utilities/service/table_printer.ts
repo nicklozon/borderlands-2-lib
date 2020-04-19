@@ -74,14 +74,17 @@ export class TablePrinterService {
         singleShot: Math.round(ds.getDamage()),
         critShot: Math.round(ds.getCritDamage()),
         critShotFlesh: Math.round(ds.getCritDamage(TargetType.Flesh)),
+        //critShotArmor: Math.round(ds.getCritDamage(TargetType.Armor)),
+        critDpsFlesh: Math.round(ds.getTargetTypeCritDps(TargetType.Flesh)),
+        //critDpsArmor: Math.round(ds.getTargetTypeCritDps(TargetType.Armor)),
         //dps: ds.getDps(),
         //critDps: ds.getCritDps(),
-        fleshShot: Math.round(ds.getDamage(TargetType.Flesh)),
-        armorShot: Math.round(ds.getDamage(TargetType.Armor)),
-        shieldShot: Math.round(ds.getDamage(TargetType.Shield)),
+        //fleshShot: Math.round(ds.getDamage(TargetType.Flesh)),
+        //armorShot: Math.round(ds.getDamage(TargetType.Armor)),
+        //shieldShot: Math.round(ds.getDamage(TargetType.Shield)),
         fleshDps: this.formatDps(ds, TargetType.Flesh),
         armorDps: this.formatDps(ds, TargetType.Armor),
-        shieldDps: this.formatDps(ds, TargetType.Shield)
+        //shieldDps: this.formatDps(ds, TargetType.Shield)
       }
     })
   }

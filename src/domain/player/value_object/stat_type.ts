@@ -6,5 +6,6 @@ export enum StatType {
   FireRate,
   MagazineSize,
   ElementalEffectChance,
-  ElementalEffectDamage
+  ElementalEffectDamage,
+  GrenadeDamage
 }

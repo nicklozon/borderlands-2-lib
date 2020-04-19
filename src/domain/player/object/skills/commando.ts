@@ -58,10 +58,13 @@ export class Steady extends Skill {
   protected stats: Stat[] = [{
       type: StatType.GunDamage,
       value: 0.12
+    },{
+      type: StatType.GrenadeDamage,
+      value: 0.05
     }]
 
   public getStat(statType: StatType, weapon: Weapon): number {
-    if(weapon.type !== Type.RocketLauncher) return 0
+    if(weapon.type !== Type.RocketLauncher && statType !== StatType.GrenadeDamage) return 0
 
     return super.getStat(statType, weapon)
   }

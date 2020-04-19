@@ -12,12 +12,11 @@ export class PlayerDamageService {
   }
 
   public getStat(statType: StatType, weapon: Weapon) : number {
-    const { badAssRanking, classMod, relic } = this.player
+    const { badAssRanking, classMod, relic, skills } = this.player
 
     let filteredStats: Stat[] = badAssRanking.filter((stat: Stat) => stat.type === statType)
     let statValue = filteredStats.reduce((memo: number, stat: Stat) => memo + stat.value, 0)
 
-    let skills = this.getSkills()
     let filteredSkills: number[] = skills.map((skill: Skill) => skill.getStat(statType, weapon))
     let skillValue = filteredSkills.reduce((memo: number, value: number) => memo + value, 0)
 
@@ -33,13 +32,5 @@ export class PlayerDamageService {
     if(!classMod) return []
 
     return classMod.getSkills()
-  }
-
-  protected getSkills() : Skill[] {
-    const { skills } = this.player
-
-    // TODO: merge class mod skills with player skills
-    let classModSkills = this.getClassModSkills()
-    return skills
   }
 }
