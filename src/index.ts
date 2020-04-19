@@ -161,6 +161,7 @@ let weapons: Weapon[] = [{
   reloadSpeed: 3.7,
   magazineSize: 29,
   elementalEffect: ElementalEffect.Explosive,
+  dealsBonusElementalDamage: true
 },{
   name: 'Siah-siah Muckamuck',
   manufacturer: Manufacturer.Jakobs,
@@ -179,7 +180,6 @@ let weapons: Weapon[] = [{
   magazineSize: 3,
   elementalEffect: ElementalEffect.Slag,
   elementalChance: 0.3,
-  dealsBonusElementalDamage: true
 }]
 
 players.forEach((player) => {
