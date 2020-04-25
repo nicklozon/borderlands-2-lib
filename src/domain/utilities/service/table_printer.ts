@@ -4,14 +4,17 @@ import { Player } from '../../player/interface/player';
 import { Weapon } from "../../weapon/interface/weapon";
 import { DamageService } from '../../weapon/service/damage_service';
 import { WeaponSummary } from '../interface/weapon_summary';
+import { GameModeEnum } from '../../enemy/value_object/elemental_damage_coefficients';
 
 export class TablePrinterService {
   private player: Player
   private weapons: Weapon[]
+  private mode: GameModeEnum
 
-  constructor(player: Player, weapons: Weapon[]) {
+  constructor(player: Player, weapons: Weapon[], mode: GameModeEnum = GameModeEnum.NormalMode) {
     this.player = player
     this.weapons = weapons
+    this.mode = mode
   }
 
   public printWeaponSummary() {
@@ -70,7 +73,7 @@ export class TablePrinterService {
 
   private getWeaponSummaries() : WeaponSummary[] {
     return this.weapons.map((weapon: Weapon): WeaponSummary => {
-      let ds = new DamageService(weapon, this.player)
+      let ds = new DamageService(weapon, this.player, this.mode)
       return {
         name: weapon.name,
         type: weapon.type,

@@ -8,16 +8,19 @@ import { TargetType } from "../../enemy/value_object/target_type"
 import { ElementalEffect } from "../value_object/elemental_effect"
 import { Stat } from "../../player/interface/stat"
 import { RedText, RedTextEnum } from "../../player/object/red_text"
+import { ElementalDamageCoefficients, GameModeEnum } from "../../enemy/value_object/elemental_damage_coefficients"
 
 // TODO: pure splash damage
 
 export class DamageService {
   private weapon: Weapon
   private playerDamageService: PlayerDamageService
+  private mode: GameModeEnum
 
-  constructor(weapon: Weapon, player: Player) {
+  constructor(weapon: Weapon, player: Player, mode: GameModeEnum = GameModeEnum.NormalMode) {
     this.weapon = weapon
     this.playerDamageService = new PlayerDamageService(player)
+    this.mode = mode
   }
 
   public getDps() : number {
@@ -211,24 +214,7 @@ export class DamageService {
       return 1
     }
 
-    const coefficients = {
-      [ElementalEffect.Explosive]: {
-        [TargetType.Shield]: 0.8
-      },
-      [ElementalEffect.Incendiary]: {
-        [TargetType.Flesh]: 1.5,
-        [TargetType.Armor]: 0.75,
-        [TargetType.Shield]: 0.75
-      },
-      [ElementalEffect.Shock]: {
-        [TargetType.Shield]: 2
-      },
-      [ElementalEffect.Corrosive]: {
-        [TargetType.Flesh]: 0.9,
-        [TargetType.Armor]: 1.5,
-        [TargetType.Shield]: 0.75
-      }
-    }
+    const coefficients = ElementalDamageCoefficients(this.mode)
 
     let result = coefficients[elementalEffect]?.[targetType]
     return result ?? 1
