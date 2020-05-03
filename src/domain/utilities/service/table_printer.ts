@@ -32,35 +32,50 @@ export class TablePrinterService {
       name: 'Single Shot',
       field: 'singleShot'
     },{
-      name: 'Crit Shot',
-      field: 'critShot'
-    },{
       name: 'DPS',
       field: 'dps'
+    },{
+      name: 'Crit Shot',
+      field: 'critShot'
     },{
       name: 'Crit DPS',
       field: 'critDps'
     },{
-      name: 'Crit DPS Flesh',
-      field: 'critDpsFlesh'
-    },{
       name: 'Flesh Shot',
       field: 'fleshShot'
-    },{
-      name: 'Armor Shot',
-      field: 'armorShot'
-    },{
-      name: 'Shield Shot',
-      field: 'shieldShot'
     },{
       name: 'Flesh DPS',
       field: 'fleshDps'
     },{
+      name: 'Flesh Crit Shot',
+      field: 'fleshCritShot'
+    },{
+      name: 'Flesh Crit DPS',
+      field: 'fleshCritDps'
+    },{
+      name: 'Armor Shot',
+      field: 'armorShot'
+    },{
       name: 'Armor DPS',
       field: 'armorDps'
     },{
+      name: 'Armor Crit Shot',
+      field: 'armorCritShot'
+    },{
+      name: 'Armor Crit DPS',
+      field: 'armorCritDps'
+    },{
+      name: 'Shield Shot',
+      field: 'shieldShot'
+    },{
       name: 'Shield DPS',
       field: 'shieldDps'
+    },{
+      name: 'Shield Crit Shot',
+      field: 'shieldCritShot'
+    },{
+      name: 'Shield Crit DPS',
+      field: 'shieldCritDps'
     }]
 
     stats.forEach((stat) => {
@@ -77,20 +92,22 @@ export class TablePrinterService {
       return {
         name: weapon.name,
         type: weapon.type,
-        singleShot: Math.round(ds.getDamage()),
-        critShot: Math.round(ds.getCritDamage()),
-        critShotFlesh: Math.round(ds.getCritDamage(TargetType.Flesh)),
-        //critShotArmor: Math.round(ds.getCritDamage(TargetType.Armor)),
-        critDpsFlesh: Math.round(ds.getTargetTypeCritDps(TargetType.Flesh)),
-        //critDpsArmor: Math.round(ds.getTargetTypeCritDps(TargetType.Armor)),
-        dps: Math.round(ds.getDps()),
-        critDps: Math.round(ds.getCritDps()),
+        //singleShot: Math.round(ds.getDamage()),
+        //dps: Math.round(ds.getDps()),
+        //critShot: Math.round(ds.getCritDamage()),
+        //critDps: Math.round(ds.getCritDps()),
         fleshShot: Math.round(ds.getDamage(TargetType.Flesh)),
-        //armorShot: Math.round(ds.getDamage(TargetType.Armor)),
-        //shieldShot: Math.round(ds.getDamage(TargetType.Shield)),
-        fleshDps: this.formatDps(ds, TargetType.Flesh),
-        armorDps: this.formatDps(ds, TargetType.Armor),
-        shieldDps: this.formatDps(ds, TargetType.Shield)
+        fleshDps: Math.round(ds.getTargetTypeDps(TargetType.Flesh)),
+        fleshCritShot: Math.round(ds.getCritDamage(TargetType.Flesh)),
+        fleshCritDps: Math.round(ds.getTargetTypeCritDps(TargetType.Flesh)),
+        armorShot: Math.round(ds.getDamage(TargetType.Armor)),
+        armorDps: Math.round(ds.getTargetTypeDps(TargetType.Armor)),
+        armorCritShot: Math.round(ds.getCritDamage(TargetType.Armor)),
+        armorCritDps: Math.round(ds.getTargetTypeCritDps(TargetType.Armor)),
+        shieldShot: Math.round(ds.getDamage(TargetType.Shield)),
+        shieldDps: Math.round(ds.getTargetTypeDps(TargetType.Shield)),
+        shieldCritShot: Math.round(ds.getCritDamage(TargetType.Shield)),
+        shieldCritDps: Math.round(ds.getTargetTypeCritDps(TargetType.Shield)),
       }
     })
   }
