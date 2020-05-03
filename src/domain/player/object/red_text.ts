@@ -6,6 +6,7 @@ export enum RedTextEnum {
   LadyFist = 'Love is a Lady Finger. True love is a Lady Fist.',
   Gar = 'Gar! Gorarr! My dad\'s a scientist! GWARRRR!!!!',
   ByThePeople = 'By the people. For the people.',
+  GoodForStartingFires = 'Good for starting fires.',
 }
 
 abstract class RedTextInterface {
@@ -49,11 +50,16 @@ class ByThePeople extends RedTextInterface {
   }]
 }
 
+class GoodForStartingFires extends RedTextInterface {
+  protected stats : Stat[] = []
+}
+
 let RedTextClassEnum = {
   [RedTextEnum.DeDa]: DeDa,
   [RedTextEnum.LadyFist]: LadyFist,
   [RedTextEnum.Gar]: Gar,
   [RedTextEnum.ByThePeople]: ByThePeople,
+  [RedTextEnum.GoodForStartingFires]: GoodForStartingFires,
 }
 
 export function RedText(enumVal: RedTextEnum) : RedTextInterface {
