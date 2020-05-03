@@ -55,7 +55,8 @@ export class DamageService {
 
     let unlistedDamage = 0
     if(unlistedPellets > 0) {
-      unlistedDamage = unlistedPellets * damage * 1.06
+      // Trying to reverse engineer a Fibber, didn't work
+      unlistedDamage = unlistedPellets * damage
     }
 
     return damage * pellets * (1 + playerGunDamage + weaponGunDamage) * elementalEffectiveness + unlistedDamage + ampDamage
@@ -232,7 +233,7 @@ export class DamageService {
 
   protected getSplashDamageMultiplier(): number {
     // this method needs so much work
-    const { type, manufacturer, dealsBonusElementalDamage, redText } = this.weapon
+    const { type, elementalEffect, manufacturer, dealsBonusElementalDamage, redText } = this.weapon
 
     let grenadeDamageStat = this.playerDamageService.getStat(StatType.GrenadeDamage, this.weapon)
 
@@ -240,12 +241,21 @@ export class DamageService {
       return 0.7 * (1 + grenadeDamageStat)
     }
 
+    if(redText === RedTextEnum.GoodForStartingFires) {
+      return 1 * (1 + grenadeDamageStat)
+    }
+
     // We need a doesSplashDamage method
-    if(!dealsBonusElementalDamage) {
+    if(!dealsBonusElementalDamage && elementalEffect !== ElementalEffect.Explosive) {
       return 0
     }
 
     if(type === Type.Pistol) {
+      if(manufacturer === Manufacturer.Torgue) {
+        return 1 * (1 + grenadeDamageStat)
+      } else if(manufacturer === Manufacturer.Maliwan) {
+        return 0.8 * (1 + grenadeDamageStat)
+      }
       return 0.8
     }
 
