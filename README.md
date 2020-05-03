@@ -7,7 +7,7 @@ This is a node.js library - the overall intention is to provide programmers with
 
 Ultimately I would like to build a nice browser UI that makes use of this library, but that is a long way off as there will be MANY, MANY things to update and fix in this library as I build on it slowly.
 
-You can use this library to calcualte damage/DPS for your playthrough, but you'll need to do a little bit of coding. Skip down to the Usage section to see how I am using the library for my personal playthrough.
+You can use this library to calculate damage/DPS for your playthrough, but you'll need to do a little bit of coding. Skip down to the Usage section to see how I am using the library for my personal playthrough.
 
 # Why I built this library
 I was disappointed with the available offerings for comparing loot - the calculators I was using would not allow me to compare multiple weapons at once, they did not include known logic about mechanics and items in the game that impacted damage, they did not include elemental weapon damage over time, they did not allow me to customize my player configuration (skill build, BAR, relics, etc.) once and re-use those across all weapons or allow for multiple player customizations (compare skill builds and non-weapon gear), they were not aware of the different target types (flesh, armor, shield) and how each element affects them, etc.
