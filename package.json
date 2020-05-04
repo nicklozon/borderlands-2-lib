@@ -6,6 +6,10 @@
   "prepublish": "tsc",
   "author": "Nick Lozon <nicklozon@gmail.com>",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nicklozon/borderlands-2-lib.git"
+  },
   "dependencies": {
     "console-table-printer": "^1.1.64"
   },
