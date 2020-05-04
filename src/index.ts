@@ -1,1 +1,1 @@
-export * from './domain'
+export {Weapon, ElementalEffect, Manufacturer, Type} from './domain'

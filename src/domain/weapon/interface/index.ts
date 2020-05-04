@@ -1,1 +1,1 @@
-export * from './weapon'
+export {Weapon} from './weapon'
