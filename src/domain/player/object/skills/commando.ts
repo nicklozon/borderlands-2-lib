@@ -3,6 +3,8 @@ import { StatType } from "../../value_object/stat_type";
 import { Stat } from "../../interface/stat";
 import { Weapon } from "../../../weapon/interface/weapon";
 import { Type } from "../../../weapon/value_object/type";
+import { Context } from "../../../context";
+import { EffectType } from "../../../effect";
 
 // Geurilla
 export class Ready extends Skill {
@@ -40,10 +42,10 @@ export class Overload extends Skill {
       value: 0.1
     }]
 
-  public getStat(statType: StatType, weapon: Weapon): number {
+  public getStat(statType: StatType, weapon: Weapon, context: Context): number {
     if(weapon.type !== Type.AssaultRifle) return 0
 
-    return super.getStat(statType, weapon)
+    return super.getStat(statType, weapon, context)
   }
 }
 
@@ -52,6 +54,10 @@ export class MetalStorm extends Skill {
       type: StatType.FireRate,
       value: 0.12
     }]
+
+  public getEffectType(): EffectType {
+    return EffectType.MetalStorm
+  }
 }
 
 export class Steady extends Skill {
@@ -63,10 +69,10 @@ export class Steady extends Skill {
       value: 0.05
     }]
 
-  public getStat(statType: StatType, weapon: Weapon): number {
+  public getStat(statType: StatType, weapon: Weapon, context: Context): number {
     if(weapon.type !== Type.RocketLauncher && statType !== StatType.GrenadeDamage) return 0
 
-    return super.getStat(statType, weapon)
+    return super.getStat(statType, weapon, context)
   }
 }
 
@@ -86,10 +92,10 @@ export class DutyCalls extends Skill {
       value: 0.03
     }]
 
-  public getStat(statType: StatType, weapon: Weapon): number {
+  public getStat(statType: StatType, weapon: Weapon, context: Context): number {
     if(weapon.elementalEffect !== undefined) return 0
 
-    return super.getStat(statType, weapon)
+    return super.getStat(statType, weapon, context)
   }
 }
 
@@ -99,10 +105,10 @@ export class DoOrDie extends Skill {
       value: 0.1
     }]
 
-  public getStat(statType: StatType, weapon: Weapon): number {
+  public getStat(statType: StatType, weapon: Weapon, context: Context): number {
     if(weapon.type !== Type.RocketLauncher) return 0
 
-    return super.getStat(statType, weapon)
+    return super.getStat(statType, weapon, context)
   }
 }
 
@@ -131,6 +137,12 @@ export class LastDitchEffort extends Skill {
       type: StatType.GunDamage,
       value: 0.08
     }]
+
+  public getStat(statType: StatType, weapon: Weapon, context: Context): number {
+    if(!context.crippled) return 0
+
+    return super.getStat(statType, weapon, context)
+  }
 }
   
 export class Pressure extends Skill {
@@ -139,7 +151,9 @@ export class Pressure extends Skill {
       value: 0.14
     }]
 
-  // The value is the % of lost health - 0 at full health, 100% at zero or in
-  // fight for your life. This skill will have a custom getStat() method when
-  // Scenarios become a thing.
+  protected getEffectiveness(context: Context): number {
+    let healthLost = context.health ? 1 - context.health : 0
+    let effectiveness = context.crippled ? 1 : healthLost
+    return effectiveness
+  }
 }

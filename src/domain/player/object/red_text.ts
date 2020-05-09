@@ -12,7 +12,7 @@ export enum RedTextEnum {
 abstract class RedTextInterface {
   protected abstract stats : Stat[]
 
-  public getStat(statType: StatType) : number {
+  public getStat(statType: StatType): number {
     let statValue = this.stats.find((stat: Stat) => stat.type === statType)?.value
     return statValue || 0
   }
@@ -62,6 +62,6 @@ let RedTextClassEnum = {
   [RedTextEnum.GoodForStartingFires]: GoodForStartingFires,
 }
 
-export function RedText(enumVal: RedTextEnum) : RedTextInterface {
+export function RedText(enumVal: RedTextEnum): RedTextInterface {
   return new RedTextClassEnum[enumVal]()
 }

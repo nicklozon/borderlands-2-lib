@@ -1,6 +1,6 @@
-import { Stat } from "../../../interface/stat"
-import { StatType } from "../../../value_object/stat_type"
-import { Weapon } from "../../../../weapon/interface/weapon"
+import { Stat } from "../../player/interface/stat"
+import { StatType } from "../../player/value_object/stat_type"
+import { Weapon } from "../../weapon/interface/weapon"
 
 /**
  * Represents COMs, Relics, and any other gear that contains stats

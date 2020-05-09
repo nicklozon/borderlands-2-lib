@@ -1,4 +1,4 @@
-import { Player } from "./domain/player/interface/player";
+import { Player } from "./domain/player/object/player";
 import { Class } from "./domain/player/value_object/class";
 import { Weapon } from "./domain/weapon/interface/weapon";
 import { ElementalEffect } from "./domain/weapon/value_object/elemental_effect";
@@ -7,10 +7,11 @@ import { Type } from "./domain/weapon/value_object/type";
 import { TablePrinterService } from "./domain/utilities/service/table_printer"
 import { StatType } from "./domain/player/value_object/stat_type";
 import { DutyCalls, Impact, MetalStorm, LastDitchEffort, Steady, Pressure, Onslaught, Ranger, Battlefront, Ready } from "./domain/player/object/skills/commando";
-import { WeaponTypeGear } from "./domain/player/object/gear/object/weapon_type_gear";
-import ClassMod from "./domain/player/object/gear/object/class_mod";
+import { WeaponTypeGear } from "./domain/gear/object/weapon_type_gear";
+import { ClassMod } from "./domain/gear/object/class_mod";
 import { RedTextEnum } from "./domain/player/object/red_text";
 import { GameModeEnum } from "./domain/enemy/value_object/elemental_damage_coefficients";
+import { Context } from "./domain/context";
 
 // TODO: Other class skills...tried this, gunzerker broke me
 
@@ -69,22 +70,20 @@ let classModB = new ClassMod([{
 ])
 
 let skillsA = [
-  // new Pressure(5), // not likely to be used much?
+  new Pressure(5), // not likely to be used much?
   new Impact(5),
   //new Battlefront(5),
   new Ready(4),
-  //new Onslaught(5)
+  //new Onslaught(5),
 ]
 
-let players: Player[] = [
-  new Player(
+let player: Player = new Player(
     Class.Commando,
     skillsA,
     badAssRanking,
     classModA,
     //relic,
-  ),
-]
+  )
 
 let weapons: Weapon[] = [{
   name: 'Potential Thinking', 
@@ -197,8 +196,16 @@ let weapons: Weapon[] = [{
   dealsBonusElementalDamage: true
 }]
 
-players.forEach((player) => {
-  let tps = new TablePrinterService(player, weapons, GameModeEnum.TrueVaultHunterMode)
+let gameMode = GameModeEnum.TrueVaultHunterMode
+let contexts : Context[] = [{
+    player,
+    gameMode,
+    effects: [],
+    health: 1
+  }]
+
+contexts.forEach((context) => {
+  let tps = new TablePrinterService(context, weapons)
   tps.printWeaponSummary()
-  tps.printCategoryMaximums()
+  //tps.printCategoryMaximums()
 })

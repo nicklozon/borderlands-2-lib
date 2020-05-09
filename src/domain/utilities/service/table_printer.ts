@@ -1,20 +1,17 @@
 import { Table } from 'console-table-printer';
 import { TargetType } from '../../enemy/value_object/target_type';
-import { Player } from '../../player/interface/player';
 import { Weapon } from "../../weapon/interface/weapon";
 import { DamageService } from '../../weapon/service/damage_service';
 import { WeaponSummary } from '../interface/weapon_summary';
-import { GameModeEnum } from '../../enemy/value_object/elemental_damage_coefficients';
+import { Context } from '../../context';
 
 export class TablePrinterService {
-  private player: Player
+  private context: Context
   private weapons: Weapon[]
-  private mode: GameModeEnum
 
-  constructor(player: Player, weapons: Weapon[], mode: GameModeEnum = GameModeEnum.NormalMode) {
-    this.player = player
+  constructor(context: Context, weapons: Weapon[]) {
+    this.context = context
     this.weapons = weapons
-    this.mode = mode
   }
 
   public printWeaponSummary() {
@@ -86,9 +83,9 @@ export class TablePrinterService {
     tbl.printTable()
   }
 
-  private getWeaponSummaries() : WeaponSummary[] {
+  private getWeaponSummaries(): WeaponSummary[] {
     return this.weapons.map((weapon: Weapon): WeaponSummary => {
-      let ds = new DamageService(weapon, this.player, this.mode)
+      let ds = new DamageService(weapon, this.context)
       return {
         name: weapon.name,
         type: weapon.type,
@@ -112,7 +109,7 @@ export class TablePrinterService {
     })
   }
 
-  private formatDps(damageService: DamageService, targetType: TargetType) : string {
+  private formatDps(damageService: DamageService, targetType: TargetType): string {
     let dps = damageService.getTargetTypeDps(targetType)
     let elementalDps = damageService.getElementalDps(targetType)
     if(elementalDps) return `${dps} (${elementalDps})`

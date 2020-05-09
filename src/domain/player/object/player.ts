@@ -1,8 +1,8 @@
 import { Class } from "../value_object/class";
-import { Stat } from "./stat";
-import { Skill } from "../object/skill";
-import { Gear } from "../object/gear/object/gear";
-import ClassMod from "../object/gear/object/class_mod";
+import { Stat } from "../interface/stat";
+import { Skill } from "./skill";
+import { Gear } from "../../gear/object/gear";
+import { ClassMod } from "../../gear/object/class_mod";
 
 export class Player {
   public clazz : Class 
@@ -28,7 +28,7 @@ export class Player {
     this.shield = shield
   }
 
-  private computeSkills(skills?: Skill[], classMod?: ClassMod) : Skill[] {
+  private computeSkills(skills?: Skill[], classMod?: ClassMod): Skill[] {
     if(!skills) return []
     if(!classMod) return skills
     let classModSkills = classMod.getSkills()
