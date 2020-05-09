@@ -1,5 +1,5 @@
 export enum TargetType {
-  Flesh = 'flesh',
-  Armor = 'armor',
-  Shield = 'shield'
+  Flesh = 'Flesh',
+  Armor = 'Armor',
+  Shield = 'Shield'
 }

@@ -1,7 +1,7 @@
 export enum ElementalEffect {
-  Incendiary,
-  Corrosive,
-  Shock,
-  Explosive,
-  Slag
+  Incendiary = 'Incendiary',
+  Corrosive = 'Corrosive',
+  Shock = 'Shock',
+  Explosive = 'Explosive',
+  Slag = 'Slag'
 }

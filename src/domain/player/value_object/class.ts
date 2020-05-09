@@ -1,8 +1,8 @@
 export enum Class {
-  Siren,
-  Gunzerker,
-  Commando,
-  Assassin,
-  Mechromancer,
-  Pyscho
+  Siren = 'Siren',
+  Gunzerker = 'Gunzerker',
+  Commando = 'Commando',
+  Assassin = 'Assassin',
+  Mechromancer = 'Mechromancer',
+  Pyscho = 'Psycho'
 }

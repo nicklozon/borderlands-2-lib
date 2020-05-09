@@ -2,8 +2,8 @@ import { ElementalEffect } from "../../weapon/value_object/elemental_effect"
 import { TargetType } from "./target_type"
 
 export enum GameModeEnum {
-  NormalMode,
-  TrueVaultHunterMode,
+  NormalMode = 'Normal Mode',
+  TrueVaultHunterMode = 'True Vault Hunter Mode',
 }
 
 let coefficients = {
