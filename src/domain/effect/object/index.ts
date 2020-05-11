@@ -1,1 +1,1 @@
-export * from './effect'
+export { EffectType } from './effect'

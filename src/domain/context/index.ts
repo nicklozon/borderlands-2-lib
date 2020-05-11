@@ -1,1 +1,1 @@
-export { Context } from './interface'
+export * from './interface'

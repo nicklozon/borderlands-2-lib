@@ -1,1 +1,1 @@
-export { ClassMod, Gear, WeaponTypeGear } from './object'
+export * from './object'
