@@ -1,1 +1,1 @@
-export { PlayerDamageService } from './damage_service'
+export * from './damage_service'

@@ -1,2 +1,2 @@
-export { Class } from './class'
-export { StatType } from './stat_type'
+export * from './class'
+export * from './stat_type'
