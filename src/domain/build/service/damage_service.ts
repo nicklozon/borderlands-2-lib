@@ -22,9 +22,9 @@ export class BuildDamageService {
     let filteredSkills: number[] = skills.map((skill: Skill) => skill.getStat(statType, weapon, context))
     let skillValue = filteredSkills.reduce((memo: number, value: number) => memo + value, 0)
 
-    let classModValue = classMod ? classMod.getStat(statType, weapon): 0
-    let relicValue = relic ? relic.getStat(statType, weapon): 0
-    let shieldValue = shield ? shield.getStat(statType, weapon): 0
+    let classModValue = classMod ? classMod.getStat(statType, weapon, context): 0
+    let relicValue = relic ? relic.getStat(statType, weapon, context): 0
+    let shieldValue = shield ? shield.getStat(statType, weapon, context): 0
 
     return statValue + skillValue + classModValue + relicValue + shieldValue
   }

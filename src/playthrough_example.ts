@@ -7,11 +7,11 @@ import { Type } from "./domain/weapon/value_object/type";
 import { TablePrinterService } from "./domain/utilities/service/table_printer"
 import { StatType } from "./domain/build/value_object/stat_type";
 import { DutyCalls, Impact, MetalStorm, LastDitchEffort, Steady, Pressure, Onslaught, Ranger, Battlefront, Ready } from "./domain/build/object/skills/commando";
-import { WeaponTypeGear } from "./domain/gear/object/weapon_type_gear";
 import { ClassMod } from "./domain/gear/object/class_mod";
 import { RedTextEnum } from "./domain/build/object/red_text";
 import { GameModeEnum } from "./domain/enemy/value_object/elemental_damage_coefficients";
 import { Context } from "./domain/context";
+import { Gear, WeaponTypeDecorator } from "./domain";
 
 // TODO: Other class skills...tried this, gunzerker broke me
 // TODO: weapons need attributes like grenade reloads
@@ -42,13 +42,13 @@ let badAssRanking = [{
   value: 0.087
 }]
 
-let relic = new WeaponTypeGear([{
+let relic = new Gear([{
   type: StatType.GunDamage,
   value: 0.181
 },{
   type: StatType.FireRate,
   value: 0.49
-}], Type.Pistol)
+}], WeaponTypeDecorator(Type.Pistol))
 
 let classModA = new ClassMod([
 ],[
@@ -196,6 +196,7 @@ let contexts : Context[] = [{
     build,
     badAssRanking,
     gameMode,
+    relic,
     effects: [],
     health: 1
   }]
