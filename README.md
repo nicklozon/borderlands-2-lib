@@ -87,4 +87,4 @@ Another argument I've had with myself is that "reload time" detracts from a true
 
 # FAQs
 ## How do you calculate skills that are event based?
-For skills like "turret deployed", or "after swapping weapon", or "after reloading", etc. my plan is to bake these into "scenarios" and then damage/DPS will be presented so you can compare a weapon's damage/DPS for each scenario. Currently you can create a Player object for each set of skills you would like to calculate the damage/DPS for.
+For skills like "turret deployed", or "after swapping weapon", or "after reloading", etc. my plan is to bake these into "scenarios" and then damage/DPS will be presented so you can compare a weapon's damage/DPS for each scenario. Currently you can create a Build object for each set of skills you would like to calculate the damage/DPS for.

@@ -1,25 +1,22 @@
-import { Player } from "./domain/player/object/player";
-import { Class } from "./domain/player/value_object/class";
+import { Build } from "./domain/build/object/build";
+import { Class } from "./domain/build/value_object/class";
 import { Weapon } from "./domain/weapon/interface/weapon";
 import { ElementalEffect } from "./domain/weapon/value_object/elemental_effect";
 import { Manufacturer } from "./domain/weapon/value_object/manufacturer";
 import { Type } from "./domain/weapon/value_object/type";
 import { TablePrinterService } from "./domain/utilities/service/table_printer"
-import { StatType } from "./domain/player/value_object/stat_type";
-import { DutyCalls, Impact, MetalStorm, LastDitchEffort, Steady, Pressure, Onslaught, Ranger, Battlefront, Ready } from "./domain/player/object/skills/commando";
+import { StatType } from "./domain/build/value_object/stat_type";
+import { DutyCalls, Impact, MetalStorm, LastDitchEffort, Steady, Pressure, Onslaught, Ranger, Battlefront, Ready } from "./domain/build/object/skills/commando";
 import { WeaponTypeGear } from "./domain/gear/object/weapon_type_gear";
 import { ClassMod } from "./domain/gear/object/class_mod";
-import { RedTextEnum } from "./domain/player/object/red_text";
+import { RedTextEnum } from "./domain/build/object/red_text";
 import { GameModeEnum } from "./domain/enemy/value_object/elemental_damage_coefficients";
 import { Context } from "./domain/context";
 
 // TODO: Other class skills...tried this, gunzerker broke me
-
-// TODO: Profiles which will encapsulate the player object and allow for "Scenarios"
-// where you can set things like "fight for your life", "turret deployed",
-// "percentage of health", etc.
-
 // TODO: weapons need attributes like grenade reloads
+//       EDIT: grenade reloads are based on remaining ammo...so calculating
+//       this damage would be a one off value? magazine size minus one?
 // TODO: calculate things like explosive AR where there is no bullet damage :(
 
 let badAssRanking = [{
@@ -77,12 +74,10 @@ let skillsA = [
   //new Onslaught(5),
 ]
 
-let player: Player = new Player(
+let build: Build = new Build(
     Class.Commando,
     skillsA,
-    badAssRanking,
-    classModA,
-    //relic,
+    classModA
   )
 
 let weapons: Weapon[] = [{
@@ -198,7 +193,8 @@ let weapons: Weapon[] = [{
 
 let gameMode = GameModeEnum.TrueVaultHunterMode
 let contexts : Context[] = [{
-    player,
+    build,
+    badAssRanking,
     gameMode,
     effects: [],
     health: 1

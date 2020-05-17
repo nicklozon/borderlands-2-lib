@@ -1,5 +1,5 @@
-import { Stat } from "../../player/interface/stat"
-import { StatType } from "../../player/value_object/stat_type"
+import { Stat } from "../../build/interface/stat"
+import { StatType } from "../../build/value_object/stat_type"
 import { Weapon } from "../../weapon/interface/weapon"
 
 /**

@@ -1,6 +1,6 @@
 import { Gear } from "./gear";
-import { Skill } from "../../player/object/skill";
-import { Stat } from "../../player/interface/stat";
+import { Skill } from "../../build/object/skill";
+import { Stat } from "../../build/interface/stat";
 
 // this kind of sucks because the Weapon Specific Gear object is now
 // possible here.

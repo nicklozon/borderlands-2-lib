@@ -1,7 +1,7 @@
 import { Gear } from "./gear";
 import { Type } from "../../weapon/value_object/type";
-import { Stat } from "../../player/interface/stat";
-import { StatType } from "../../player/value_object/stat_type";
+import { Stat } from "../../build/interface/stat";
+import { StatType } from "../../build/value_object/stat_type";
 import { Weapon } from "../../weapon/interface/weapon";
 
 // TODO: Don't use polymorphism, use decorator pattern in Gear object

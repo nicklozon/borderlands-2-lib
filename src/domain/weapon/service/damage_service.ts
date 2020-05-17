@@ -1,12 +1,12 @@
 import { Weapon } from "../interface/weapon"
-import { PlayerDamageService } from "../../player/service/damage_service"
-import { StatType } from "../../player/value_object/stat_type"
+import { BuildDamageService } from "../../build/service/damage_service"
+import { StatType } from "../../build/value_object/stat_type"
 import { Manufacturer } from "../value_object/manufacturer"
 import { Type } from "../value_object/type"
 import { TargetType } from "../../enemy/value_object/target_type"
 import { ElementalEffect } from "../value_object/elemental_effect"
-import { Stat } from "../../player/interface/stat"
-import { RedText, RedTextEnum } from "../../player/object/red_text"
+import { Stat } from "../../build/interface/stat"
+import { RedText, RedTextEnum } from "../../build/object/red_text"
 import { ElementalDamageCoefficients, GameModeEnum } from "../../enemy/value_object/elemental_damage_coefficients"
 import { Context } from "../../context"
 
@@ -15,12 +15,12 @@ import { Context } from "../../context"
 export class DamageService {
   private weapon: Weapon
   private context: Context
-  private playerDamageService: PlayerDamageService
+  private buildDamageService: BuildDamageService
 
   constructor(weapon: Weapon, context: Context) {
     this.weapon = weapon
     this.context = context
-    this.playerDamageService = new PlayerDamageService(this.context.player)
+    this.buildDamageService = new BuildDamageService(this.context.build)
   }
 
   public getDps(): number {
@@ -47,11 +47,11 @@ export class DamageService {
   
   protected getBaseDamage(targetType?: TargetType): number {
     const { damage, pellets = 1, unlistedPellets = 0, elementalEffect } = this.weapon
-    let playerGunDamage = this.playerDamageService.getStat(StatType.GunDamage, this.weapon, this.context)
+    let buildGunDamage = this.buildDamageService.getStat(StatType.GunDamage, this.weapon, this.context)
     // Is this a thing?
     let weaponGunDamage = this.getStat(StatType.GunDamage)
     let elementalEffectiveness = targetType ? this.getElementalEffectiveness(targetType, elementalEffect): 1
-    let ampDamage = this.playerDamageService.getStat(StatType.AmpDamage, this.weapon, this.context)
+    let ampDamage = this.buildDamageService.getStat(StatType.AmpDamage, this.weapon, this.context)
 
     let unlistedDamage = 0
     if(unlistedPellets > 0) {
@@ -59,7 +59,7 @@ export class DamageService {
       unlistedDamage = unlistedPellets * damage
     }
 
-    return damage * pellets * (1 + playerGunDamage + weaponGunDamage) * elementalEffectiveness + unlistedDamage + ampDamage
+    return damage * pellets * (1 + buildGunDamage + weaponGunDamage) * elementalEffectiveness + unlistedDamage + ampDamage
   }
 
   public getCritDamage(targetType?: TargetType): number {
@@ -71,10 +71,10 @@ export class DamageService {
     let multiplier = this.getWeaponCritMultiplier()
     let baseBonus = this.getWeaponCritBaseBonus()
     let penalty = this.getWeaponCritPenalty()
-    let playerCritDamage = this.playerDamageService.getStat(StatType.CritHitDamage, this.weapon, this.context)
+    let buildCritDamage = this.buildDamageService.getStat(StatType.CritHitDamage, this.weapon, this.context)
     let splashDamage = this.getSplashDamage(targetType)
 
-    return this.getBaseDamage(targetType) * multiplier * (1 + baseBonus + playerCritDamage) /  (1 + penalty) + splashDamage
+    return this.getBaseDamage(targetType) * multiplier * (1 + baseBonus + buildCritDamage) /  (1 + penalty) + splashDamage
   }
 
   public getElementalDps(targetType?: TargetType): number {
@@ -99,10 +99,10 @@ export class DamageService {
         break
     }
 
-    let playerElementalEffectChance = this.playerDamageService.getStat(StatType.ElementalEffectChance, this.weapon, this.context)
-    let playerElementalEffectDamage = this.playerDamageService.getStat(StatType.ElementalEffectDamage, this.weapon, this.context)
+    let buildElementalEffectChance = this.buildDamageService.getStat(StatType.ElementalEffectChance, this.weapon, this.context)
+    let buildElementalEffectDamage = this.buildDamageService.getStat(StatType.ElementalEffectDamage, this.weapon, this.context)
     let elementalEffectiveness = targetType ? this.getElementalEffectiveness(targetType, elementalEffect): 1
-    let effectiveProcDps = elementalDps * (1 + playerElementalEffectDamage) * (elementalEffectiveness + playerElementalEffectChance)
+    let effectiveProcDps = elementalDps * (1 + buildElementalEffectDamage) * (elementalEffectiveness + buildElementalEffectChance)
     let clipEffectiveNumberOfShots = magazineSize / ammoPerShot
     let procsPerClip = clipEffectiveNumberOfShots * elementalChance * pellets
     let clipElementalDamage = procsPerClip * effectiveProcDps * duration
@@ -189,22 +189,22 @@ export class DamageService {
   protected getReloadSpeed(): number {
     const { reloadSpeed } = this.weapon
 
-    let playerReloadSpeed = this.playerDamageService.getStat(StatType.ReloadSpeed, this.weapon, this.context)
-    return reloadSpeed / (1 + playerReloadSpeed)
+    let buildReloadSpeed = this.buildDamageService.getStat(StatType.ReloadSpeed, this.weapon, this.context)
+    return reloadSpeed / (1 + buildReloadSpeed)
   }
 
   protected getFireRate(): number {
     const { fireRate } = this.weapon
 
-    let playerFireRate = this.playerDamageService.getStat(StatType.FireRate, this.weapon, this.context)
-    return fireRate * (1 + playerFireRate)
+    let buildFireRate = this.buildDamageService.getStat(StatType.FireRate, this.weapon, this.context)
+    return fireRate * (1 + buildFireRate)
   }
 
   protected getMagazineSize(): number {
     const { magazineSize } = this.weapon
 
-    let playerMagazineSize = this.playerDamageService.getStat(StatType.MagazineSize, this.weapon, this.context)
-    return magazineSize * (1 + playerMagazineSize)
+    let buildMagazineSize = this.buildDamageService.getStat(StatType.MagazineSize, this.weapon, this.context)
+    return magazineSize * (1 + buildMagazineSize)
   }
 
   protected getElementalEffectiveness(targetType: TargetType, elementalEffect?: ElementalEffect): number {
@@ -235,7 +235,7 @@ export class DamageService {
     // this method needs so much work
     const { type, elementalEffect, manufacturer, dealsBonusElementalDamage, redText } = this.weapon
 
-    let grenadeDamageStat = this.playerDamageService.getStat(StatType.GrenadeDamage, this.weapon, this.context)
+    let grenadeDamageStat = this.buildDamageService.getStat(StatType.GrenadeDamage, this.weapon, this.context)
 
     if(redText === RedTextEnum.ByThePeople) {
       return 0.7 * (1 + grenadeDamageStat)

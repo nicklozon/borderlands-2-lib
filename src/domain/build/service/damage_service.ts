@@ -1,19 +1,20 @@
-import { Player } from "../object/player"
+import { Build } from "../object/build"
 import { StatType } from "../value_object/stat_type"
 import { Stat } from "../interface/stat"
 import { Skill } from "../object/skill"
 import { Weapon } from "../../weapon/interface/weapon"
 import { Context } from "../../context"
 
-export class PlayerDamageService {
-  private player: Player
+export class BuildDamageService {
+  private build: Build
 
-  constructor(player: Player) {
-    this.player = player
+  constructor(build: Build) {
+    this.build = build
   }
 
   public getStat(statType: StatType, weapon: Weapon, context: Context): number {
-    const { badAssRanking, classMod, relic, shield, skills } = this.player
+    const { classMod, skills } = this.build
+    const { badAssRanking = [], relic, shield } = context
 
     let filteredStats: Stat[] = badAssRanking.filter((stat: Stat) => stat.type === statType)
     let statValue = filteredStats.reduce((memo: number, stat: Stat) => memo + stat.value, 0)
@@ -29,7 +30,7 @@ export class PlayerDamageService {
   }
 
   protected getClassModSkills(): Skill[] {
-    const { classMod } = this.player
+    const { classMod } = this.build
 
     if(!classMod) return []
 

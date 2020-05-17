@@ -1,12 +1,12 @@
 import { DamageService } from "../../../../src/domain/weapon/service/damage_service";
 import { Weapon } from "../../../../src/domain/weapon/interface/weapon";
-import { Player } from "../../../../src/domain/player/interface/player";
+import { Build } from "../../../../src/domain/build/object/build";
 import { Manufacturer } from "../../../../src/domain/weapon/value_object/manufacturer";
 import { Type } from "../../../../src/domain/weapon/value_object/type";
-import { Class } from "../../../../src/domain/player/value_object/class";
+import { Class } from "../../../../src/domain/build/value_object/class";
 import { ElementalEffect } from "../../../../src/domain/weapon/value_object/elemental_effect";
 import { TargetType } from "../../../../src/domain/enemy/value_object/target_type";
-import { StatType } from "../../../../src/domain/player/value_object/stat_type";
+import { StatType } from "../../../../src/domain/build/value_object/stat_type";
 
 test.each([
   [{
@@ -30,11 +30,15 @@ test.each([
     ammoPerShot: 2
   }, 232.39],
 ])('getDps for %j', (weapon: Weapon, result: number) => {
-  let player : Player = new Player(
+  let build : Build = new Build(
     Class.Siren
   )
 
-  let service = new DamageService(weapon, player)
+  let context = {
+    build
+  }
+
+  let service = new DamageService(weapon, context)
 
   expect(service.getDps()).toBe(result)
 })
@@ -64,11 +68,15 @@ test.each([
     elementalEffect: ElementalEffect.Corrosive
   }, TargetType.Shield, 174.3],
 ])('getTargetTypeDps for %j', (weapon: Weapon, targetType: TargetType, result: number) => {
-  let player : Player = new Player(
+  let build : Build = new Build(
     Class.Siren
   )
 
-  let service = new DamageService(weapon, player)
+  let context = {
+    build
+  }
+
+  let service = new DamageService(weapon, context)
 
   expect(service.getTargetTypeDps(targetType)).toBe(result)
 })
@@ -97,11 +105,15 @@ test.each([
     }]
   }, 560],
 ])('getCritDamage for %j', (weapon: Weapon, result: number) => {
-  let player : Player = new Player(
+  let build : Build = new Build(
     Class.Siren
   )
 
-  let service = new DamageService(weapon, player)
+  let context = {
+    build
+  }
+
+  let service = new DamageService(weapon, context)
 
   expect(service.getCritDamage()).toBe(result)
 })
