@@ -11,7 +11,8 @@
     "url": "https://github.com/nicklozon/borderlands-2-lib.git"
   },
   "dependencies": {
-    "console-table-printer": "^1.1.64"
+    "console-table-printer": "^1.1.64",
+    "uuid": "^8.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.7",
@@ -19,6 +20,7 @@
     "@babel/preset-typescript": "^7.8.3",
     "@types/jest": "^25.1.4",
     "@types/node": "^13.9.1",
+    "@types/uuid": "^7.0.3",
     "babel-jest": "^25.1.0",
     "jest": "^25.1.0",
     "ts-jest": "^25.2.1",

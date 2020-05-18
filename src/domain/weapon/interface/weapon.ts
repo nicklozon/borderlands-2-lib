@@ -5,6 +5,7 @@ import { Stat } from "../../build/interface/stat";
 import { RedTextEnum } from "../../build/object/red_text";
 
 export interface Weapon {
+  id?: string,
   name: string,
   manufacturer: Manufacturer,
   type: Type,

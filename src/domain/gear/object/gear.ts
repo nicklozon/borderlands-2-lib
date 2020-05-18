@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid'
 import { Stat } from "../../build/interface/stat"
 import { StatType } from "../../build/value_object/stat_type"
 import { Weapon } from "../../weapon/interface/weapon"
@@ -19,10 +20,12 @@ export function WeaponTypeDecorator(type: Type): Decorator {
  * Gear will have certain limitations, like the type of weapon that is affected
  */
 export class Gear {
+  public id: string
   protected stats: Stat[]
   protected decorator?: Decorator
 
   constructor(stats: Stat[], decorator?: Decorator) {
+    this.id = uuidv4()
     this.stats = stats
     this.decorator = decorator
   }
