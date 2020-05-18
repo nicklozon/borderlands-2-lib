@@ -46,7 +46,7 @@ export class DamageService {
   }
   
   protected getBaseDamage(targetType?: TargetType): number {
-    const { damage, pellets = 1, unlistedPellets = 0, elementalEffect } = this.weapon
+    const { damage, pellets = 1, unlistedPellets = 0, elementalEffect, type } = this.weapon
     let buildGunDamage = this.buildDamageService.getStat(StatType.GunDamage, this.weapon, this.context)
     // Is this a thing?
     let weaponGunDamage = this.getStat(StatType.GunDamage)
@@ -222,11 +222,21 @@ export class DamageService {
   }
 
   public getSplashDamage(targetType?: TargetType): number {
+    const { elementalEffect, type, manufacturer } = this.weapon
     // Explosive seems to be exclusively splash damage and additional splash damage is not calculated?
     // Update: Mostly not true - mostly for Maliwan/Torgue and launchers
     // https://forums.gearboxsoftware.com/t/complete-splash-damage-guide/1553510
-    const { elementalEffect } = this.weapon
-    //if(elementalEffect === ElementalEffect.Explosive) return 0
+
+    // maybe this gets calculated as splash multiplier?
+    if(elementalEffect === ElementalEffect.Explosive) {
+      if(type === Type.RocketLauncher) {
+        // TODO: many launchers have splash damage
+        return 0
+      }
+      if(manufacturer === Manufacturer.Torgue) {
+        return 0
+      }
+    }
 
     return this.getBaseDamage(targetType) * this.getSplashDamageMultiplier()
   }
