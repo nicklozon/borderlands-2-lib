@@ -6,7 +6,7 @@ import { Type } from "../value_object/type"
 import { TargetType } from "../../enemy/value_object/target_type"
 import { ElementalEffect } from "../value_object/elemental_effect"
 import { Stat } from "../../build/interface/stat"
-import { RedText, RedTextEnum } from "../../build/object/red_text"
+import { RedTextFactory, RedTextEnum } from "../../build/object/red_text"
 import { ElementalDamageCoefficients, GameModeEnum } from "../../enemy/value_object/elemental_damage_coefficients"
 import { Context } from "../../context"
 
@@ -283,6 +283,6 @@ export class DamageService {
   protected getRedTextStat(statType: StatType, redText?: RedTextEnum): number {
     if(!redText) return 0
 
-    return RedText(redText).getStat(statType)
+    return RedTextFactory(redText).getStat(statType)
   }
 }

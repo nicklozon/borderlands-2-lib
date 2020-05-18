@@ -9,7 +9,7 @@ export enum RedTextEnum {
   GoodForStartingFires = 'Good for starting fires.',
 }
 
-abstract class RedTextInterface {
+abstract class RedText {
   protected abstract stats : Stat[]
 
   public getStat(statType: StatType): number {
@@ -18,18 +18,18 @@ abstract class RedTextInterface {
   }
 }
 
-class DeDa extends RedTextInterface {
+class DeDa extends RedText {
   protected stats = []
 }
 
-class LadyFist extends RedTextInterface {
+class LadyFist extends RedText {
   protected stats : Stat[] = [{
     type: StatType.CritHitDamage,
     value: 8
   }]
 }
 
-class Gar extends RedTextInterface {
+class Gar extends RedText {
   /*
   There is no crit stats on this thing despite what the wiki says...
   protected stats : Stat[] = [{
@@ -43,14 +43,14 @@ class Gar extends RedTextInterface {
   protected stats = []
 }
 
-class ByThePeople extends RedTextInterface {
+class ByThePeople extends RedText {
   protected stats : Stat[] = [{
     type: StatType.SplashDamage,
     value: 0.7
   }]
 }
 
-class GoodForStartingFires extends RedTextInterface {
+class GoodForStartingFires extends RedText {
   protected stats : Stat[] = []
 }
 
@@ -62,6 +62,6 @@ let RedTextClassEnum = {
   [RedTextEnum.GoodForStartingFires]: GoodForStartingFires,
 }
 
-export function RedText(enumVal: RedTextEnum): RedTextInterface {
+export function RedTextFactory(enumVal: RedTextEnum): RedText {
   return new RedTextClassEnum[enumVal]()
 }
