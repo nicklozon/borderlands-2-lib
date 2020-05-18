@@ -1,6 +1,6 @@
 import { Build, Stat } from "../../build";
 import { GameModeEnum } from "../../enemy";
-import { EffectType } from "../../effect";
+import { Effect, EffectType } from "../../effect";
 import { Gear } from "../../gear";
 
 export interface Context {
@@ -9,9 +9,12 @@ export interface Context {
   relic?: Gear,
   shield?: Gear,
   badAssRanking?: Stat[],
-  effects?: EffectType[],
-  gameMode?: GameModeEnum,
-  health?: number,
-  crippled?: boolean,
-  actionSkillActive?: boolean
+  effects?: Effect[],
+  gameMode?: GameModeEnum, // could be an effect
+  
+}
+
+// Context should really be a class...
+export function getEffect(effectType: EffectType, effects: Effect[]) : Effect|void {
+  return effects.find(effect => effect.getEffectType() === effectType)
 }

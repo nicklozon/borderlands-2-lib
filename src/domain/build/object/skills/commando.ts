@@ -3,7 +3,7 @@ import { StatType } from "../../value_object/stat_type";
 import { Stat } from "../../interface/stat";
 import { Weapon } from "../../../weapon/interface/weapon";
 import { Type } from "../../../weapon/value_object/type";
-import { Context } from "../../../context";
+import { Context, getEffect } from "../../../context";
 import { EffectType } from "../../../effect";
 
 // Geurilla
@@ -54,10 +54,7 @@ export class MetalStorm extends Skill {
       type: StatType.FireRate,
       value: 0.12
     }]
-
-  public getEffectType(): EffectType {
-    return EffectType.MetalStorm
-  }
+  protected effectType = EffectType.MetalStorm
 }
 
 export class Steady extends Skill {
@@ -138,10 +135,11 @@ export class LastDitchEffort extends Skill {
       value: 0.08
     }]
 
-  public getStat(statType: StatType, weapon: Weapon, context: Context): number {
-    if(!context.crippled) return 0
+  public getEffectiveness(context: Context): number {
+    if(!context.effects) return 0
 
-    return super.getStat(statType, weapon, context)
+    let crippledEffect = getEffect(EffectType.Crippled, context.effects)
+    return crippledEffect ? 1 : 0
   }
 }
   
@@ -152,8 +150,13 @@ export class Pressure extends Skill {
     }]
 
   protected getEffectiveness(context: Context): number {
-    let healthLost = context.health ? 1 - context.health : 0
-    let effectiveness = context.crippled ? 1 : healthLost
-    return effectiveness
+    if(!context.effects) return 0
+
+    let crippledEffect = getEffect(EffectType.Crippled, context.effects)
+    if(crippledEffect) return 1
+
+    let healthEffect = getEffect(EffectType.Health, context.effects)
+    let healthLost = healthEffect ? 1 - healthEffect.multiplier.getValue() : 0
+    return healthLost
   }
 }

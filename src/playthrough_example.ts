@@ -11,7 +11,7 @@ import { ClassMod } from "./domain/gear/object/class_mod";
 import { RedTextEnum } from "./domain/build/object/red_text";
 import { GameModeEnum } from "./domain/enemy/value_object/elemental_damage_coefficients";
 import { Context } from "./domain/context";
-import { Gear, WeaponTypeDecorator } from "./domain";
+import { Gear, WeaponTypeDecorator, HealthEffect, CrippledEffect } from "./domain";
 
 // TODO: Other class skills...tried this, gunzerker broke me
 // TODO: weapons need attributes like grenade reloads
@@ -197,8 +197,10 @@ let contexts : Context[] = [{
     badAssRanking,
     gameMode,
     relic,
-    effects: [],
-    health: 1
+    effects: [
+      //new HealthEffect(1)
+      new CrippledEffect()
+    ],
   }]
 
 contexts.forEach((context) => {
