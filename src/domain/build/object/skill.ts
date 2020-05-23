@@ -22,7 +22,13 @@ export abstract class Skill {
   }
   
   protected getEffectiveness(context: Context): number {
-    return 1
+    if(!this.effectType) return 1
+
+    if(context.effects?.find(effect => effect.getEffectType() === this.effectType)) {
+      return 1
+    }
+
+    return 0
   }
 
   public getEffectType(): EffectType|void {
