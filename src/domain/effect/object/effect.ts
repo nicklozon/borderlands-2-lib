@@ -3,7 +3,9 @@ export enum EffectType {
   ActionSkill = 'ActionSkill',
   Crippled = 'Crippled',
   Health = 'Health',
-  MetalStorm = 'MetalStorm'
+  MetalStorm = 'MetalStorm',
+  Onslaught = 'Onslaught',
+  Battlefront = 'Battlefront',
 }
 
 // This would treat effects a binary states...but effects could vary
@@ -69,4 +71,12 @@ export class HealthEffect extends Effect {
 
 export class MetalStormEffect extends Effect {
   protected effectType = EffectType.MetalStorm
+}
+
+export class OnslaughtEffect extends Effect {
+  protected effectType = EffectType.Onslaught
+}
+
+export class BattlefrontEffect extends Effect {
+  protected effectType = EffectType.Battlefront
 }
