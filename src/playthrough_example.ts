@@ -199,7 +199,7 @@ let contexts : Context[] = [{
     relic,
     effects: [
       //new HealthEffect(1)
-      new CrippledEffect()
+      //new CrippledEffect()
     ],
   }]
 

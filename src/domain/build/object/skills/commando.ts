@@ -19,6 +19,7 @@ export class Onslaught extends Skill {
     type: StatType.GunDamage,
     value: 0.06
   }]
+  protected effectType = EffectType.Onslaught
 }
 
 export class CrisisManagement extends Skill {
@@ -78,6 +79,7 @@ export class Battlefront extends Skill {
       type: StatType.GunDamage,
       value: 0.06
     }]
+  protected effectType = EffectType.Battlefront
 }
 
 export class DutyCalls extends Skill {
