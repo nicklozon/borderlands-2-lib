@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "console-table-printer": "^1.1.64",
+    "typescript-memoize": "^1.0.0-alpha.3",
     "uuid": "^8.0.0"
   },
   "devDependencies": {

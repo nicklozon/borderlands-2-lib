@@ -1,3 +1,4 @@
+import { Memoize } from 'typescript-memoize'
 import { Weapon } from "../interface/weapon"
 import { BuildDamageService } from "../../build/service/damage_service"
 import { StatType } from "../../build/value_object/stat_type"
@@ -23,28 +24,34 @@ export class DamageService {
     this.buildDamageService = new BuildDamageService(this.context.build)
   }
 
+  @Memoize()
   public getDps(): number {
     return this.calculateDps(this.getDamage())
   }
   
+  @Memoize()
   public getCritDps(): number {
     return this.calculateDps(this.getCritDamage())
   }
 
+  @Memoize((targetType: TargetType) => targetType)
   public getTargetTypeDps(targetType: TargetType) {
     let dps = this.calculateDps(this.getDamage(targetType)) + this.getElementalDps(targetType)
     return Math.round(dps * 100)/100
   }
 
+  @Memoize((targetType: TargetType) => targetType)
   public getTargetTypeCritDps(targetType: TargetType) {
     let dps = this.calculateDps(this.getCritDamage(targetType)) + this.getElementalDps(targetType)
     return Math.round(dps * 100)/100
   }
 
+  @Memoize((targetType?: TargetType) => targetType ?? '')
   public getDamage(targetType?: TargetType): number {
     return this.getBaseDamage(targetType) + this.getSplashDamage(targetType)
   }
   
+  @Memoize((targetType?: TargetType) => targetType ?? '')
   protected getBaseDamage(targetType?: TargetType): number {
     const { damage, pellets = 1, unlistedPellets = 0, elementalEffect, type } = this.weapon
     let buildGunDamage = this.buildDamageService.getStat(StatType.GunDamage, this.weapon, this.context)
@@ -62,6 +69,7 @@ export class DamageService {
     return damage * pellets * (1 + buildGunDamage + weaponGunDamage) * elementalEffectiveness + unlistedDamage + ampDamage
   }
 
+  @Memoize((targetType?: TargetType) => targetType ?? '')
   public getCritDamage(targetType?: TargetType): number {
     const { type } = this.weapon
 
@@ -77,6 +85,7 @@ export class DamageService {
     return this.getBaseDamage(targetType) * multiplier * (1 + baseBonus + buildCritDamage) /  (1 + penalty) + splashDamage
   }
 
+  @Memoize((targetType?: TargetType) => targetType ?? '')
   public getElementalDps(targetType?: TargetType): number {
     const { elementalChance, elementalDps, elementalEffect, ammoPerShot = 1, pellets = 1 } = this.weapon
 
@@ -113,6 +122,7 @@ export class DamageService {
     return Math.round(finalDps * 100) / 100
   }
 
+  @Memoize((damage: number) => damage)
   protected calculateDps(damage: number): number {
     const { ammoPerShot = 1 } = this.weapon
 
@@ -128,6 +138,7 @@ export class DamageService {
     return Math.round(finalDps * 100)/100
   }
 
+  @Memoize()
   protected getWeaponCritMultiplier(): number {
     const { manufacturer, type, redText } = this.weapon
 
@@ -145,6 +156,7 @@ export class DamageService {
     return (result ?? 2) + redTextStat
   }
 
+  @Memoize()
   protected getWeaponCritBaseBonus(): number {
     const { manufacturer, type } = this.weapon
 
@@ -164,6 +176,7 @@ export class DamageService {
     return 0
   }
 
+  @Memoize()
   protected getWeaponCritPenalty(): number {
     const { manufacturer, type, isEtech } = this.weapon
 
@@ -186,6 +199,7 @@ export class DamageService {
     return 0
   }
 
+  @Memoize()
   protected getReloadSpeed(): number {
     const { reloadSpeed } = this.weapon
 
@@ -193,6 +207,7 @@ export class DamageService {
     return reloadSpeed / (1 + buildReloadSpeed)
   }
 
+  @Memoize()
   protected getFireRate(): number {
     const { fireRate } = this.weapon
 
@@ -200,6 +215,7 @@ export class DamageService {
     return fireRate * (1 + buildFireRate)
   }
 
+  @Memoize()
   protected getMagazineSize(): number {
     const { magazineSize } = this.weapon
 
@@ -207,6 +223,9 @@ export class DamageService {
     return magazineSize * (1 + buildMagazineSize)
   }
 
+  @Memoize((targetType: TargetType, elementalEffect?: ElementalEffect) => {
+    return targetType + ';' + (elementalEffect ?? '')
+  })
   protected getElementalEffectiveness(targetType: TargetType, elementalEffect?: ElementalEffect): number {
     if(elementalEffect === undefined) {
       if(targetType === TargetType.Armor) {
@@ -221,6 +240,7 @@ export class DamageService {
     return result ?? 1
   }
 
+  @Memoize((targetType?: TargetType) => targetType ?? '')
   public getSplashDamage(targetType?: TargetType): number {
     const { elementalEffect, type, manufacturer } = this.weapon
     // Explosive seems to be exclusively splash damage and additional splash damage is not calculated?
@@ -241,6 +261,7 @@ export class DamageService {
     return this.getBaseDamage(targetType) * this.getSplashDamageMultiplier()
   }
 
+  @Memoize()
   protected getSplashDamageMultiplier(): number {
     // this method needs so much work
     const { type, elementalEffect, manufacturer, dealsBonusElementalDamage, redText } = this.weapon
@@ -278,6 +299,7 @@ export class DamageService {
     return 0.5
   }
 
+  @Memoize((statType?: StatType) => statType ?? '')
   protected getStat(statType: StatType): number {
     const { stats, redText } = this.weapon
 
@@ -290,6 +312,9 @@ export class DamageService {
     return result.reduce((memo: number, stat: Stat) => memo + stat.value, 0)
   }
 
+  @Memoize((statType: StatType, redText?: RedTextEnum) => {
+    return statType + ';' + (redText ?? '')
+  })
   protected getRedTextStat(statType: StatType, redText?: RedTextEnum): number {
     if(!redText) return 0
 
