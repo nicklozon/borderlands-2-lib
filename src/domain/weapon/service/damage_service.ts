@@ -253,9 +253,6 @@ export class DamageService {
         // TODO: many launchers have splash damage
         return 0
       }
-      if(manufacturer === Manufacturer.Torgue) {
-        return 0
-      }
     }
 
     return this.getBaseDamage(targetType) * this.getSplashDamageMultiplier()
