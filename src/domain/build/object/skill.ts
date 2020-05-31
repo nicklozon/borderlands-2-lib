@@ -24,8 +24,9 @@ export abstract class Skill {
   protected getEffectiveness(context: Context): number {
     if(!this.effectType) return 1
 
-    if(context.effects?.find(effect => effect.getEffectType() === this.effectType)) {
-      return 1
+    let effect = context.effects?.find(effect => effect.getEffectType() === this.effectType)
+    if(effect) {
+      return effect.multiplier.getValue()
     }
 
     return 0
