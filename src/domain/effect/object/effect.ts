@@ -2,10 +2,14 @@ export enum EffectType {
   Pimpernel = 'Pimpernel',
   ActionSkill = 'ActionSkill',
   Crippled = 'Crippled',
+  ShieldDepleted = 'ShieldDepleted',
   Health = 'Health',
   MetalStorm = 'MetalStorm',
   Onslaught = 'Onslaught',
   Battlefront = 'Battlefront',
+  Ambush = 'Ambush',
+  RisingSh0t = 'RisingSh0t',
+  DeathMark = 'DeathMark',
 }
 
 // This would treat effects a binary states...but effects could vary
@@ -51,6 +55,10 @@ export class PimpernelEffect extends Effect {
   public multiplier: Multiplier = new RangeMultiplier(7)
 }
 
+export class ShieldDepletedEffect extends Effect {
+  protected effectType = EffectType.ShieldDepleted
+}
+
 export class ActionSkillEffect extends Effect {
   protected effectType = EffectType.ActionSkill
 }
@@ -79,4 +87,17 @@ export class OnslaughtEffect extends Effect {
 
 export class BattlefrontEffect extends Effect {
   protected effectType = EffectType.Battlefront
+}
+
+export class AmbushEffect extends Effect {
+  protected effectType = EffectType.Ambush
+}
+
+export class RisingSh0tEffect extends Effect {
+  protected effectType = EffectType.RisingSh0t
+  public multiplier: Multiplier = new RangeMultiplier(5)
+}
+
+export class DeathMarkEffect extends Effect {
+  protected effectType = EffectType.DeathMark
 }
