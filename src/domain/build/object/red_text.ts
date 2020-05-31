@@ -1,12 +1,14 @@
 import { StatType } from "../value_object/stat_type"
 import { Stat } from "../interface/stat"
 
+// TODO: Red Text can just be the weapon name, no?
 export enum RedTextEnum {
   DeDa = 'De Da.',
   LadyFist = 'Love is a Lady Finger. True love is a Lady Fist.',
   Gar = 'Gar! Gorarr! My dad\'s a scientist! GWARRRR!!!!',
   ByThePeople = 'By the people. For the people.',
   GoodForStartingFires = 'Good for starting fires.',
+  PeleHumblyRequestsASacrifice = 'Pele humbly requests a sacrifice, if it\'s not too much trouble',
 }
 
 abstract class RedText {
@@ -54,12 +56,20 @@ class GoodForStartingFires extends RedText {
   protected stats : Stat[] = []
 }
 
+class PeleHumblyRequestsASacrifice extends RedText {
+  protected stats : Stat[] = [{
+    type: StatType.SplashDamage,
+    value: 0.8
+  }]
+}
+
 let RedTextClassEnum = {
   [RedTextEnum.DeDa]: DeDa,
   [RedTextEnum.LadyFist]: LadyFist,
   [RedTextEnum.Gar]: Gar,
   [RedTextEnum.ByThePeople]: ByThePeople,
   [RedTextEnum.GoodForStartingFires]: GoodForStartingFires,
+  [RedTextEnum.PeleHumblyRequestsASacrifice]: PeleHumblyRequestsASacrifice,
 }
 
 export function RedTextFactory(enumVal: RedTextEnum): RedText {
