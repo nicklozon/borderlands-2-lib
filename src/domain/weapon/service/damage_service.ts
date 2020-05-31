@@ -55,8 +55,6 @@ export class DamageService {
   protected getBaseDamage(targetType?: TargetType): number {
     const { damage, pellets = 1, unlistedPellets = 0, elementalEffect, type } = this.weapon
     let buildGunDamage = this.buildDamageService.getStat(StatType.GunDamage, this.weapon, this.context)
-    // Is this a thing?
-    let weaponGunDamage = this.getStat(StatType.GunDamage)
     let elementalEffectiveness = targetType ? this.getElementalEffectiveness(targetType, elementalEffect): 1
     let ampDamage = this.buildDamageService.getStat(StatType.AmpDamage, this.weapon, this.context)
 
@@ -66,7 +64,7 @@ export class DamageService {
       unlistedDamage = unlistedPellets * damage
     }
 
-    return damage * pellets * (1 + buildGunDamage + weaponGunDamage) * elementalEffectiveness + unlistedDamage + ampDamage
+    return damage * pellets * (1 + buildGunDamage) * elementalEffectiveness + unlistedDamage + ampDamage
   }
 
   @Memoize((targetType?: TargetType) => targetType ?? '')
@@ -265,6 +263,7 @@ export class DamageService {
 
     let grenadeDamageStat = this.buildDamageService.getStat(StatType.GrenadeDamage, this.weapon, this.context)
 
+    // TODO: red text should have SplashDamage stat, pull it
     if(redText === RedTextEnum.ByThePeople) {
       return 0.7 * (1 + grenadeDamageStat)
     }
@@ -273,11 +272,16 @@ export class DamageService {
       return 1 * (1 + grenadeDamageStat)
     }
 
+    if(redText === RedTextEnum.PeleHumblyRequestsASacrifice) {
+      return 0.8 * (1 + grenadeDamageStat)
+    }
+
     // We need a doesSplashDamage method
     if(!dealsBonusElementalDamage && elementalEffect !== ElementalEffect.Explosive) {
       return 0
     }
 
+    // TODO: We need a coefficients object to lookup values - type, make and type/make
     if(type === Type.Pistol) {
       if(manufacturer === Manufacturer.Torgue) {
         return 1 * (1 + grenadeDamageStat)
@@ -290,6 +294,12 @@ export class DamageService {
     if(type === Type.AssaultRifle) {
       if(manufacturer === Manufacturer.Torgue) {
         return 0.9 * (1 + grenadeDamageStat)
+      }
+    }
+
+    if(type === Type.SniperRifle) {
+      if(manufacturer === Manufacturer.Maliwan) {
+        return 0.5 * (1 + grenadeDamageStat)
       }
     }
 
