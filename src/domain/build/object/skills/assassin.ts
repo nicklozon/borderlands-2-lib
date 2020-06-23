@@ -37,6 +37,9 @@ export class RisingSh0t extends Skill {
   // Note: procs occur on the primary projectile, so the buff affects the
   //  splash damage on the intial shot meaning this calculator won't be super
   //  accurate for Maliwan bonus damage or torgue explosive weapons
+  // If we wanted this to be super accurate we could have damage calculations
+  //  identify if they are secondary projectiles which stacking skills like
+  //  this one know how to...aas
   protected stats: Stat[] = [{
     type: StatType.GunDamage,
     value: 0.02
@@ -61,4 +64,22 @@ export class Innervate extends Skill {
   }]
 
   protected effectType = EffectType.ActionSkill
+}
+
+export class HeadSh0t extends Skill {
+  protected stats: Stat[] = [{
+    type: StatType.CritHitDamage,
+    value: 0.04
+  }]
+}
+
+
+export class Vel0city extends Skill {
+  protected stats: Stat[] = [{
+    type: StatType.CritHitDamage,
+    value: 0.03
+  },{
+    type: StatType.GunDamage,
+    value: 0.02
+  }]
 }
