@@ -9,6 +9,7 @@ export enum RedTextEnum {
   ByThePeople = 'By the people. For the people.',
   GoodForStartingFires = 'Good for starting fires.',
   PeleHumblyRequestsASacrifice = 'Pele humbly requests a sacrifice, if it\'s not too much trouble',
+  FearTheSwarm = 'Fear the swarm!',
 }
 
 abstract class RedText {
@@ -63,6 +64,13 @@ class PeleHumblyRequestsASacrifice extends RedText {
   }]
 }
 
+class FearTheSwarm extends RedText {
+  protected stats : Stat[] = [{
+    type: StatType.SplashDamage,
+    value: 0.8
+  }]
+}
+
 let RedTextClassEnum = {
   [RedTextEnum.DeDa]: DeDa,
   [RedTextEnum.LadyFist]: LadyFist,
@@ -70,6 +78,7 @@ let RedTextClassEnum = {
   [RedTextEnum.ByThePeople]: ByThePeople,
   [RedTextEnum.GoodForStartingFires]: GoodForStartingFires,
   [RedTextEnum.PeleHumblyRequestsASacrifice]: PeleHumblyRequestsASacrifice,
+  [RedTextEnum.FearTheSwarm]: FearTheSwarm,
 }
 
 export function RedTextFactory(enumVal: RedTextEnum): RedText {
