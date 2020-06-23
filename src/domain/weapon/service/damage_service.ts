@@ -272,7 +272,7 @@ export class DamageService {
       return 1 * (1 + grenadeDamageStat)
     }
 
-    if(redText === RedTextEnum.PeleHumblyRequestsASacrifice) {
+    if(redText === RedTextEnum.PeleHumblyRequestsASacrifice || redText === RedTextEnum.FearTheSwarm) {
       return 0.8 * (1 + grenadeDamageStat)
     }
 
