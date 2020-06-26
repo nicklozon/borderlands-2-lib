@@ -73,7 +73,6 @@ export class HeadSh0t extends Skill {
   }]
 }
 
-
 export class Vel0city extends Skill {
   protected stats: Stat[] = [{
     type: StatType.CritHitDamage,
@@ -81,5 +80,12 @@ export class Vel0city extends Skill {
   },{
     type: StatType.GunDamage,
     value: 0.02
+  }]
+}
+
+export class OneSh0tOneKill extends Skill {
+  protected stats: Stat[] = [{
+    type: StatType.FirstShotGunDamage,
+    value: 0.12
   }]
 }

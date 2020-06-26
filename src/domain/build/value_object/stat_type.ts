@@ -10,4 +10,5 @@ export enum StatType {
   GrenadeDamage = 'Grenade Damage',
   AmpDamage = 'Amp Damage',
   SplashDamage = 'Splash Damage',
+  FirstShotGunDamage = 'First Shot of Loaded Magazine Gun Damage',
 }
