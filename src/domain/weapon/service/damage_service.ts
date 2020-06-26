@@ -26,23 +26,23 @@ export class DamageService {
 
   @Memoize()
   public getDps(): number {
-    return this.calculateDps(this.getDamage())
+    return this.calculateDps(this.getDamage(), this.getFirstShotDamage())
   }
   
   @Memoize()
   public getCritDps(): number {
-    return this.calculateDps(this.getCritDamage())
+    return this.calculateDps(this.getCritDamage(), this.getFirstShotCritDamage())
   }
 
   @Memoize((targetType: TargetType) => targetType)
   public getTargetTypeDps(targetType: TargetType) {
-    let dps = this.calculateDps(this.getDamage(targetType)) + this.getElementalDps(targetType)
+    let dps = this.calculateDps(this.getDamage(targetType), this.getFirstShotDamage(targetType)) + this.getElementalDps(targetType)
     return Math.round(dps * 100)/100
   }
 
   @Memoize((targetType: TargetType) => targetType)
   public getTargetTypeCritDps(targetType: TargetType) {
-    let dps = this.calculateDps(this.getCritDamage(targetType)) + this.getElementalDps(targetType)
+    let dps = this.calculateDps(this.getCritDamage(targetType), this.getCritDamage(targetType)) + this.getElementalDps(targetType)
     return Math.round(dps * 100)/100
   }
 
@@ -52,19 +52,30 @@ export class DamageService {
   }
   
   @Memoize((targetType?: TargetType) => targetType ?? '')
+  public getFirstShotDamage(targetType?: TargetType): number {
+    return this.getFirstShotBaseDamage(targetType) + this.getSplashDamage(targetType)
+  }
+  
+  @Memoize((targetType?: TargetType) => targetType ?? '')
   protected getBaseDamage(targetType?: TargetType): number {
-    const { damage, pellets = 1, unlistedPellets = 0, elementalEffect, type } = this.weapon
+    const { damage, pellets = 1, elementalEffect } = this.weapon
     let buildGunDamage = this.buildDamageService.getStat(StatType.GunDamage, this.weapon, this.context)
     let elementalEffectiveness = targetType ? this.getElementalEffectiveness(targetType, elementalEffect): 1
     let ampDamage = this.buildDamageService.getStat(StatType.AmpDamage, this.weapon, this.context)
 
-    let unlistedDamage = 0
-    if(unlistedPellets > 0) {
-      // Trying to reverse engineer a Fibber, didn't work
-      unlistedDamage = unlistedPellets * damage
-    }
+    return damage * pellets * (1 + buildGunDamage) * elementalEffectiveness + ampDamage
+  }
 
-    return damage * pellets * (1 + buildGunDamage) * elementalEffectiveness + unlistedDamage + ampDamage
+  // refactor duplicate code
+  @Memoize((targetType?: TargetType) => targetType ?? '')
+  protected getFirstShotBaseDamage(targetType?: TargetType): number {
+    const { damage, pellets = 1, elementalEffect } = this.weapon
+    let firstShotGunDamage = this.buildDamageService.getStat(StatType.FirstShotGunDamage, this.weapon, this.context)
+    let buildGunDamage = this.buildDamageService.getStat(StatType.GunDamage, this.weapon, this.context)
+    let elementalEffectiveness = targetType ? this.getElementalEffectiveness(targetType, elementalEffect): 1
+    let ampDamage = this.buildDamageService.getStat(StatType.AmpDamage, this.weapon, this.context)
+
+    return damage * pellets * (1 + buildGunDamage + firstShotGunDamage) * elementalEffectiveness + ampDamage
   }
 
   @Memoize((targetType?: TargetType) => targetType ?? '')
@@ -81,6 +92,23 @@ export class DamageService {
     let splashDamage = this.getSplashDamage(targetType)
 
     return this.getBaseDamage(targetType) * multiplier * (1 + baseBonus + buildCritDamage) /  (1 + penalty) + splashDamage
+  }
+
+  // refactor duplicate code
+  @Memoize((targetType?: TargetType) => targetType ?? '')
+  public getFirstShotCritDamage(targetType?: TargetType): number {
+    const { type } = this.weapon
+
+    // Rocket launcher's can't crit
+    if(type === Type.RocketLauncher) return 0
+
+    let multiplier = this.getWeaponCritMultiplier()
+    let baseBonus = this.getWeaponCritBaseBonus()
+    let penalty = this.getWeaponCritPenalty()
+    let buildCritDamage = this.buildDamageService.getStat(StatType.CritHitDamage, this.weapon, this.context)
+    let splashDamage = this.getSplashDamage(targetType)
+
+    return this.getFirstShotBaseDamage(targetType) * multiplier * (1 + baseBonus + buildCritDamage) /  (1 + penalty) + splashDamage
   }
 
   @Memoize((targetType?: TargetType) => targetType ?? '')
@@ -120,8 +148,8 @@ export class DamageService {
     return Math.round(finalDps * 100) / 100
   }
 
-  @Memoize((damage: number) => damage)
-  protected calculateDps(damage: number): number {
+  @Memoize((damage: number, firstBulletDamage: number) => damage.toString() + firstBulletDamage.toString())
+  protected calculateDps(damage: number, firstBulletDamage: number): number {
     const { ammoPerShot = 1 } = this.weapon
 
     let reloadSpeed = this.getReloadSpeed()
@@ -130,7 +158,7 @@ export class DamageService {
     let clipEffectiveNumberOfShots = magazineSize / ammoPerShot
     let clipSpeed = clipEffectiveNumberOfShots / fireRate
     let totalSpeed = reloadSpeed + clipSpeed
-    let totalClipDamage = damage * clipEffectiveNumberOfShots
+    let totalClipDamage = damage * (clipEffectiveNumberOfShots - 1) + firstBulletDamage
     let finalDps = totalClipDamage / totalSpeed
 
     return Math.round(finalDps * 100)/100
