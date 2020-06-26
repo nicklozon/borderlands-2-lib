@@ -42,7 +42,7 @@ export class DamageService {
 
   @Memoize((targetType: TargetType) => targetType)
   public getTargetTypeCritDps(targetType: TargetType) {
-    let dps = this.calculateDps(this.getCritDamage(targetType), this.getCritDamage(targetType)) + this.getElementalDps(targetType)
+    let dps = this.calculateDps(this.getCritDamage(targetType), this.getFirstShotCritDamage(targetType)) + this.getElementalDps(targetType)
     return Math.round(dps * 100)/100
   }
 
