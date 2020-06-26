@@ -27,7 +27,7 @@ export class Build {
 
     // merge class mod skills into skills
     return skills.map((skill: Skill) => {
-      let classModSkill = classModSkills.find((classModSkill: Skill) => classModSkill.constructor.name === skill.constructor.name )
+      let classModSkill = classModSkills.find((classModSkill: Skill) => classModSkill.name === skill.name )
       let classModLevel = classModSkill?.level ?? 0
       return skill.constructor(skill.level + classModLevel)
     })

@@ -7,6 +7,8 @@ import { Context } from "../../../context";
 
 // Gunlust
 export class LockedAndLoaded extends Skill {
+  name = 'Locked and Loaded'
+
   protected stats: Stat[] = [{
     type: StatType.FireRate,
     value: 0.05
@@ -14,6 +16,8 @@ export class LockedAndLoaded extends Skill {
 }
 
 export class QuickDraw extends Skill {
+  name = 'Quick Draw'
+
   protected stats: Stat[] = [{
     type: StatType.CritHitDamage,
     value: 0.02
@@ -21,6 +25,8 @@ export class QuickDraw extends Skill {
 }
 
 export class ImYourHuckleberry extends Skill {
+  name = 'I\'m Your Huckleberry'
+
   protected stats: Stat[] = [{
     type: StatType.GunDamage,
     value: 0.03
@@ -37,6 +43,8 @@ export class ImYourHuckleberry extends Skill {
 }
 
 export class AllINeedIsOne extends Skill {
+  name = 'All I Need Is One'
+
   protected stats: Stat[] = [{
     type: StatType.GunDamage,
     value: 0.08
@@ -44,6 +52,8 @@ export class AllINeedIsOne extends Skill {
 }
 
 export class DivergentLikeness extends Skill {
+  name = 'Divergent Likeness'
+
   protected stats: Stat[] = [{
     type: StatType.GunDamage,
     value: 0.06
@@ -51,6 +61,8 @@ export class DivergentLikeness extends Skill {
 }
 
 export class MoneyShot extends Skill {
+  name = 'Money Shot'
+
   protected stats: Stat[] = [{
     type: StatType.GunDamage,
     value: 0.08
@@ -64,6 +76,8 @@ export class MoneyShot extends Skill {
 }
 
 export class LayWaste extends Skill {
+  name = 'Lay Waste'
+
   protected stats: Stat[] = [{
       type: StatType.FireRate,
       value: 0.08
@@ -80,6 +94,8 @@ export class LayWaste extends Skill {
 }
 
 export class KeepItPipingHot extends Skill {
+  name = 'Keep It Piping Hot'
+
   protected stats: Stat[] = [{
     type: StatType.GunDamage,
     value: 0.05
@@ -88,6 +104,8 @@ export class KeepItPipingHot extends Skill {
 
 // Rampage
 export class Inconceivable extends Skill {
+  name = 'Inconceivable'
+
   protected stats: Stat[] = [{
     type: StatType.MagazineSize,
     value: 0.10

@@ -6,6 +6,7 @@ import { EffectType } from "../../effect";
 
 export abstract class Skill {
   public level: number 
+  public abstract name: string
   protected abstract stats: Stat[]
   protected effectType?: EffectType
 

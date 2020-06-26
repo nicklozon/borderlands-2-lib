@@ -8,6 +8,8 @@ import { EffectType } from "../../../effect";
 
 // Geurilla
 export class Ready extends Skill {
+  name = 'Ready'
+
   protected stats: Stat[] = [{
     type: StatType.ReloadSpeed,
     value: 0.08
@@ -15,6 +17,8 @@ export class Ready extends Skill {
 }
 
 export class Onslaught extends Skill {
+  name = 'Onslaught'
+
   protected stats: Stat[] = [{
     type: StatType.GunDamage,
     value: 0.06
@@ -23,6 +27,8 @@ export class Onslaught extends Skill {
 }
 
 export class CrisisManagement extends Skill {
+  name = 'Crisis Management'
+
   protected stats: Stat[] = [{
     type: StatType.GunDamage,
     value: 0.07
@@ -31,6 +37,8 @@ export class CrisisManagement extends Skill {
 
 // Gunpowder
 export class Impact extends Skill {
+  name = 'Impact'
+
   protected stats: Stat[] = [{
       type: StatType.GunDamage,
       value: 0.04
@@ -38,6 +46,8 @@ export class Impact extends Skill {
 }
 
 export class Overload extends Skill {
+  name = 'Overload'
+
   protected stats: Stat[] = [{
       type: StatType.MagazineSize,
       value: 0.1
@@ -51,6 +61,8 @@ export class Overload extends Skill {
 }
 
 export class MetalStorm extends Skill {
+  name = 'Metal Storm'
+
   protected stats: Stat[] = [{
       type: StatType.FireRate,
       value: 0.12
@@ -59,6 +71,8 @@ export class MetalStorm extends Skill {
 }
 
 export class Steady extends Skill {
+  name = 'Steady'
+
   protected stats: Stat[] = [{
       type: StatType.GunDamage,
       value: 0.12
@@ -75,6 +89,8 @@ export class Steady extends Skill {
 }
 
 export class Battlefront extends Skill {
+  name = 'Battlefront'
+
   protected stats: Stat[] = [{
       type: StatType.GunDamage,
       value: 0.06
@@ -83,6 +99,8 @@ export class Battlefront extends Skill {
 }
 
 export class DutyCalls extends Skill {
+  name = 'Duty Calls'
+
   protected stats: Stat[] = [{
       type: StatType.GunDamage,
       value: 0.05
@@ -99,6 +117,8 @@ export class DutyCalls extends Skill {
 }
 
 export class DoOrDie extends Skill {
+  name = 'Do or Die'
+
   protected stats: Stat[] = [{
       type: StatType.GunDamage,
       value: 0.1
@@ -112,6 +132,8 @@ export class DoOrDie extends Skill {
 }
 
 export class Ranger extends Skill {
+  name = 'Ranger'
+
   protected stats: Stat[] = [{
       type: StatType.GunDamage,
       value: 0.01
@@ -132,6 +154,8 @@ export class Ranger extends Skill {
 
 // Survival
 export class LastDitchEffort extends Skill {
+  name = 'Last Ditch Effort'
+
   protected stats: Stat[] = [{
       type: StatType.GunDamage,
       value: 0.08
@@ -146,6 +170,8 @@ export class LastDitchEffort extends Skill {
 }
   
 export class Pressure extends Skill {
+  name = 'Pressure'
+
   protected stats: Stat[] = [{
       type: StatType.ReloadSpeed,
       value: 0.14
