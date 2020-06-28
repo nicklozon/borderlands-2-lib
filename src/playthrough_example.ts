@@ -12,6 +12,7 @@ import { RedTextEnum } from "./domain/build/object/red_text";
 import { GameModeEnum } from "./domain/enemy/value_object/elemental_damage_coefficients";
 import { Context } from "./domain/context";
 import { Gear, WeaponTypeDecorator, HealthEffect, CrippledEffect } from "./domain";
+import { GearType } from "./domain/gear/object/gear_type";
 
 // TODO: Other class skills...tried this, gunzerker broke me
 // TODO: weapons need attributes like grenade reloads
@@ -42,7 +43,7 @@ let badAssRanking = [{
   value: 0.087
 }]
 
-let relic = new Gear([{
+let relic = new Gear(GearType.Relic, [{
   type: StatType.GunDamage,
   value: 0.181
 },{
