@@ -5,9 +5,7 @@ Borderlands 2 weapon damage and DPS calculation library
 ## Goal of this library
 This is a node.js library - the overall intention is to provide programmers with a set of easy to use and understandable modules that calculates accurate weapon damage and DPS. The modules will contain all necessary logic and nuances within Borderlands 2 such that the developer will not need to know about them; just enter the player configuration and weapon details and proper damage and DPS values will be calculated based on all stats and skills.
 
-Ultimately I would like to build a nice browser UI that makes use of this library, but that is a long way off as there will be MANY, MANY things to update and fix in this library as I build on it slowly.
-
-You can use this library to calculate damage/DPS for your playthrough, but you'll need to do a little bit of coding. Skip down to the Usage section to see how I am using the library for my personal playthrough.
+I have built a web UI for this library that is nearing completion, though not all features are implemented yet: https://borderlands2.maximumstandard.com
 
 # Why I built this library
 I was disappointed with the available offerings for comparing loot - the calculators I was using would not allow me to compare multiple weapons at once, they did not include known logic about mechanics and items in the game that impacted damage, they did not include elemental weapon damage over time, they did not allow me to customize my player configuration (skill build, BAR, relics, etc.) once and re-use those across all weapons or allow for multiple player customizations (compare skill builds and non-weapon gear), they were not aware of the different target types (flesh, armor, shield) and how each element affects them, etc.
@@ -15,7 +13,7 @@ I was disappointed with the available offerings for comparing loot - the calcula
 End goal of this library is to be able to enter multiple players of any class, with multiple item configurations, in multiple scenarios (fight for your life, turret deployed, etc.) and properly calculate damage and DPS values against each target type so the user knows quickly what weapon is best for each player in each scenario.
 
 # About Me
-Software developer (imagine that) and amateur Borderlands 2 player. I spend most of my time working so Borderlands is low pressure escape for me. I've P,played through the game twice as Mechromancer and Axton, never in THVM or UHVM but I understand the concepts and plan to implement them into this library.
+Software developer (imagine that) and amateur Borderlands 2 player. I spend most of my time working so Borderlands is low pressure escape for me. I've played through the game multiple times as Mechromancer, Axton, and Zer0. Yet to beat UVHM or do any raid bosses.
 
 Take my opinions with a grain of salt, constructive feedback is always welcome.
 
@@ -26,12 +24,12 @@ Install node and yarn. Yarn isn't necessary if you want to use npm instead.
 Use `yarn install` to install the app, see below for running the program...
 
 ## Usage
-Again, this is a library intended more for developers than gamers...but it can still be used  as a standalone tool for calculating weapon damage.
+Again, this is a library intended more for developers than gamers...but it can still be used  as a standalone tool for calculating weapon damage, though I encourage you to use the web UI.
 
-Check out index.ts for an example of usage
+Check out playthrough_example.ts for an example of usage
 **TODO: ** Put together a programming example.
 
-Run `yarn tsc && node dist/index.js` to see the output:
+Run `yarn tsc && node dist/playthrough_example.js` to see the output:
 
 ```
 ┌─────────────────────────────┬─────────────────┬────────────┬──────────┬───────────┬───────────┬────────────┬───────────────────┬──────────────────┬──────────────────┐
@@ -87,4 +85,4 @@ Another argument I've had with myself is that "reload time" detracts from a true
 
 # FAQs
 ## How do you calculate skills that are event based?
-For skills like "turret deployed", or "after swapping weapon", or "after reloading", etc. my plan is to bake these into "scenarios" and then damage/DPS will be presented so you can compare a weapon's damage/DPS for each scenario. Currently you can create a Build object for each set of skills you would like to calculate the damage/DPS for.
+For skills like "turret deployed", or "after swapping weapon", or "after reloading", etc. my plan is to bake these into "scenarios" as "effects" and then damage/DPS will be presented so you can compare a weapon's damage/DPS for each scenario. Currently "effects" have been added to the library and are part of the Context class - this currently only affects skills that require a certain "effect" to be active for the skill to be applied. There is still a lot of work to be done on this.
