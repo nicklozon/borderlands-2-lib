@@ -33,5 +33,11 @@
   "files": [
     "dist",
     "src"
+  ],
+  "keywords": [
+    "borderlands",
+    "damage",
+    "calculator",
+    "dps"
   ]
 }
