@@ -20,7 +20,7 @@ import { GearType } from "./domain/gear/object/gear_type";
 //       this damage would be a one off value? magazine size minus one?
 // TODO: calculate things like explosive AR where there is no bullet damage :(
 
-let badAssRanking = [{
+let badassRanking = [{
   type: StatType.GunDamage,
   value: 0.084
 },{
@@ -77,8 +77,7 @@ let skillsA = [
 
 let build: Build = new Build(
     Class.Commando,
-    skillsA,
-    classModA
+    skillsA
   )
 
 let weapons: Weapon[] = [{
@@ -193,16 +192,19 @@ let weapons: Weapon[] = [{
 }]
 
 let gameMode = GameModeEnum.TrueVaultHunterMode
-let contexts : Context[] = [{
+let contexts : Context[] = [new Context(
     build,
-    badAssRanking,
-    gameMode,
+    undefined,
+    classModA,
     relic,
-    effects: [
+    undefined,
+    badassRanking,
+    [
       //new HealthEffect(1)
       //new CrippledEffect()
     ],
-  }]
+    gameMode,
+  )]
 
 contexts.forEach((context) => {
   let tps = new TablePrinterService(context, weapons)

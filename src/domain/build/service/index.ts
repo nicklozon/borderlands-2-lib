@@ -1,1 +1,1 @@
-export * from './damage_service'
+export * from './stat_service'

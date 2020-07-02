@@ -1,22 +1,27 @@
-import { Build } from "../object/build"
 import { StatType } from "../value_object/stat_type"
 import { Stat } from "../interface/stat"
 import { Skill } from "../object/skill"
 import { Weapon } from "../../weapon/interface/weapon"
 import { Context } from "../../context"
+import { Memoize } from "typescript-memoize"
 
-export class BuildDamageService {
-  private build: Build
+export class StatService {
+  protected weapon: Weapon
+  protected context: Context
 
-  constructor(build: Build) {
-    this.build = build
+  constructor(weapon: Weapon, context: Context) {
+    this.weapon = weapon
+    this.context = context
   }
 
-  public getStat(statType: StatType, weapon: Weapon, context: Context): number {
-    const { classMod, skills } = this.build
-    const { badAssRanking = [], relic, shield } = context
+  @Memoize((statType: StatType) => statType)
+  public getStat(statType: StatType): number {
+    const weapon = this.weapon
+    const context = this.context
+    const { badassRanking = [], classMod, relic, shield } = context
+    const skills = context.getSkills()
 
-    let filteredStats: Stat[] = badAssRanking.filter((stat: Stat) => stat.type === statType)
+    let filteredStats: Stat[] = badassRanking.filter((stat: Stat) => stat.type === statType)
     let statValue = filteredStats.reduce((memo: number, stat: Stat) => memo + stat.value, 0)
 
     let filteredSkills: number[] = skills.map((skill: Skill) => skill.getStat(statType, weapon, context))
@@ -27,13 +32,5 @@ export class BuildDamageService {
     let shieldValue = shield ? shield.getStat(statType, weapon, context): 0
 
     return statValue + skillValue + classModValue + relicValue + shieldValue
-  }
-
-  protected getClassModSkills(): Skill[] {
-    const { classMod } = this.build
-
-    if(!classMod) return []
-
-    return classMod.getSkills()
   }
 }

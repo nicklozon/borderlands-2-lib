@@ -7,6 +7,7 @@ import { Class } from "../../../../src/domain/build/value_object/class";
 import { ElementalEffect } from "../../../../src/domain/weapon/value_object/elemental_effect";
 import { TargetType } from "../../../../src/domain/enemy/value_object/target_type";
 import { StatType } from "../../../../src/domain/build/value_object/stat_type";
+import { Context } from "../../../../src/domain/context";
 
 test.each([
   [{
@@ -30,14 +31,9 @@ test.each([
     ammoPerShot: 2
   }, 232.39],
 ])('getDps for %j', (weapon: Weapon, result: number) => {
-  let build : Build = new Build(
-    Class.Siren
-  )
 
-  let context = {
-    build
-  }
-
+  let build : Build = new Build(Class.Siren, [])
+  let context = new Context(build)
   let service = new DamageService(weapon, context)
 
   expect(service.getDps()).toBe(result)
@@ -68,14 +64,9 @@ test.each([
     elementalEffect: ElementalEffect.Corrosive
   }, TargetType.Shield, 174.3],
 ])('getTargetTypeDps for %j', (weapon: Weapon, targetType: TargetType, result: number) => {
-  let build : Build = new Build(
-    Class.Siren
-  )
 
-  let context = {
-    build
-  }
-
+  let build : Build = new Build(Class.Siren, [])
+  let context = new Context(build)
   let service = new DamageService(weapon, context)
 
   expect(service.getTargetTypeDps(targetType)).toBe(result)
@@ -105,14 +96,9 @@ test.each([
     }]
   }, 560],
 ])('getCritDamage for %j', (weapon: Weapon, result: number) => {
-  let build : Build = new Build(
-    Class.Siren
-  )
 
-  let context = {
-    build
-  }
-
+  let build : Build = new Build(Class.Siren, [])
+  let context = new Context(build)
   let service = new DamageService(weapon, context)
 
   expect(service.getCritDamage()).toBe(result)

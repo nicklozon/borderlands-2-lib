@@ -3,7 +3,7 @@ import { StatType } from "../../value_object/stat_type";
 import { Stat } from "../../interface/stat";
 import { Weapon } from "../../../weapon/interface/weapon";
 import { Type } from "../../../weapon/value_object/type";
-import { Context, getEffect } from "../../../context";
+import { Context } from "../../../context";
 import { EffectType } from "../../../effect";
 
 // Geurilla
@@ -164,7 +164,7 @@ export class LastDitchEffort extends Skill {
   public getEffectiveness(context: Context): number {
     if(!context.effects) return 0
 
-    let crippledEffect = getEffect(EffectType.Crippled, context.effects)
+    let crippledEffect = context.getEffect(EffectType.Crippled)
     return crippledEffect ? 1 : 0
   }
 }
@@ -180,10 +180,10 @@ export class Pressure extends Skill {
   protected getEffectiveness(context: Context): number {
     if(!context.effects) return 0
 
-    let crippledEffect = getEffect(EffectType.Crippled, context.effects)
+    let crippledEffect = context.getEffect(EffectType.Crippled)
     if(crippledEffect) return 1
 
-    let healthEffect = getEffect(EffectType.Health, context.effects)
+    let healthEffect = context.getEffect(EffectType.Health)
     let healthLost = healthEffect ? 1 - healthEffect.multiplier.getValue() : 0
     return healthLost
   }
