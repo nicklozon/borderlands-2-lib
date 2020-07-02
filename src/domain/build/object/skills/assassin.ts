@@ -67,7 +67,7 @@ export class DeathMark extends Skill {
 }
 
 export class Innervate extends Skill {
-  name = 'Innvervate'
+  name = 'Innervate'
 
   protected stats: Stat[] = [{
     type: StatType.GunDamage,
