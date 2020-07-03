@@ -52,7 +52,7 @@ export class Context {
     return this.build.skills.map((skill: Skill) => {
       let classModSkill = classModSkills.find((classModSkill: Skill) => classModSkill.name === skill.name )
       let classModLevel = classModSkill?.level ?? 0
-      return skill.constructor(skill.level + classModLevel)
+      return Object.getPrototypeOf(skill).constructor(skill.level + classModLevel)
     })
   }
 }
